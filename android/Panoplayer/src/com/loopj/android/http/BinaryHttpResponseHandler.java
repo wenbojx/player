@@ -19,6 +19,8 @@
 package com.loopj.android.http;
 
 import android.os.Message;
+import android.util.Log;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -118,7 +120,7 @@ public class BinaryHttpResponseHandler extends AsyncHttpResponseHandler {
      * @param binaryData the response body, if any
      * @deprecated
      */
-    public void onFailure(Throwable error, byte[] binaryData) {
+    public void onFailure(Throwable error, String binaryData) {
         // By default, call the deprecated onFailure(Throwable) for compatibility
         onFailure(error);
     }
@@ -144,7 +146,7 @@ public class BinaryHttpResponseHandler extends AsyncHttpResponseHandler {
         onSuccess(statusCode, responseBody);
     }
 
-    protected void handleFailureMessage(Throwable e, byte[] responseBody) {
+    protected void handleFailureMessage(Throwable e, String responseBody) {
         onFailure(e, responseBody);
     }
 
@@ -158,7 +160,7 @@ public class BinaryHttpResponseHandler extends AsyncHttpResponseHandler {
                 break;
             case FAILURE_MESSAGE:
                 response = (Object[])msg.obj;
-                handleFailureMessage((Throwable)response[0], (byte[])response[1]);
+                handleFailureMessage((Throwable)response[0], (String)response[1]);
                 break;
             default:
                 super.handleMessage(msg);

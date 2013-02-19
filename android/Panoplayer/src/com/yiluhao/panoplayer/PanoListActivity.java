@@ -54,6 +54,7 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 	private AsyncHttpClient client;
 	private String projectInfoUrl = null;
 	private IoUtil ioUtil = null;
+	private boolean networkErrorTip = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -160,30 +161,6 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 		    	ioUtil.SaveStringToSD(project_id, projectInfoUrl, response);
 		        ExtractProjectDatas(response);
 		        LoadListView();
-		        /*
-		        if (mListViewAdapter.count < mCount) {
-		        	//Log.v("aaaaaa", "bbbbbbbbbb");
-					mHandler.postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							int listDisplayTotal = mListViewAdapter.count
-									+ pageSize;
-							if (listDisplayTotal > mCount) {
-								mListViewAdapter.count = mCount;
-								mListView.removeFooterView(mLoadLayout);
-								if(!isAddReflashTip){
-									mListView.addFooterView(mReflashLayout);
-									isAddReflashTip = true;
-								}
-							} else {
-								mListViewAdapter.count += pageSize;
-							}
-							mListViewAdapter.notifyDataSetChanged();
-							mListView.setSelection(mLastItem);
-						}
-					}, 1000);
-				}
-				*/
 		        
 		        return ;
 		    }
@@ -229,6 +206,7 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 						} else {
 							mListViewAdapter.count += pageSize;
 						}
+						networkErrorTip = false;
 						mListViewAdapter.notifyDataSetChanged();
 						mListView.setSelection(mLastItem);
 					}
@@ -370,11 +348,13 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 				thumb = ioUtil.ReadBitmapFromSD(project_id, thumbFileName);
 			}
 			else{
+				
 				//AsyncHttpClient client = new AsyncHttpClient();
 				String[] allowedContentTypes = new String[] { "image/png", "image/jpeg", "image/gif" };
 				client.get(thumbFileName, new BinaryHttpResponseHandler(allowedContentTypes, thumbFileName) {
 				    @Override
 				    public void onSuccess(byte[] fileData, String thumbFileName) {
+				    	networkErrorTip = false;
 				    	if(fileData.length<1 || thumbFileName == null || thumbFileName == ""){
 				    		return ;
 				    	}
@@ -390,7 +370,12 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 						
 				    }
 				    public void onFailure(Throwable error, String content){
-				    	//getWrong("获取地图文件失败");
+				    	if(!networkErrorTip){
+				    		getWrong("获取缩略图失败，请检查您的网络设置");
+				    	}
+				    	Log.v("tipsss", networkErrorTip+"");
+				    	networkErrorTip = true;
+				    	
 				    }
 				});
 			}
