@@ -33,19 +33,11 @@ containing a value of this type.
         public static final int home_btn_bg_n=0x7f020002;
         public static final int home_btn_bg_s=0x7f020003;
         public static final int ic_launcher=0x7f020004;
-        public static final int icon=0x7f020005;
-        public static final int icon_1_n=0x7f020006;
-        public static final int icon_2_n=0x7f020007;
-        public static final int icon_3_n=0x7f020008;
-        public static final int icon_4_n=0x7f020009;
-        public static final int icon_main_about=0x7f02000a;
-        public static final int icon_main_flash=0x7f02000b;
-        public static final int icon_main_home=0x7f02000c;
-        public static final int icon_pano_about=0x7f02000d;
-        public static final int icon_pano_home=0x7f02000e;
-        public static final int icon_pano_map=0x7f02000f;
-        public static final int maintab_toolbar_bg=0x7f020010;
-        public static final int transparent=0x7f020011;
+        public static final int icon_pano_about=0x7f020005;
+        public static final int icon_pano_home=0x7f020006;
+        public static final int icon_pano_map=0x7f020007;
+        public static final int maintab_toolbar_bg=0x7f020008;
+        public static final int transparent=0x7f020009;
     }
     public static final class id {
         public static final int about_info_detail=0x7f0b0000;
@@ -101,26 +93,25 @@ containing a value of this type.
     public static final class raw {
         public static final int enter=0x7f050000;
         public static final int exit=0x7f050001;
-        public static final int hotspot=0x7f050002;
-        public static final int hotspot25=0x7f050003;
-        public static final int hotspot30=0x7f050004;
-        public static final int hotspot40=0x7f050005;
-        public static final int hotspot64=0x7f050006;
-        public static final int hotspots10=0x7f050007;
-        public static final int hotspots11=0x7f050008;
-        public static final int hotspots12=0x7f050009;
-        public static final int hotspots13=0x7f05000a;
-        public static final int hotspots14=0x7f05000b;
-        public static final int hotspots15=0x7f05000c;
-        public static final int hotspots16=0x7f05000d;
-        public static final int hotspots17=0x7f05000e;
-        public static final int loading=0x7f05000f;
-        public static final int marker_green=0x7f050010;
-        public static final int marker_red=0x7f050011;
-        public static final int player=0x7f050012;
-        public static final int welcome=0x7f050013;
-        public static final int zoom_in=0x7f050014;
-        public static final int zoom_out=0x7f050015;
+        public static final int hotspot25=0x7f050002;
+        public static final int hotspot30=0x7f050003;
+        public static final int hotspot40=0x7f050004;
+        public static final int hotspot64=0x7f050005;
+        public static final int hotspots10=0x7f050006;
+        public static final int hotspots11=0x7f050007;
+        public static final int hotspots12=0x7f050008;
+        public static final int hotspots13=0x7f050009;
+        public static final int hotspots14=0x7f05000a;
+        public static final int hotspots15=0x7f05000b;
+        public static final int hotspots16=0x7f05000c;
+        public static final int hotspots17=0x7f05000d;
+        public static final int loading=0x7f05000e;
+        public static final int marker_green=0x7f05000f;
+        public static final int marker_red=0x7f050010;
+        public static final int player=0x7f050011;
+        public static final int welcome=0x7f050012;
+        public static final int zoom_in=0x7f050013;
+        public static final int zoom_out=0x7f050014;
     }
     public static final class string {
         public static final int about_info=0x7f080008;
