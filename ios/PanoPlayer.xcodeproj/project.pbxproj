@@ -7,20 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15425B8316B9073B00ACBC3C /* info.html in Resources */ = {isa = PBXBuildFile; fileRef = 15425B8216B9073B00ACBC3C /* info.html */; };
-		154F234516D3889600F20376 /* hotspots10.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F233D16D3889600F20376 /* hotspots10.png */; };
-		154F234616D3889600F20376 /* hotspots11.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F233E16D3889600F20376 /* hotspots11.png */; };
-		154F234716D3889600F20376 /* hotspots12.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F233F16D3889600F20376 /* hotspots12.png */; };
-		154F234816D3889600F20376 /* hotspots13.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F234016D3889600F20376 /* hotspots13.png */; };
-		154F234916D3889600F20376 /* hotspots14.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F234116D3889600F20376 /* hotspots14.png */; };
-		154F234A16D3889600F20376 /* hotspots15.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F234216D3889600F20376 /* hotspots15.png */; };
-		154F234B16D3889600F20376 /* hotspots16.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F234316D3889600F20376 /* hotspots16.png */; };
-		154F234C16D3889600F20376 /* hotspots17.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F234416D3889600F20376 /* hotspots17.png */; };
-		154F235116D3889600F20376 /* icon_pano_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F234E16D3889600F20376 /* icon_pano_about.png */; };
-		154F235216D3889600F20376 /* icon_pano_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F234F16D3889600F20376 /* icon_pano_home.png */; };
-		154F235316D3889600F20376 /* icon_pano_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 154F235016D3889600F20376 /* icon_pano_map.png */; };
-		154F235516D3889600F20376 /* map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 154F235416D3889600F20376 /* map.jpg */; };
-		154F235916D3889600F20376 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 154F235816D3889600F20376 /* default.jpg */; };
 		155F7AE516B77139008B51EC /* enter.png in Resources */ = {isa = PBXBuildFile; fileRef = 155F7ADC16B77139008B51EC /* enter.png */; };
 		155F7AE616B77139008B51EC /* hotspot.png in Resources */ = {isa = PBXBuildFile; fileRef = 155F7ADD16B77139008B51EC /* hotspot.png */; };
 		155F7AE716B77139008B51EC /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 155F7ADE16B77139008B51EC /* loading.gif */; };
@@ -38,6 +24,20 @@
 		155F7B0616B772AE008B51EC /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155F7AFE16B772AE008B51EC /* InfoViewController.m */; };
 		155F7B0716B772AE008B51EC /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155F7B0016B772AE008B51EC /* MapViewController.m */; };
 		155F7B0816B772AE008B51EC /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155F7B0216B772AE008B51EC /* PlayerViewController.m */; };
+		1590856416D34A40001B9744 /* info.html in Resources */ = {isa = PBXBuildFile; fileRef = 1590856316D34A40001B9744 /* info.html */; };
+		1590857016D34A52001B9744 /* hotspots10.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856516D34A52001B9744 /* hotspots10.png */; };
+		1590857116D34A52001B9744 /* hotspots11.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856616D34A52001B9744 /* hotspots11.png */; };
+		1590857216D34A52001B9744 /* hotspots12.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856716D34A52001B9744 /* hotspots12.png */; };
+		1590857316D34A52001B9744 /* hotspots13.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856816D34A52001B9744 /* hotspots13.png */; };
+		1590857416D34A52001B9744 /* hotspots14.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856916D34A52001B9744 /* hotspots14.png */; };
+		1590857516D34A52001B9744 /* hotspots15.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856A16D34A52001B9744 /* hotspots15.png */; };
+		1590857616D34A52001B9744 /* hotspots16.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856B16D34A52001B9744 /* hotspots16.png */; };
+		1590857716D34A52001B9744 /* hotspots17.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856C16D34A52001B9744 /* hotspots17.png */; };
+		1590857816D34A52001B9744 /* icon_pano_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856D16D34A52001B9744 /* icon_pano_about.png */; };
+		1590857916D34A52001B9744 /* icon_pano_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856E16D34A52001B9744 /* icon_pano_home.png */; };
+		1590857A16D34A52001B9744 /* icon_pano_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856F16D34A52001B9744 /* icon_pano_map.png */; };
+		1590857C16D34A5A001B9744 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1590857B16D34A5A001B9744 /* default.jpg */; };
+		1590857E16D34A66001B9744 /* map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1590857D16D34A66001B9744 /* map.jpg */; };
 		C293036B16A93E5400D3530D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036A16A93E5400D3530D /* CoreMotion.framework */; };
 		C293036D16A93E6500D3530D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036C16A93E6500D3530D /* CoreLocation.framework */; };
 		C293036F16A93E7500D3530D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036E16A93E7500D3530D /* MobileCoreServices.framework */; };
@@ -127,20 +127,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		15425B8216B9073B00ACBC3C /* info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = info.html; path = tools/info.html; sourceTree = SOURCE_ROOT; };
-		154F233D16D3889600F20376 /* hotspots10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots10.png; path = tools/img/hotspots10.png; sourceTree = SOURCE_ROOT; };
-		154F233E16D3889600F20376 /* hotspots11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots11.png; path = tools/img/hotspots11.png; sourceTree = SOURCE_ROOT; };
-		154F233F16D3889600F20376 /* hotspots12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots12.png; path = tools/img/hotspots12.png; sourceTree = SOURCE_ROOT; };
-		154F234016D3889600F20376 /* hotspots13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots13.png; path = tools/img/hotspots13.png; sourceTree = SOURCE_ROOT; };
-		154F234116D3889600F20376 /* hotspots14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots14.png; path = tools/img/hotspots14.png; sourceTree = SOURCE_ROOT; };
-		154F234216D3889600F20376 /* hotspots15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots15.png; path = tools/img/hotspots15.png; sourceTree = SOURCE_ROOT; };
-		154F234316D3889600F20376 /* hotspots16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots16.png; path = tools/img/hotspots16.png; sourceTree = SOURCE_ROOT; };
-		154F234416D3889600F20376 /* hotspots17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots17.png; path = tools/img/hotspots17.png; sourceTree = SOURCE_ROOT; };
-		154F234E16D3889600F20376 /* icon_pano_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_about.png; path = tools/img/icon_pano_about.png; sourceTree = SOURCE_ROOT; };
-		154F234F16D3889600F20376 /* icon_pano_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_home.png; path = tools/img/icon_pano_home.png; sourceTree = SOURCE_ROOT; };
-		154F235016D3889600F20376 /* icon_pano_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_map.png; path = tools/img/icon_pano_map.png; sourceTree = SOURCE_ROOT; };
-		154F235416D3889600F20376 /* map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = map.jpg; path = tools/img/map.jpg; sourceTree = SOURCE_ROOT; };
-		154F235816D3889600F20376 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = default.jpg; path = tools/img/default.jpg; sourceTree = SOURCE_ROOT; };
 		155F7ADC16B77139008B51EC /* enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enter.png; path = img/enter.png; sourceTree = "<group>"; };
 		155F7ADD16B77139008B51EC /* hotspot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspot.png; path = img/hotspot.png; sourceTree = "<group>"; };
 		155F7ADE16B77139008B51EC /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loading.gif; path = img/loading.gif; sourceTree = "<group>"; };
@@ -164,6 +150,20 @@
 		155F7B0016B772AE008B51EC /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Controller/MapViewController.m; sourceTree = "<group>"; };
 		155F7B0116B772AE008B51EC /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerViewController.h; path = Controller/PlayerViewController.h; sourceTree = "<group>"; };
 		155F7B0216B772AE008B51EC /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerViewController.m; path = Controller/PlayerViewController.m; sourceTree = "<group>"; };
+		1590856316D34A40001B9744 /* info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = info.html; path = html/info.html; sourceTree = "<group>"; };
+		1590856516D34A52001B9744 /* hotspots10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots10.png; path = img/hotspots10.png; sourceTree = "<group>"; };
+		1590856616D34A52001B9744 /* hotspots11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots11.png; path = img/hotspots11.png; sourceTree = "<group>"; };
+		1590856716D34A52001B9744 /* hotspots12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots12.png; path = img/hotspots12.png; sourceTree = "<group>"; };
+		1590856816D34A52001B9744 /* hotspots13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots13.png; path = img/hotspots13.png; sourceTree = "<group>"; };
+		1590856916D34A52001B9744 /* hotspots14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots14.png; path = img/hotspots14.png; sourceTree = "<group>"; };
+		1590856A16D34A52001B9744 /* hotspots15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots15.png; path = img/hotspots15.png; sourceTree = "<group>"; };
+		1590856B16D34A52001B9744 /* hotspots16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots16.png; path = img/hotspots16.png; sourceTree = "<group>"; };
+		1590856C16D34A52001B9744 /* hotspots17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots17.png; path = img/hotspots17.png; sourceTree = "<group>"; };
+		1590856D16D34A52001B9744 /* icon_pano_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_about.png; path = img/icon_pano_about.png; sourceTree = "<group>"; };
+		1590856E16D34A52001B9744 /* icon_pano_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_home.png; path = img/icon_pano_home.png; sourceTree = "<group>"; };
+		1590856F16D34A52001B9744 /* icon_pano_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_map.png; path = img/icon_pano_map.png; sourceTree = "<group>"; };
+		1590857B16D34A5A001B9744 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = default.jpg; path = img/default.jpg; sourceTree = "<group>"; };
+		1590857D16D34A66001B9744 /* map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = map.jpg; path = img/map.jpg; sourceTree = "<group>"; };
 		C293036A16A93E5400D3530D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C293036C16A93E6500D3530D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C293036E16A93E7500D3530D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -382,6 +382,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1590856216D34979001B9744 /* html */ = {
+			isa = PBXGroup;
+			children = (
+				1590856316D34A40001B9744 /* info.html */,
+			);
+			name = html;
+			sourceTree = "<group>";
+		};
 		C293037C16A93F3700D3530D /* PanoramaGL */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,7 +709,7 @@
 		C2CA9FCC16A8E5760040A428 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				15425B8216B9073B00ACBC3C /* info.html */,
+				1590856216D34979001B9744 /* html */,
 				C2CA9FF216A8E6760040A428 /* icon */,
 				C2CA9FCD16A8E5760040A428 /* PanoPlayer-Info.plist */,
 				C2CA9FCE16A8E5760040A428 /* InfoPlist.strings */,
@@ -745,19 +753,19 @@
 		C2CA9FF216A8E6760040A428 /* icon */ = {
 			isa = PBXGroup;
 			children = (
-				154F235816D3889600F20376 /* default.jpg */,
-				154F235416D3889600F20376 /* map.jpg */,
-				154F234E16D3889600F20376 /* icon_pano_about.png */,
-				154F234F16D3889600F20376 /* icon_pano_home.png */,
-				154F235016D3889600F20376 /* icon_pano_map.png */,
-				154F233D16D3889600F20376 /* hotspots10.png */,
-				154F233E16D3889600F20376 /* hotspots11.png */,
-				154F233F16D3889600F20376 /* hotspots12.png */,
-				154F234016D3889600F20376 /* hotspots13.png */,
-				154F234116D3889600F20376 /* hotspots14.png */,
-				154F234216D3889600F20376 /* hotspots15.png */,
-				154F234316D3889600F20376 /* hotspots16.png */,
-				154F234416D3889600F20376 /* hotspots17.png */,
+				1590857D16D34A66001B9744 /* map.jpg */,
+				1590857B16D34A5A001B9744 /* default.jpg */,
+				1590856516D34A52001B9744 /* hotspots10.png */,
+				1590856616D34A52001B9744 /* hotspots11.png */,
+				1590856716D34A52001B9744 /* hotspots12.png */,
+				1590856816D34A52001B9744 /* hotspots13.png */,
+				1590856916D34A52001B9744 /* hotspots14.png */,
+				1590856A16D34A52001B9744 /* hotspots15.png */,
+				1590856B16D34A52001B9744 /* hotspots16.png */,
+				1590856C16D34A52001B9744 /* hotspots17.png */,
+				1590856D16D34A52001B9744 /* icon_pano_about.png */,
+				1590856E16D34A52001B9744 /* icon_pano_home.png */,
+				1590856F16D34A52001B9744 /* icon_pano_map.png */,
 				155F7ADC16B77139008B51EC /* enter.png */,
 				155F7ADD16B77139008B51EC /* hotspot.png */,
 				155F7ADE16B77139008B51EC /* loading.gif */,
@@ -843,20 +851,20 @@
 				155F7AF416B77260008B51EC /* InfoViewController.xib in Resources */,
 				155F7AF516B77260008B51EC /* MapViewController.xib in Resources */,
 				155F7AF616B77260008B51EC /* PlayerViewController.xib in Resources */,
-				15425B8316B9073B00ACBC3C /* info.html in Resources */,
-				154F234516D3889600F20376 /* hotspots10.png in Resources */,
-				154F234616D3889600F20376 /* hotspots11.png in Resources */,
-				154F234716D3889600F20376 /* hotspots12.png in Resources */,
-				154F234816D3889600F20376 /* hotspots13.png in Resources */,
-				154F234916D3889600F20376 /* hotspots14.png in Resources */,
-				154F234A16D3889600F20376 /* hotspots15.png in Resources */,
-				154F234B16D3889600F20376 /* hotspots16.png in Resources */,
-				154F234C16D3889600F20376 /* hotspots17.png in Resources */,
-				154F235116D3889600F20376 /* icon_pano_about.png in Resources */,
-				154F235216D3889600F20376 /* icon_pano_home.png in Resources */,
-				154F235316D3889600F20376 /* icon_pano_map.png in Resources */,
-				154F235516D3889600F20376 /* map.jpg in Resources */,
-				154F235916D3889600F20376 /* default.jpg in Resources */,
+				1590856416D34A40001B9744 /* info.html in Resources */,
+				1590857016D34A52001B9744 /* hotspots10.png in Resources */,
+				1590857116D34A52001B9744 /* hotspots11.png in Resources */,
+				1590857216D34A52001B9744 /* hotspots12.png in Resources */,
+				1590857316D34A52001B9744 /* hotspots13.png in Resources */,
+				1590857416D34A52001B9744 /* hotspots14.png in Resources */,
+				1590857516D34A52001B9744 /* hotspots15.png in Resources */,
+				1590857616D34A52001B9744 /* hotspots16.png in Resources */,
+				1590857716D34A52001B9744 /* hotspots17.png in Resources */,
+				1590857816D34A52001B9744 /* icon_pano_about.png in Resources */,
+				1590857916D34A52001B9744 /* icon_pano_home.png in Resources */,
+				1590857A16D34A52001B9744 /* icon_pano_map.png in Resources */,
+				1590857C16D34A5A001B9744 /* default.jpg in Resources */,
+				1590857E16D34A66001B9744 /* map.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
