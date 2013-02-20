@@ -28,6 +28,7 @@
 @synthesize coordsData;
 @synthesize responseData;
 @synthesize imageProgressIndicator;
+@synthesize loading;
 
 -(NSString *)nibName
 {
@@ -48,7 +49,7 @@
     [_viewScrollStub setContentSize:[_viewImageMap sizeThatFits:CGSizeZero]];
     
     
-    UILabel *loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     loading.text = @"地图加载中...";
     loading.backgroundColor = [UIColor clearColor];
     loading.font = [UIFont fontWithName:@"Arial" size:12];
@@ -93,7 +94,8 @@
         flag = true;
     }
     if(!flag){
-        [self getWrong:@"加载数据出错"];
+        [self getWrong:@"加载数据出错,请检查您的网络设置"];
+        
     }
     
 }
@@ -102,6 +104,8 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
     [alert release];
+    self.loading.hidden = YES;
+    self.imageProgressIndicator.hidden = YES;
 }
 
 -(NSString *)getPanoMapFromUrl:(NSString *)url{
@@ -134,7 +138,7 @@
         //NSLog(@"response%@", responseData);
     }
     else {
-        [self getWrong:@"获取数据失败"];
+        [self getWrong:@"获取数据失败,请检查您的网络设置"];
     }
     
     return responseData;
@@ -145,7 +149,7 @@
     //url = @"http://beta1.yiluhao.com/html/pano-6000.jpg";
     
     if(url == nil){
-        [self getWrong:@"加载地图失败"];
+        [self getWrong:@"加载地图失败,请检查您的网络设置"];
         return;
     }
     
@@ -183,14 +187,14 @@
 		[self displayMap:img coords:coords];
 	}
     else{
-        [self getWrong:@"下载地图失败"];
+        [self getWrong:@"下载地图失败,请检查您的网络设置"];
     }
 }
 
 - ( void )requestFailed:( ASIHTTPRequest *)request
 {
     if ([[request error] domain] != NetworkRequestErrorDomain || [[request error] code] != ASIRequestCancelledErrorType) {
-        [self getWrong:@"下载地图出错，请检查您的网络"];
+        [self getWrong:@"下载地图出错，请检查您的网络设置"];
     }
 }
 
@@ -283,7 +287,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    //return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 @end

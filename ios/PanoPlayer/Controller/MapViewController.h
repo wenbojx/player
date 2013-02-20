@@ -13,13 +13,14 @@
     NSArray *coordsData;
     NSString *responseData;
     UIProgressView *imageProgressIndicator;
-    
+    UILabel *loading;
     int panoId;
 }
 
 @property(nonatomic, retain) NSMutableArray *linkScene;
 
 @property(nonatomic, assign) UIProgressView *imageProgressIndicator;
+@property(nonatomic, assign)UILabel *loading;
 @property (nonatomic, assign) IBOutlet UIScrollView         *viewScrollStub;
 @property (nonatomic, assign) IBOutlet MTImageMapView       *viewImageMap;
 @property (nonatomic, retain)          NSArray              *stateNames;

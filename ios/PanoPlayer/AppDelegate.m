@@ -26,6 +26,8 @@
 {
 
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]autorelease];
+    //[[NSBundle mainBundle] loadNibNamed:@"TabBarController" owner:self options:nil];
+    //window.rootViewController = viewController;
     
     //create nagtive and tabbar
     navHomeController = [[UINavigationController alloc] init];
@@ -52,10 +54,12 @@
     [navMapController pushViewController:mapViewController animated:NO];
     
     tabBarController.viewControllers = [[NSArray alloc] initWithObjects:navHomeController, navInfoController, navMapController, nil];
+    //self.window.rootViewController = ;
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window addSubview:tabBarController.view];
+    //[self.window addSubview:tabBarController.view];
+    _window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
 }

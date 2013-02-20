@@ -35,6 +35,7 @@
 @synthesize faceSU;
 @synthesize loading;
 @synthesize panoTitle;
+@synthesize alertOnce;
 
 @synthesize imageProgressIndicator;
 
@@ -61,6 +62,8 @@
     faceSL = [[UIImage alloc] init];
     faceSL = [[UIImage alloc] init];
     faceSL = [[UIImage alloc] init];
+    
+    self.alertOnce = false;
     
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
@@ -139,19 +142,19 @@
             msg = @"素材加载中...";
             break;
         case 2:
-            msg = @"2素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 3:
-            msg = @"3素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 4:
-            msg = @"4素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 5:
-            msg = @"5素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 6:
-            msg = @"6素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 7:
             msg = @"正在渲染图片,马上就好";
@@ -169,7 +172,12 @@
         NSString *panoInfoUrl = [NSString stringWithFormat:@"http://beta1.yiluhao.com/ajax/m/pv/id/%@", panoId];
 
         NSString *responseData = [self getPanoInfoFromUrl:panoInfoUrl];
-        if(responseData !=nil){
+        if(responseData ==nil){
+            [self getWrong:@"加载数据出错,请检查您的网络设置"];
+            
+            return;
+        }
+        else{
             NSDictionary *resultsDictionary = [responseData objectFromJSONString];
             NSArray *hotspotDct = [resultsDictionary objectForKey:@"hotspots"];
             //NSLog(@"res=%@", [ret objectForKey:@"panos"]);
@@ -198,7 +206,7 @@
             NSDictionary *pano = [resultsDictionary objectForKey:@"pano"];
             self.panoTitle = [pano objectForKey:@"title"];
             
-            NSLog(@"aaaa%@", panoTitle);
+            //NSLog(@"aaaa%@", panoTitle);
             
             NSString *s_f = [pano objectForKey:@"s_f"];
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_f]];
@@ -218,7 +226,7 @@
                 //NSLog(@"response%@", responseData);
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
 
@@ -239,7 +247,7 @@
                 self.faceSR = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
             
@@ -264,7 +272,7 @@
                 self.faceSB = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
 
@@ -287,7 +295,7 @@
                 self.faceSL = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
 
@@ -310,7 +318,7 @@
                 self.faceSU = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
             cached = [cache isCachedDataCurrentForRequest:request];
@@ -332,7 +340,7 @@
                 self.faceSD = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
             
@@ -344,10 +352,6 @@
             //[self displayPano];
             finishDownLoad = true;
         }
-    }
-    if(!finishDownLoad){
-        [self getWrong:@"加载数据出错"];
-        return;
     }
 
 }
@@ -409,7 +413,7 @@
         NSString *tilt = [hotspotDct objectForKey:@"tilt"];
         NSString *pan = [hotspotDct objectForKey:@"pan"];
         
-        PLHotspot *hotspot = [PLHotspot hotspotWithId:[hotspotId intValue] texture:hotspotTexture atv:[tilt floatValue] ath:[pan floatValue] width:0.04f height:0.04f];
+        PLHotspot *hotspot = [PLHotspot hotspotWithId:[hotspotId intValue] texture:hotspotTexture atv:[tilt floatValue] ath:[pan floatValue] width:0.03f height:0.03f];
 
         [panorama addHotspot:hotspot];
          
@@ -426,10 +430,15 @@
 }
 
 - (void) getWrong:(NSString*)str{
-    NSString *msg = [NSString stringWithFormat:@"%@", str];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
-    [alert release];
+    if (!alertOnce) {
+        NSString *msg = [NSString stringWithFormat:@"%@", str];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        self.imageProgressIndicator.hidden = YES;
+        self.loading.hidden = YES;
+    }
+    self.alertOnce = true;
 }
 
 -(NSString *)getPanoInfoFromUrl:(NSString *)url{
@@ -462,7 +471,8 @@
         //NSLog(@"response%@", responseData);
     }
     else {
-        [self getWrong:@"获取数据失败"];
+        //[self getWrong:@"获取数据失败"];
+        return nil;
     }
     
     

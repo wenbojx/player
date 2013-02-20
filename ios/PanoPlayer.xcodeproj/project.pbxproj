@@ -36,7 +36,6 @@
 		1590857816D34A52001B9744 /* icon_pano_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856D16D34A52001B9744 /* icon_pano_about.png */; };
 		1590857916D34A52001B9744 /* icon_pano_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856E16D34A52001B9744 /* icon_pano_home.png */; };
 		1590857A16D34A52001B9744 /* icon_pano_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 1590856F16D34A52001B9744 /* icon_pano_map.png */; };
-		1590857C16D34A5A001B9744 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1590857B16D34A5A001B9744 /* default.jpg */; };
 		1590857E16D34A66001B9744 /* map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1590857D16D34A66001B9744 /* map.jpg */; };
 		C293036B16A93E5400D3530D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036A16A93E5400D3530D /* CoreMotion.framework */; };
 		C293036D16A93E6500D3530D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036C16A93E6500D3530D /* CoreLocation.framework */; };
@@ -162,7 +161,6 @@
 		1590856D16D34A52001B9744 /* icon_pano_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_about.png; path = img/icon_pano_about.png; sourceTree = "<group>"; };
 		1590856E16D34A52001B9744 /* icon_pano_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_home.png; path = img/icon_pano_home.png; sourceTree = "<group>"; };
 		1590856F16D34A52001B9744 /* icon_pano_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_map.png; path = img/icon_pano_map.png; sourceTree = "<group>"; };
-		1590857B16D34A5A001B9744 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = default.jpg; path = img/default.jpg; sourceTree = "<group>"; };
 		1590857D16D34A66001B9744 /* map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = map.jpg; path = img/map.jpg; sourceTree = "<group>"; };
 		C293036A16A93E5400D3530D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C293036C16A93E6500D3530D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -754,7 +752,6 @@
 			isa = PBXGroup;
 			children = (
 				1590857D16D34A66001B9744 /* map.jpg */,
-				1590857B16D34A5A001B9744 /* default.jpg */,
 				1590856516D34A52001B9744 /* hotspots10.png */,
 				1590856616D34A52001B9744 /* hotspots11.png */,
 				1590856716D34A52001B9744 /* hotspots12.png */,
@@ -863,7 +860,6 @@
 				1590857816D34A52001B9744 /* icon_pano_about.png in Resources */,
 				1590857916D34A52001B9744 /* icon_pano_home.png in Resources */,
 				1590857A16D34A52001B9744 /* icon_pano_map.png in Resources */,
-				1590857C16D34A5A001B9744 /* default.jpg in Resources */,
 				1590857E16D34A66001B9744 /* map.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

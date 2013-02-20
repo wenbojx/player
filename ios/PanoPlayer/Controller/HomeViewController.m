@@ -86,7 +86,7 @@
     
     NSDictionary *panoInfo = [panoList objectAtIndex:indexPath.row];
     NSString *panoId = [panoInfo objectForKey:@"panoId"];
-    NSString *panoTitle = [panoInfo objectForKey:@"panoTitle"];
+    //NSString *panoTitle = [panoInfo objectForKey:@"panoTitle"];
     //NSLog(@"idddd=%@", panoId);
     
     PlayerViewController *playerView = [[PlayerViewController alloc] init];
@@ -137,6 +137,8 @@
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //NSString *cacheFolder = [NSString stringWithFormat:@"resource/%d",panoId];
+    
     [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];    
     
     
@@ -205,7 +207,17 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    //return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
+/*
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskLandscape;
+}
+- (BOOL)shouldAutorotate {
+    return YES;
+}*/
+
+
 
 @end
