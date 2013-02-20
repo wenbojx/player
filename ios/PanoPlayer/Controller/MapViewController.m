@@ -174,9 +174,9 @@
         [imageProgressIndicator setProgress:100];
         NSLog(@"cached");
     }
-
+    
     [request startAsynchronous];
-
+    
 }
 - ( void )requestFinished:( ASIHTTPRequest *)request
 {
@@ -206,7 +206,7 @@
     NSMutableArray *arrStates = [[NSMutableArray alloc] init];
     linkScene = [[NSMutableArray alloc] init];
     UIImage *logo = [UIImage imageNamed:@"marker_green.png"];
-
+    
     for (int i=0; i<coordsData.count; i++) {
         NSDictionary  *tmp = [coordsData objectAtIndex:i];
         NSString *coords = [tmp objectForKey:@"coords"];

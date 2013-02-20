@@ -11,7 +11,7 @@
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
     PLView *plView;
-    NSMutableArray *hotspots;    
+    NSMutableArray *hotspots;
     //PLCubicPanorama *cubicPanorama;
     UIImage *faceSL;
     UIImage *faceSR;

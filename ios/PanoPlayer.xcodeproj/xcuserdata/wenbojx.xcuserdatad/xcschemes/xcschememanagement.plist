@@ -4,45 +4,30 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PanoPlayer copy.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
 		<key>PanoPlayer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>westlake copy copy.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>westlake copy.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>159398E716D4CE55001D92B6</key>
+		<key>153FD44416D50FEE00465C05</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>15C6EECA16D4EE5900EAA2D0</key>
+		<key>153FD4D816D5124800465C05</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>15C6EF4E16D4EE8C00EAA2D0</key>
+		<key>15401D1E16D5146E0037D9C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>15FE79D916D4B7D6008EE6A4</key>
+		<key>15401D9B16D514B80037D9C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

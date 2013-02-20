@@ -61,12 +61,12 @@
 	if (cell == nil)
 	{
 		//加载ChatViewCell.xib
-        NSArray * array = [[NSBundle mainBundle] loadNibNamed:@"HomeTableCell" owner:self options:nil]; 		
+        NSArray * array = [[NSBundle mainBundle] loadNibNamed:@"HomeTableCell" owner:self options:nil];
         cell = [array objectAtIndex:0];
 		//选中时呈蓝色高亮
 		[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
-		//[cell setSelectionStyle:UITableViewCellSelectionStyleGray]; 
-	} 	
+		//[cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+	}
 	
 	NSUInteger row = [indexPath row];
 	NSMutableDictionary * pano = [panoList objectAtIndex:row];
@@ -90,15 +90,15 @@
     //NSLog(@"idddd=%@", panoId);
     
     PlayerViewController *playerView = [[PlayerViewController alloc] init];
-
+    
     playerView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:playerView animated:YES];
     
     NSDictionary *dic=[[NSDictionary alloc] initWithObjectsAndKeys:panoId,@"panoId", nil];
     //NSDictionary
     
-    //发送消息.@"pass"匹配通知名，object:nil 通知类的范围  
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:dic];  
+    //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:dic];
     
     //playerView.title = panoTitle;
     //playerView.title = @"sdfsdfsfd";
@@ -125,8 +125,8 @@
 
 
 /**
-获取全景图信息列表 
-*/
+ 获取全景图信息列表
+ */
 
 - (NSString *)getJsonFromUrl:(NSString *)url{
     if(url == nil){
@@ -139,11 +139,11 @@
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     //NSString *cacheFolder = [NSString stringWithFormat:@"resource/%d",panoId];
     
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];    
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-
+    
     
     [request setDownloadCache:cache];
     
@@ -151,9 +151,9 @@
     [cache setShouldRespectCacheControlHeaders:NO];
     //[]
     [request setSecondsToCache:60*60*24*30*10]; //30
-
+    
     [request startSynchronous];
-
+    
     NSError *error = [request error];
     if (!error) {
         responseData = [request responseString];
@@ -211,12 +211,12 @@
     return YES;
 }
 /*
--(NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskLandscape;
-}
-- (BOOL)shouldAutorotate {
-    return YES;
-}*/
+ -(NSUInteger)supportedInterfaceOrientations{
+ return UIInterfaceOrientationMaskLandscape;
+ }
+ - (BOOL)shouldAutorotate {
+ return YES;
+ }*/
 
 
 
