@@ -35,6 +35,7 @@
 @synthesize faceSU;
 @synthesize loading;
 @synthesize panoTitle;
+@synthesize alertOnce;
 
 @synthesize imageProgressIndicator;
 
@@ -49,7 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     //self.navigationItem.title = @"sdfsdfsdf";
     //[self.navigationItem setTitle:@"asdfs"];
     plView = (PLView *)self.view;
@@ -62,6 +63,8 @@
     faceSL = [[UIImage alloc] init];
     faceSL = [[UIImage alloc] init];
     
+    self.alertOnce = false;
+    
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
     
@@ -69,18 +72,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panoPlayerNotificationHandler:) name:@"panoId" object:nil];
 }
 
-- (void)panoPlayerNotificationHandler:(NSNotification*)notification  
-{  
+- (void)panoPlayerNotificationHandler:(NSNotification*)notification
+{
     NSString *panoId = [[notification userInfo] objectForKey:@"panoId"];
     /*[NSThread detachNewThreadSelect:@selector(startPlayer)
-                           toTarget:self
-                         withObject:nil];
-    */
+     toTarget:self
+     withObject:nil];
+     */
     
     [self startThread:panoId];
     
     //[self.navigationItem setTitle:@"asdfs"];
-
+    
 }
 -(void)startThread:(NSString *)panoId{
     finishDownLoad = false;
@@ -139,19 +142,19 @@
             msg = @"素材加载中...";
             break;
         case 2:
-            msg = @"2素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 3:
-            msg = @"3素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 4:
-            msg = @"4素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 5:
-            msg = @"5素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 6:
-            msg = @"6素材加载中...";
+            msg = @"素材加载中...";
             break;
         case 7:
             msg = @"正在渲染图片,马上就好";
@@ -163,13 +166,18 @@
 }
 
 -(void)startDownload:(NSString *)panoId{
-
+    
     hotspots = [[NSMutableArray alloc] init];
     if(panoId != nil){
         NSString *panoInfoUrl = [NSString stringWithFormat:@"http://beta1.yiluhao.com/ajax/m/pv/id/%@", panoId];
-
+        
         NSString *responseData = [self getPanoInfoFromUrl:panoInfoUrl];
-        if(responseData !=nil){
+        if(responseData ==nil){
+            [self getWrong:@"加载数据出错,请检查您的网络设置"];
+            
+            return;
+        }
+        else{
             NSDictionary *resultsDictionary = [responseData objectFromJSONString];
             NSArray *hotspotDct = [resultsDictionary objectForKey:@"hotspots"];
             //NSLog(@"res=%@", [ret objectForKey:@"panos"]);
@@ -194,11 +202,11 @@
             
             //UIImage *img;
             ASIHTTPRequest *request;
-
+            
             NSDictionary *pano = [resultsDictionary objectForKey:@"pano"];
             self.panoTitle = [pano objectForKey:@"title"];
             
-            NSLog(@"aaaa%@", panoTitle);
+            //NSLog(@"aaaa%@", panoTitle);
             
             NSString *s_f = [pano objectForKey:@"s_f"];
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_f]];
@@ -218,10 +226,10 @@
                 //NSLog(@"response%@", responseData);
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
-
+            
             [self changeLoadState:2];
             //[self.view addSubview:loading];
             NSString *s_r = [pano objectForKey:@"s_r"];
@@ -239,7 +247,7 @@
                 self.faceSR = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
             
@@ -264,10 +272,10 @@
                 self.faceSB = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
-
+            
             cached = [cache isCachedDataCurrentForRequest:request];
             if(cached){
                 NSLog(@"cached4");
@@ -287,10 +295,10 @@
                 self.faceSL = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
-
+            
             cached = [cache isCachedDataCurrentForRequest:request];
             if(cached){
                 NSLog(@"cached5");
@@ -310,7 +318,7 @@
                 self.faceSU = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
             cached = [cache isCachedDataCurrentForRequest:request];
@@ -332,7 +340,7 @@
                 self.faceSD = [UIImage imageWithData:[request responseData]];
             }
             else {
-                [self getWrong:@"获取素材失败"];
+                [self getWrong:@"获取素材失败,请检查您的网络设置"];
                 return;
             }
             
@@ -345,11 +353,7 @@
             finishDownLoad = true;
         }
     }
-    if(!finishDownLoad){
-        [self getWrong:@"加载数据出错"];
-        return;
-    }
-
+    
 }
 
 -(void)addHotspot:(NSString *)hotspotId linkSceneId:(NSString *)linkSceneId tilt:(NSString *)tilt pan:(NSString *)pan transform:(NSString *)transform{
@@ -369,33 +373,33 @@
     
     NSObject<PLIPanorama> *panorama = nil;
     PLCubicPanorama *cubicPanorama = [PLCubicPanorama panorama];
-
+    
     CGImageRef cgFaceSF = CGImageRetain(faceSF.CGImage);
     //[faceSF release], faceSF = nil;
-
+    
     CGImageRef cgFaceSB = CGImageRetain(faceSB.CGImage);
-
+    
     CGImageRef cgFaceSD = CGImageRetain(faceSD.CGImage);
-
+    
     CGImageRef cgFaceSL = CGImageRetain(faceSL.CGImage);
-
+    
 	CGImageRef cgFaceSR = CGImageRetain(faceSR.CGImage);
-
+    
     CGImageRef cgFaceSU = CGImageRetain(faceSU.CGImage);
-
+    
     NSLog(@"wait time----");
     
     [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSF]] face:PLCubeFaceOrientationFront];
-    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSL]] face:PLCubeFaceOrientationLeft]; 
-    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSR]] face:PLCubeFaceOrientationRight]; 
-    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSB]] face:PLCubeFaceOrientationBack]; 
-    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSU]] face:PLCubeFaceOrientationUp]; 
+    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSL]] face:PLCubeFaceOrientationLeft];
+    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSR]] face:PLCubeFaceOrientationRight];
+    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSB]] face:PLCubeFaceOrientationBack];
+    [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSU]] face:PLCubeFaceOrientationUp];
     [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSD]] face:PLCubeFaceOrientationDown];
     panorama = cubicPanorama;
     NSString *transform = @"";
     NSString *hotspotName = @"";
     for (int i=0; i<hotspots.count; i++) {
-       
+        
         NSMutableDictionary *hotspotDct = [hotspots objectAtIndex:i];
         
         transform = [hotspotDct objectForKey:@"transform"];
@@ -409,10 +413,10 @@
         NSString *tilt = [hotspotDct objectForKey:@"tilt"];
         NSString *pan = [hotspotDct objectForKey:@"pan"];
         
-        PLHotspot *hotspot = [PLHotspot hotspotWithId:[hotspotId intValue] texture:hotspotTexture atv:[tilt floatValue] ath:[pan floatValue] width:0.04f height:0.04f];
-
+        PLHotspot *hotspot = [PLHotspot hotspotWithId:[hotspotId intValue] texture:hotspotTexture atv:[tilt floatValue] ath:[pan floatValue] width:0.03f height:0.03f];
+        
         [panorama addHotspot:hotspot];
-         
+        
     }
     //[self.view reloadInputViews];
     
@@ -426,10 +430,15 @@
 }
 
 - (void) getWrong:(NSString*)str{
-    NSString *msg = [NSString stringWithFormat:@"%@", str];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
-    [alert release];
+    if (!alertOnce) {
+        NSString *msg = [NSString stringWithFormat:@"%@", str];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        self.imageProgressIndicator.hidden = YES;
+        self.loading.hidden = YES;
+    }
+    self.alertOnce = true;
 }
 
 -(NSString *)getPanoInfoFromUrl:(NSString *)url{
@@ -441,7 +450,7 @@
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];    
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -462,7 +471,8 @@
         //NSLog(@"response%@", responseData);
     }
     else {
-        [self getWrong:@"获取数据失败"];
+        //[self getWrong:@"获取数据失败"];
+        return nil;
     }
     
     
@@ -487,7 +497,7 @@
     }
     
     [self startThread:panoId];
-
+    
 }
 
 - (void)viewDidUnload

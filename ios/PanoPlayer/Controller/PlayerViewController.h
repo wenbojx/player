@@ -11,7 +11,7 @@
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
     PLView *plView;
-    NSMutableArray *hotspots;    
+    NSMutableArray *hotspots;
     //PLCubicPanorama *cubicPanorama;
     UIImage *faceSL;
     UIImage *faceSR;
@@ -26,6 +26,7 @@
     //PLCubicPanorama *cubicPanorama;
     Boolean finishDownLoad;
     NSString *panoTitle;
+    Boolean alertOnce;
     
 }
 
@@ -41,6 +42,7 @@
 @property(retain, nonatomic)UIImage *faceSU;
 @property(retain, nonatomic)UILabel *loading;
 @property(retain, nonatomic)NSString *panoTitle;
+@property(assign, nonatomic)Boolean alertOnce;
 //@property(retain, nonatomic)PLCubicPanorama *cubicPanorama;
 
 

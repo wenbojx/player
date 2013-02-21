@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>PanoPlayer copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>PanoPlayer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,31 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>153FD44416D50FEE00465C05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>153FD4D816D5124800465C05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>15401D1E16D5146E0037D9C8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>15401D9B16D514B80037D9C8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1588648F16D519FA00F6EA62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C2CA9FC016A8E5760040A428</key>
 		<dict>
 			<key>primary</key>

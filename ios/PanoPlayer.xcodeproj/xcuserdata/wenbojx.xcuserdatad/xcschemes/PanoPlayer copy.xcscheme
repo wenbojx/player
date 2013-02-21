@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C2CA9FC016A8E5760040A428"
-               BuildableName = "PanoPlayer.app"
-               BlueprintName = "PanoPlayer"
+               BlueprintIdentifier = "1588648F16D519FA00F6EA62"
+               BuildableName = "PanoPlayer copy.app"
+               BlueprintName = "PanoPlayer copy"
                ReferencedContainer = "container:PanoPlayer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C2CA9FC016A8E5760040A428"
-            BuildableName = "PanoPlayer.app"
-            BlueprintName = "PanoPlayer"
+            BlueprintIdentifier = "1588648F16D519FA00F6EA62"
+            BuildableName = "PanoPlayer copy.app"
+            BlueprintName = "PanoPlayer copy"
             ReferencedContainer = "container:PanoPlayer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C2CA9FC016A8E5760040A428"
-            BuildableName = "PanoPlayer.app"
-            BlueprintName = "PanoPlayer"
+            BlueprintIdentifier = "1588648F16D519FA00F6EA62"
+            BuildableName = "PanoPlayer copy.app"
+            BlueprintName = "PanoPlayer copy"
             ReferencedContainer = "container:PanoPlayer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C2CA9FC016A8E5760040A428"
-            BuildableName = "PanoPlayer.app"
-            BlueprintName = "PanoPlayer"
+            BlueprintIdentifier = "1588648F16D519FA00F6EA62"
+            BuildableName = "PanoPlayer copy.app"
+            BlueprintName = "PanoPlayer copy"
             ReferencedContainer = "container:PanoPlayer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
