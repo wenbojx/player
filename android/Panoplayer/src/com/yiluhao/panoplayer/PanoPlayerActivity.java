@@ -21,6 +21,7 @@ import com.panoramagl.structs.PLPosition;
 import com.panoramagl.utils.PLUtils;
 
 import com.yiluhao.utils.IoUtil;
+import com.yiluhao.utils.TouchView;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -33,7 +34,10 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
@@ -51,6 +55,8 @@ public class PanoPlayerActivity extends PLView {
 	private String panoInfoUrl = null;
 	private AsyncHttpClient client;
 	private String panoTitle = null;
+	private boolean imageLayoutIsShow = false;
+	private String domain = "http://192.168.1.104/";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,8 @@ public class PanoPlayerActivity extends PLView {
 		else{
 			return ;
 		}
-		panoInfoUrl = "http://beta1.yiluhao.com/ajax/m/pv/id/"+pano_id;
+		//panoInfoUrl = "http://beta1.yiluhao.com/ajax/m/pv/id/"+pano_id;
+		panoInfoUrl = domain+"ajax/m/pv/id/"+pano_id;
 		
 		ioUtil = new IoUtil();
 		client = new AsyncHttpClient();
@@ -89,7 +96,6 @@ public class PanoPlayerActivity extends PLView {
 	 */
 	private boolean getPanoDetail() {
 		if( ioUtil.FileExists(project_id, panoInfoUrl)){
-			Log.v("infoCached=", "cached");
 			String configStr = ioUtil.ReadStringFromSD(project_id, panoInfoUrl);
 			ExtractPanoDatas(configStr);
 			displayPano();
@@ -142,6 +148,32 @@ public class PanoPlayerActivity extends PLView {
 		}
 	}
 
+	private void drawImageView(int id){	
+		if(!imageLayoutIsShow){
+			View imageView = this.getLayoutInflater().inflate(R.layout.image_view,
+					null);
+			imageView.setTag("imageViewLayout");
+			this.addContentView(imageView, new LayoutParams(
+					LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			//ImageMap mImageMap = (ImageMap) findViewById(R.id.map);
+			
+			Button closeImageBt = (Button) findViewById(R.id.close_image_view);
+			closeImageBt.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View view) {
+					RelativeLayout ImageLayout = (RelativeLayout) findViewById(R.id.drawImageLayout);
+					//mImageMap.;
+					ImageLayout.setVisibility(view.GONE);
+				}
+			});
+			imageLayoutIsShow = true;
+		}
+		else{
+			RelativeLayout ImageLayout = (RelativeLayout) findViewById(R.id.drawImageLayout);
+			//mImageMap.;
+			ImageLayout.setVisibility(View.VISIBLE);
+		}
+	}
 	/**
 	 * 定义热点点击事件
 	 */
@@ -153,32 +185,45 @@ public class PanoPlayerActivity extends PLView {
 				// Toast.makeText(pView.getActivity(),
 				// String.format("You select the hotspot with ID %d",
 				// hotspot.getIdentifier()), Toast.LENGTH_SHORT).show();
+
 				int id = 0;
 				String linkId = "0";
 				String pano_id_back = pano_id;
+				int type = 2;
+				int typePano = 2;
 				for (int i = 0; i < hotspots.length(); i++) {
 					JSONObject jsonObject2 = (JSONObject) hotspots.opt(i);
 					try {
 						id = jsonObject2.getInt("id");
 						linkId = jsonObject2.getString("link_scene_id");
+						type = jsonObject2.getInt("type");
 					} catch (JSONException e) {
 						throw new RuntimeException(e);
 					}
+					Log.v("getIdentifier", id+"-"+hotspot.getIdentifier()+"-"+linkId);
 					if (id == hotspot.getIdentifier()) {
 						pano_id = linkId;
+						typePano = type;
 					}
 				}
+				Log.v("linkId", linkId);
 				if (linkId != "0" || pano_id_back != pano_id) {
 					//startPanoViewerActivity(linkId, project_id);
-					loadNewPano(linkId);
+					if(typePano ==  2){
+						loadNewPano(pano_id);
+					}
+					else if(typePano == 4){
+						drawImageView(id);
+					}
 				}
+				
 			}
 		});
 	}
 
 	private void loadNewPano(String sid){
 		pano_id = sid;
-		panoInfoUrl = "http://beta1.yiluhao.com/ajax/m/pv/id/"+pano_id;
+		panoInfoUrl = domain+"ajax/m/pv/id/"+pano_id;
 		getPanoDetail();
 		
 	}
@@ -415,6 +460,7 @@ public class PanoPlayerActivity extends PLView {
 		float pan = 0f;
 		float tilt = 0f;
 		int transform = 10;
+		int type = 2;
 		// 屏幕宽高
 		WindowManager windowManager = getWindowManager();
 		Display display = windowManager.getDefaultDisplay();
@@ -422,7 +468,6 @@ public class PanoPlayerActivity extends PLView {
 		int screenHeight = display.getHeight();
 		float hotspot = 0.04f;
 		int maxWidth = screenWidth > screenHeight ? screenWidth : screenHeight;
-		Log.v("Width", Integer.toString(maxWidth));
 		if (maxWidth < 850) {
 			hotspot = 0.06f;
 		}
@@ -435,31 +480,37 @@ public class PanoPlayerActivity extends PLView {
 				pan = jsonObject2.getInt("pan");
 				tilt = jsonObject2.getInt("tilt");
 				transform = jsonObject2.getInt("transform");
+				type = jsonObject2.getInt("type");
 				
 			} catch (JSONException e) {
 				throw new RuntimeException(e);
 			}
 			int resId = R.raw.hotspots10;
-			if(transform == 11){
-				resId = R.raw.hotspots11;
+			if(type == 2){
+				if(transform == 11){
+					resId = R.raw.hotspots11;
+				}
+				else if(transform == 12){
+					resId = R.raw.hotspots12;
+				}
+				else if(transform == 13){
+					resId = R.raw.hotspots13;
+				}
+				else if(transform == 14){
+					resId = R.raw.hotspots14;
+				}
+				else if(transform == 15){
+					resId = R.raw.hotspots15;
+				}
+				else if(transform == 16){
+					resId = R.raw.hotspots16;
+				}
+				else if(transform == 17){
+					resId = R.raw.hotspots17;
+				}
 			}
-			else if(transform == 12){
-				resId = R.raw.hotspots12;
-			}
-			else if(transform == 13){
-				resId = R.raw.hotspots13;
-			}
-			else if(transform == 14){
-				resId = R.raw.hotspots14;
-			}
-			else if(transform == 15){
-				resId = R.raw.hotspots15;
-			}
-			else if(transform == 16){
-				resId = R.raw.hotspots16;
-			}
-			else if(transform == 17){
-				resId = R.raw.hotspots17;
+			else if(type==4){
+				resId = R.raw.iconimg;
 			}
 			
 			panorama.addHotspot(new PLHotspot(id, PLImage.imageWithBitmap(
