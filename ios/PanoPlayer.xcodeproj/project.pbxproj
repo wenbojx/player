@@ -1260,6 +1260,8 @@
 		1588650816D519FA00F6EA62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ying Wan";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ying Wan";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PanoPlayer/Util\"",
@@ -1273,6 +1275,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PanoPlayer copy";
+				PROVISIONING_PROFILE = "7FF6DF42-E001-4FE7-8EF7-BBACC0A19084";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7FF6DF42-E001-4FE7-8EF7-BBACC0A19084";
+				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1281,6 +1286,8 @@
 		1588650916D519FA00F6EA62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ying Wan";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ying Wan";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PanoPlayer/Util\"",
@@ -1294,6 +1301,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PanoPlayer copy";
+				PROVISIONING_PROFILE = "7FF6DF42-E001-4FE7-8EF7-BBACC0A19084";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7FF6DF42-E001-4FE7-8EF7-BBACC0A19084";
+				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
