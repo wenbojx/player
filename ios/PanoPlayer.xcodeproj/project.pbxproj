@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1539BC6C16D7514C00F5B43F /* HotImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1539BC6B16D7514B00F5B43F /* HotImageView.xib */; };
+		1539BC6F16D7534100F5B43F /* AboveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1539BC6E16D7534100F5B43F /* AboveViewController.m */; };
+		1539BC7316D75B3300F5B43F /* ImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1539BC7216D75B3300F5B43F /* ImageCropper.m */; };
+		1539BC7516D75DBA00F5B43F /* imageCorp.png in Resources */ = {isa = PBXBuildFile; fileRef = 1539BC7416D75DBA00F5B43F /* imageCorp.png */; };
+		1539BC7916D7754600F5B43F /* default960.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1539BC7816D7754600F5B43F /* default960.jpg */; };
 		153FD44116D50D1500465C05 /* icon_pano_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 153FD44016D50D1500465C05 /* icon_pano_map.png */; };
 		153FD44316D50D2700465C05 /* map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 153FD44216D50D2700465C05 /* map.jpg */; };
 		153FD4C316D5108300465C05 /* info.html in Resources */ = {isa = PBXBuildFile; fileRef = 153FD4C216D5108300465C05 /* info.html */; };
@@ -247,6 +252,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1539BC6B16D7514B00F5B43F /* HotImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotImageView.xib; sourceTree = "<group>"; };
+		1539BC6D16D7534100F5B43F /* AboveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboveViewController.h; sourceTree = "<group>"; };
+		1539BC6E16D7534100F5B43F /* AboveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboveViewController.m; sourceTree = "<group>"; };
+		1539BC7116D75B3300F5B43F /* ImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCropper.h; sourceTree = "<group>"; };
+		1539BC7216D75B3300F5B43F /* ImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropper.m; sourceTree = "<group>"; };
+		1539BC7416D75DBA00F5B43F /* imageCorp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imageCorp.png; path = "../../../Desktop/图标/未命名文件夹 2/imageCorp.png"; sourceTree = "<group>"; };
+		1539BC7816D7754600F5B43F /* default960.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = default960.jpg; path = "../../../Desktop/图标/default960.jpg"; sourceTree = "<group>"; };
 		153FD44016D50D1500465C05 /* icon_pano_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_map.png; path = img/icon_pano_map.png; sourceTree = "<group>"; };
 		153FD44216D50D2700465C05 /* map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = map.jpg; path = img/map.jpg; sourceTree = "<group>"; };
 		153FD4C216D5108300465C05 /* info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = info.html; sourceTree = "<group>"; };
@@ -529,6 +541,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1539BC7016D75B3300F5B43F /* ImageCropper */ = {
+			isa = PBXGroup;
+			children = (
+				1539BC7116D75B3300F5B43F /* ImageCropper.h */,
+				1539BC7216D75B3300F5B43F /* ImageCropper.m */,
+			);
+			path = ImageCropper;
+			sourceTree = "<group>";
+		};
 		153FD4C116D5108300465C05 /* html */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +699,7 @@
 		C2C77A6716ACF2DE00B7E8F6 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				1539BC7016D75B3300F5B43F /* ImageCropper */,
 				C293037C16A93F3700D3530D /* PanoramaGL */,
 				C2EC012F16AA963900413EFD /* ImageMapView */,
 				C2C8B85016B2665700E1666D /* ASIHTTPRequest */,
@@ -883,6 +905,8 @@
 				155F7B0016B772AE008B51EC /* MapViewController.m */,
 				155F7B0116B772AE008B51EC /* PlayerViewController.h */,
 				155F7B0216B772AE008B51EC /* PlayerViewController.m */,
+				1539BC6D16D7534100F5B43F /* AboveViewController.h */,
+				1539BC6E16D7534100F5B43F /* AboveViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -895,6 +919,7 @@
 				155F7AEF16B77260008B51EC /* InfoViewController.xib */,
 				155F7AF016B77260008B51EC /* MapViewController.xib */,
 				155F7AF116B77260008B51EC /* PlayerViewController.xib */,
+				1539BC6B16D7514B00F5B43F /* HotImageView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -902,6 +927,8 @@
 		C2CA9FF216A8E6760040A428 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				1539BC7816D7754600F5B43F /* default960.jpg */,
+				1539BC7416D75DBA00F5B43F /* imageCorp.png */,
 				1588651416D51A9000F6EA62 /* Default-Landscape~ipad.png */,
 				1588651216D51A8200F6EA62 /* Default-Portrait~ipad.png */,
 				1588651016D51A6C00F6EA62 /* iPhoneIcon_Medium.png */,
@@ -1075,6 +1102,9 @@
 				153FD4D516D5109D00465C05 /* hotspots17.png in Resources */,
 				153FD4D616D5109D00465C05 /* icon_pano_about.png in Resources */,
 				153FD4D716D5109D00465C05 /* icon_pano_home.png in Resources */,
+				1539BC6C16D7514C00F5B43F /* HotImageView.xib in Resources */,
+				1539BC7516D75DBA00F5B43F /* imageCorp.png in Resources */,
+				1539BC7916D7754600F5B43F /* default960.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,6 +1270,8 @@
 				155F7B0616B772AE008B51EC /* InfoViewController.m in Sources */,
 				155F7B0716B772AE008B51EC /* MapViewController.m in Sources */,
 				155F7B0816B772AE008B51EC /* PlayerViewController.m in Sources */,
+				1539BC6F16D7534100F5B43F /* AboveViewController.m in Sources */,
+				1539BC7316D75B3300F5B43F /* ImageCropper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1272,7 +1304,7 @@
 				GCC_PREFIX_HEADER = "PanoPlayer/PanoPlayer-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "PanoPlayer copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PanoPlayer copy";
 				PROVISIONING_PROFILE = "7FF6DF42-E001-4FE7-8EF7-BBACC0A19084";
@@ -1298,7 +1330,7 @@
 				GCC_PREFIX_HEADER = "PanoPlayer/PanoPlayer-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "PanoPlayer copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "PanoPlayer copy";
 				PROVISIONING_PROFILE = "7FF6DF42-E001-4FE7-8EF7-BBACC0A19084";
