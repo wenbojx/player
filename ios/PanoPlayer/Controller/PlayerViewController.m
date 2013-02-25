@@ -195,8 +195,15 @@
                 NSString *tilt = [tmp objectForKey:@"tilt"];
                 NSString *pan = [tmp objectForKey:@"pan"];
                 NSString *transform = [tmp objectForKey:@"transform"];
+                NSString *type = [tmp objectForKey:@"type"];
+                NSString *filePath = @"";
+                if([type isEqualToString:@"4"]){
+                    
+                    filePath = [tmp objectForKey:@"file_path"];
+                    //NSLog(@"filePath%@", filePath);
+                }
                 
-                [self addHotspot:hotspotId linkSceneId:link_scene_id tilt:tilt pan:pan transform:transform];
+                [self addHotspot:hotspotId linkSceneId:link_scene_id tilt:tilt pan:pan transform:transform type:type filePath:filePath];
                 //NSLog(@"id=%@", hotspotId);
                 //NSLog(@"link_scene_id=%@", link_scene_id);
             }
@@ -219,6 +226,7 @@
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
             [request setSecondsToCache:60*60*24*30*10]; //30
+            [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_f" forKey:@"face"]];
             Boolean cached = [cache isCachedDataCurrentForRequest:request];
@@ -293,6 +301,8 @@
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
             [request setSecondsToCache:60*60*24*30*10]; //30
+            [imageProgressIndicator setProgress:0];
+            [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_l" forKey:@"face"]];
             
             [request startSynchronous];
@@ -316,6 +326,8 @@
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
             [request setSecondsToCache:60*60*24*30*10]; //30
+            [imageProgressIndicator setProgress:0];
+            [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_u" forKey:@"face"]];
             
             [request startSynchronous];
@@ -338,6 +350,8 @@
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
             [request setSecondsToCache:60*60*24*30*10]; //30
+            [imageProgressIndicator setProgress:0];
+            [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_d" forKey:@"face"]];
             
             [request startSynchronous];
@@ -362,7 +376,7 @@
     
 }
 
--(void)addHotspot:(NSString *)hotspotId linkSceneId:(NSString *)linkSceneId tilt:(NSString *)tilt pan:(NSString *)pan transform:(NSString *)transform{
+-(void)addHotspot:(NSString *)hotspotId linkSceneId:(NSString *)linkSceneId tilt:(NSString *)tilt pan:(NSString *)pan transform:(NSString *)transform type:(NSString *)type filePath:(NSString *)filePath{
     
     NSMutableDictionary *hotspotBox = [[NSMutableDictionary alloc] init];
     [hotspotBox setValue:hotspotId forKey:@"hotspotId"];
@@ -370,6 +384,9 @@
     [hotspotBox setValue:tilt forKey:@"tilt"];
     [hotspotBox setValue:pan forKey:@"pan"];
     [hotspotBox setValue:transform forKey:@"transform"];
+    [hotspotBox setValue:type forKey:@"type"];
+    [hotspotBox setValue:filePath forKey:@"filePath"];
+    //NSLog(@"FILEpath%@", filePath);
     [hotspots addObject:hotspotBox];
     //NSLog(@"hotspots%@", hotspots);
 }
@@ -485,41 +502,64 @@
     return responseData;
 }
 
--(void)drawImageView:(NSString *)panoId{
+-(void)drawImageView:(NSString *)panoId imagePath:(NSString *)imagePath{
     CGSize result = [[UIScreen mainScreen] bounds].size;
     int height = result.height-85;
     int width = result.width-20;
-    NSLog(@"adfsdf%d", height);
+    //NSLog(@"adfsdf%d", height);
     int x = 10;
     int y = 10;
 
     aboveView = [AboveViewController alloc];
-    [aboveView setImage:[UIImage imageNamed:@"default960.jpg"]];
+    //[aboveView setImage:[UIImage imageNamed:@"default960.jpg"]];
+    //[self downloadHotImage:imagePath];
     [aboveView initWithFrame:CGRectMake(x, y, width, height)];
-    //[aboveView setImage:[UIImage imageNamed:@"imageCorp.png"]];
+    [self.aboveView downloadHotImage:imagePath];
     [self.view addSubview:aboveView];
 }
+
 
 //Hotspot event
 -(void)view:(UIView<PLIView> *)pView didClickHotspot:(PLHotspot *)hotspot screenPoint:(CGPoint)point scene3DPoint:(PLPosition)position
 {
-    [self drawImageView:@"33"];
-
-    /*
-    [plView showProgressBar];
     NSString *clickHotspotId = [NSString stringWithFormat:@"%lld", hotspot.identifier];
     NSString *panoId = nil;
+    NSString *type = @"2";
+    NSString *hotType = @"";
+    NSString *filePath = @"";
     for (int i=0; i<hotspots.count; i++) {
         NSMutableDictionary *hotspotDct = [hotspots objectAtIndex:i];
         NSString *linkScence = [hotspotDct objectForKey:@"linkSceneId"];
         NSString *hotspotId = [hotspotDct objectForKey:@"hotspotId"];
+        hotType = [hotspotDct objectForKey:@"type"];
         if([hotspotId isEqualToString:clickHotspotId]){
             panoId = linkScence;
+            type = hotType;
+            if([type isEqualToString:@"4"]){
+                filePath = [hotspotDct objectForKey:@"filePath"];
+            }
         }
     }
-    [self startThread:panoId];
-    */
+    //NSLog(@"adsfsdf%@---%@", hotType, filePath);
+    if([type isEqualToString:@"2"]){
+        [plView showProgressBar];
+        [self startThread:panoId];
+    }
+    else if([type isEqualToString:@"4"]){
+        /*
+        UIActivityIndicatorView *progressInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [progressInd setCenter:CGPointMake(50, 50)]; // I do this because I'm in landscape mode
+        // spinner is not visible until started
+        [self.view addSubview:progressInd];
+        //[self addSubview:progressInd];
+        [progressInd startAnimating];
+        */
+        [self drawImageView:panoId imagePath:filePath];
+    }
+    
 }
+
+
 
 - (void)viewDidUnload
 {

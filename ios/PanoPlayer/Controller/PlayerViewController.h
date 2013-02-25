@@ -57,7 +57,7 @@
 //-(void)downLoadImage:(NSString *)url face:(NSString *)face;
 //-(void)initPlayer:(NSString *)face faceImage:(UIImage *)faceImage;
 -(void)displayPano;
--(void)addHotspot:(NSString *)hotspotId linkSceneId:(NSString *)linkSceneId tilt:(NSString *)tilt pan:(NSString *)pan transform:(NSString *)transform;
+-(void)addHotspot:(NSString *)hotspotId linkSceneId:(NSString *)linkSceneId tilt:(NSString *)tilt pan:(NSString *)pan transform:(NSString *)transform type:(NSString *)type filePath:(NSString *)filePath;
 -(void)changeLoadState:(int)state;
 
 @end
