@@ -25,11 +25,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
@@ -55,6 +58,7 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 	private String projectInfoUrl = null;
 	private IoUtil ioUtil = null;
 	private boolean networkErrorTip = false;
+	private Button panoListReflash;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,15 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 		client = new AsyncHttpClient();
 		
 		projectInfoUrl = "http://beta1.yiluhao.com/ajax/m/pl/id/"+project_id;
+		
+		panoListReflash = (Button) findViewById(R.id.panoListReflash);
+		panoListReflash.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				getPanosData();
+			}
+		});
+		
 		getPanosData();
 
 	}
@@ -297,6 +310,7 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 		setListAdapter(mListViewAdapter);
 		mListView.setOnScrollListener(this);
 		mListView.setOnItemClickListener(new MainItemClickListener());
+		panoListReflash.setVisibility(View.GONE);
 	}
 	
 	class ListViewAdapter extends BaseAdapter {

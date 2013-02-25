@@ -58,11 +58,11 @@ public class PanoPlayerActivity extends PLView {
 	private AsyncHttpClient client;
 	private String panoTitle = null;
 	private boolean imageLayoutIsShow = false;
-	private String domain = "http://192.168.1.104/";
+	//private String domain = "http://192.168.1.104/";
 	private Bitmap hotImage = null;
 	private String hotImageUrl;
 	private ProgressDialog progressDialog;  
-	//private String domain = "http://beta1.yiluhao.com/";
+	private String domain = "http://beta1.yiluhao.com/";
 	private boolean cancleHotImage = false;
 
 	@Override
@@ -83,13 +83,9 @@ public class PanoPlayerActivity extends PLView {
 		
 		ioUtil = new IoUtil();
 		client = new AsyncHttpClient();
-		//sclient = SyncHttpClient();
 		
-		Log.v("ids=", pano_id + "-" + project_id);
 		getPanoDetail();
-		
-		//displayPano();
-		// this.loadPanorama(2);
+
 
 	}
 	/**

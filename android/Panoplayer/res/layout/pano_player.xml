@@ -35,6 +35,7 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:src="@raw/exit" />
+
     <!-- <LinearLayout 
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:ctc="http://schemas.android.com/apk/res/com.yiluhao.utils"

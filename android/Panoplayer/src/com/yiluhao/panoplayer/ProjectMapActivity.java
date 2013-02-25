@@ -16,6 +16,10 @@ import android.graphics.BitmapFactory;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.loopj.android.http.*;
 
@@ -34,10 +38,14 @@ public class ProjectMapActivity extends Activity {
 	
 	private ProgressDialog progressDialog;  
 	private AsyncHttpClient client;
+	private Button projectMapReflash;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.project_map);
+		
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		if (extras != null) {
@@ -47,18 +55,14 @@ public class ProjectMapActivity extends Activity {
 		ioUtil = new IoUtil();
 		client = new AsyncHttpClient();
 		//progressDialog = ProgressDialog.show(ProjectMapActivity.this, getString(R.string.loading), getString(R.string.loading_map), true, false);
-		progressDialog = new ProgressDialog(ProjectMapActivity.this);
-		progressDialog.setMessage(getString(R.string.loading_map));
-		progressDialog.setCancelable(true);
-		//progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		progressDialog.setButton(ProgressDialog.BUTTON_NEGATIVE,
-				getString(R.string.cancel),
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						cancel();
-					}
-				});
-		progressDialog.show();
+		
+		projectMapReflash = (Button) findViewById(R.id.projectMapReflash);
+		projectMapReflash.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				LoadMapDatas();
+			}
+		});
 		
 		LoadMapDatas();
 	}
@@ -114,7 +118,7 @@ public class ProjectMapActivity extends Activity {
 		        mapUrl = ExtractMapUrl(response);
 		        if(mapUrl.equals("nomap")){
 		        	getWrong("没有地图信息");
-			    	progressDialog.dismiss();
+			    	//progressDialog.dismiss();
 		        	return ;
 		        }
 		        ioUtil.SaveStringToSD(project_id, mapInfoUrl, response);
@@ -122,8 +126,8 @@ public class ProjectMapActivity extends Activity {
 		    }
 		    public void onFailure(Throwable error, String content){
 		    	
-			    getWrong("获取地图配置信息失败");
-			    progressDialog.dismiss();
+			    getWrong("获取地图配置信息失败，请检查您的网络连接");
+			    //progressDialog.dismiss();
 
 		    }
 		});
@@ -132,6 +136,19 @@ public class ProjectMapActivity extends Activity {
 		if(mapUrl == null || mapUrl == ""){
 			return ;
 		}
+		progressDialog = new ProgressDialog(ProjectMapActivity.this);
+		progressDialog.setMessage(getString(R.string.loading_map));
+		progressDialog.setCancelable(true);
+		//progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		progressDialog.setButton(ProgressDialog.BUTTON_NEGATIVE,
+				getString(R.string.cancel),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						cancel();
+					}
+				});
+		progressDialog.show();
+		
 		if(ioUtil.FileExists(project_id, mapUrl)){
 			Log.v("picCached=", "cached");
 			Bitmap mapPicture = ioUtil.ReadBitmapFromSD(project_id, mapUrl);
@@ -151,7 +168,7 @@ public class ProjectMapActivity extends Activity {
 		    	StartPaintMap(mapPicture);
 		    }
 		    public void onFailure(Throwable error, String content){
-		    	getWrong("获取地图文件失败");
+		    	getWrong("获取地图文件失败，请检查您的网络连接");
 		    	//finish();
 		    }
 		});
@@ -181,7 +198,8 @@ public class ProjectMapActivity extends Activity {
 		if(mapPicture == null ){
 			return ;
 		}
-		ProjectMapActivity.this.setContentView(R.layout.project_map);
+		projectMapReflash.setVisibility(View.GONE);
+		//ProjectMapActivity.this.setContentView(R.layout.project_map);
 		//setContentView(R.layout.project_map);
 		mImageMap = (ImageMap) findViewById(R.id.map);
 		//mImageMap.SetMapHotspots(stream);
@@ -204,8 +222,10 @@ public class ProjectMapActivity extends Activity {
 		//mapPicture = newMap.Draw(mapPicture, hostspotsList, markImgG);
 		//markImgG.recycle();
 		//System.gc();
-
+		
 		mImageMap.setImageBitmap(mImageMap.mapPicture);
+		//mImageMap.set
+		mImageMap.setScaleType(ImageView.ScaleType.CENTER);
 		
 		// add a click handler to react when areas are tapped
 		mImageMap.addOnImageMapClickedHandler(new ImageMap.OnImageMapClickedHandler() {
@@ -223,6 +243,7 @@ public class ProjectMapActivity extends Activity {
 					}
 				});
 		progressDialog.dismiss();
+		
 				
 	}
 	
