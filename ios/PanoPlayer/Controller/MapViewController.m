@@ -39,21 +39,19 @@
 {
     [super loadView];
     panoId = 1001;
-    
-    //UIImage *mapImage = [UIImage imageWithContentsOfFile:@"map.gif"];
-    //_viewImageMap.image = mapImage;
-    //[_viewImageMap sizeToFit];
+
     coordsData = [[NSArray alloc] init];
     
     [_viewScrollStub addSubview:_viewImageMap];
     [_viewScrollStub setContentSize:[_viewImageMap sizeThatFits:CGSizeZero]];
     
     
+    
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     loading.text = @"地图加载中...";
     loading.backgroundColor = [UIColor clearColor];
     loading.font = [UIFont fontWithName:@"Arial" size:12];
-    loading.textAlignment = UITextAlignmentCenter;
+    //loading.textAlignment = UITextAlignmentCenter;
     //loading.font
     [_viewScrollStub addSubview:loading];
     
@@ -189,13 +187,18 @@
     else{
         [self getWrong:@"下载地图失败,请检查您的网络设置"];
     }
+    [self hideProgress];
 }
-
+-(void)hideProgress{
+    self.imageProgressIndicator.hidden = YES;
+    self.loading.hidden = YES;
+}
 - ( void )requestFailed:( ASIHTTPRequest *)request
 {
     if ([[request error] domain] != NetworkRequestErrorDomain || [[request error] code] != ASIRequestCancelledErrorType) {
         [self getWrong:@"下载地图出错，请检查您的网络设置"];
     }
+    [self hideProgress];
 }
 
 
