@@ -164,6 +164,7 @@ public class PanoPlayerActivity extends PLView {
 			TouchView mhotImage = (TouchView) findViewById(R.id.drawImage);
 			if(hotImage!=null){
 				mhotImage.setImageBitmap(hotImage);
+				//mhotImage.setScaleType(ImageView.ScaleType.CENTER);
 			}
 			
 			Button closeImageBt = (Button) findViewById(R.id.close_image_view);
