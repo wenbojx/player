@@ -75,7 +75,7 @@ public class PLConstants
 
 	/**rotation consts*/
 	
-	public static final float kDefaultRotateSensitivity	=				100.0f;
+	public static final float kDefaultRotateSensitivity	=				150.0f;
 	public static final float kDefaultAnimationTimerInterval =			1.0f/45.0f;
 	public static final float kDefaultAnimationTimerIntervalByFrame =	1.0f/30.0f;
 	public static final int kDefaultAnimationFrameInterval = 			0;

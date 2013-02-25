@@ -119,32 +119,33 @@ containing a value of this type.
         public static final int zoom_out=0x7f050015;
     }
     public static final class string {
-        public static final int about_info=0x7f080008;
+        public static final int about_info=0x7f080009;
         public static final int app_name=0x7f080000;
-        public static final int cancel=0x7f080019;
+        public static final int cancel=0x7f08001a;
         public static final int hello_world=0x7f080001;
-        public static final int loading=0x7f080011;
+        public static final int loading=0x7f080012;
         public static final int loading_face=0x7f080004;
-        public static final int loading_map=0x7f080013;
-        public static final int main_about=0x7f080006;
-        public static final int main_exit=0x7f080009;
-        public static final int main_flash=0x7f080007;
-        public static final int main_home=0x7f080005;
-        public static final int main_item_info1=0x7f08000e;
-        public static final int main_item_info2=0x7f08000f;
-        public static final int main_my_info=0x7f080015;
-        public static final int main_news=0x7f080014;
-        public static final int map_error=0x7f080012;
-        public static final int menu_search=0x7f080016;
+        public static final int loading_hotimage=0x7f080005;
+        public static final int loading_map=0x7f080014;
+        public static final int main_about=0x7f080007;
+        public static final int main_exit=0x7f08000a;
+        public static final int main_flash=0x7f080008;
+        public static final int main_home=0x7f080006;
+        public static final int main_item_info1=0x7f08000f;
+        public static final int main_item_info2=0x7f080010;
+        public static final int main_my_info=0x7f080016;
+        public static final int main_news=0x7f080015;
+        public static final int map_error=0x7f080013;
+        public static final int menu_search=0x7f080017;
         public static final int menu_settings=0x7f080002;
-        public static final int more=0x7f080017;
-        public static final int net_error=0x7f080018;
-        public static final int pano_back=0x7f08000d;
-        public static final int pano_home=0x7f08000a;
-        public static final int pano_info=0x7f08000b;
-        public static final int pano_map=0x7f08000c;
-        public static final int photo_time=0x7f080010;
-        public static final int reflash=0x7f08001a;
+        public static final int more=0x7f080018;
+        public static final int net_error=0x7f080019;
+        public static final int pano_back=0x7f08000e;
+        public static final int pano_home=0x7f08000b;
+        public static final int pano_info=0x7f08000c;
+        public static final int pano_map=0x7f08000d;
+        public static final int photo_time=0x7f080011;
+        public static final int reflash=0x7f08001b;
         public static final int welcome_word=0x7f080003;
     }
     public static final class style {

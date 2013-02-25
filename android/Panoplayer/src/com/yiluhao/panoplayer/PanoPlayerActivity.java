@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.panoramagl.PLCubicPanorama;
 import com.panoramagl.PLIPanorama;
 import com.panoramagl.PLIView;
@@ -27,6 +28,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,6 +59,11 @@ public class PanoPlayerActivity extends PLView {
 	private String panoTitle = null;
 	private boolean imageLayoutIsShow = false;
 	private String domain = "http://192.168.1.104/";
+	private Bitmap hotImage = null;
+	private String hotImageUrl;
+	private ProgressDialog progressDialog;  
+	//private String domain = "http://beta1.yiluhao.com/";
+	private boolean cancleHotImage = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -148,14 +155,20 @@ public class PanoPlayerActivity extends PLView {
 		}
 	}
 
-	private void drawImageView(int id){	
+	private void drawImageView(){	
+		if(cancleHotImage){
+			return ;
+		}
 		if(!imageLayoutIsShow){
 			View imageView = this.getLayoutInflater().inflate(R.layout.image_view,
 					null);
 			imageView.setTag("imageViewLayout");
 			this.addContentView(imageView, new LayoutParams(
 					LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-			//ImageMap mImageMap = (ImageMap) findViewById(R.id.map);
+			TouchView mhotImage = (TouchView) findViewById(R.id.drawImage);
+			if(hotImage!=null){
+				mhotImage.setImageBitmap(hotImage);
+			}
 			
 			Button closeImageBt = (Button) findViewById(R.id.close_image_view);
 			closeImageBt.setOnClickListener(new OnClickListener(){
@@ -171,8 +184,71 @@ public class PanoPlayerActivity extends PLView {
 		else{
 			RelativeLayout ImageLayout = (RelativeLayout) findViewById(R.id.drawImageLayout);
 			//mImageMap.;
+			TouchView mhotImage = (TouchView) findViewById(R.id.drawImage);
+			if(hotImage!=null){
+				mhotImage.setImageBitmap(hotImage);
+			}
 			ImageLayout.setVisibility(View.VISIBLE);
 		}
+		progressDialog.hide();
+	}
+	
+	/**
+	 * 取消下载
+	 */
+	private void cancel(){
+		//cancelRequests
+		client.cancelRequests(PanoPlayerActivity.this, true);
+		ioUtil.DelFile(project_id, hotImageUrl);
+		cancleHotImage = true;
+	}
+	/**
+	 * 获取图片
+	 */
+	private void getHotImage(){
+		if(hotImage!=null){
+			hotImage = null;
+		}
+		//hotImageUrl = "";
+		Log.v("aaaaaaa", hotImageUrl);
+		
+		progressDialog = new ProgressDialog(PanoPlayerActivity.this);
+		progressDialog.setMessage(getString(R.string.loading_hotimage));
+		progressDialog.setCancelable(true);
+		//progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		progressDialog.setButton(ProgressDialog.BUTTON_NEGATIVE,
+				getString(R.string.cancel),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						cancel();
+					}
+				});
+		progressDialog.show();
+		
+		if(ioUtil.FileExists(project_id, hotImageUrl)){
+			Log.v("picCached=", "cached");
+			hotImage = ioUtil.ReadBitmapFromSD(project_id, hotImageUrl);
+			//StartPaintMap(mapPicture);
+			Log.v("hotImageUrl", "cached");
+			drawImageView();
+			return ;
+		}
+		//AsyncHttpClient client = new AsyncHttpClient();
+		String[] allowedContentTypes = new String[] { "image/png", "image/jpeg", "image/gif" };
+		client.get(hotImageUrl, new BinaryHttpResponseHandler(allowedContentTypes) {
+		    @Override
+		    public void onSuccess(byte[] fileData) {
+		    	if(fileData.length<1){
+		    		return ;
+		    	}
+		    	hotImage = BitmapFactory.decodeByteArray(fileData, 0, fileData.length, null);  
+		    	ioUtil.SavePicToSD(project_id, hotImageUrl, hotImage);
+		    	drawImageView();
+		    }
+		    public void onFailure(Throwable error, String content){
+		    	getWrong("获取图片失败");
+		    }
+		});
 	}
 	/**
 	 * 定义热点点击事件
@@ -191,29 +267,37 @@ public class PanoPlayerActivity extends PLView {
 				String pano_id_back = pano_id;
 				int type = 2;
 				int typePano = 2;
+				String hotImage = null;
+				
 				for (int i = 0; i < hotspots.length(); i++) {
 					JSONObject jsonObject2 = (JSONObject) hotspots.opt(i);
 					try {
 						id = jsonObject2.getInt("id");
 						linkId = jsonObject2.getString("link_scene_id");
 						type = jsonObject2.getInt("type");
+						if(type == 4){
+							hotImage = jsonObject2.getString("file_path");
+						}
 					} catch (JSONException e) {
 						throw new RuntimeException(e);
 					}
-					Log.v("getIdentifier", id+"-"+hotspot.getIdentifier()+"-"+linkId);
+					//Log.v("getIdentifier", id+"-"+hotspot.getIdentifier()+"-"+linkId);
 					if (id == hotspot.getIdentifier()) {
 						pano_id = linkId;
 						typePano = type;
+						if(type == 4){
+							hotImageUrl = hotImage;
+						}
 					}
 				}
-				Log.v("linkId", linkId);
+				//Log.v("linkId", linkId);
 				if (linkId != "0" || pano_id_back != pano_id) {
 					//startPanoViewerActivity(linkId, project_id);
 					if(typePano ==  2){
 						loadNewPano(pano_id);
 					}
 					else if(typePano == 4){
-						drawImageView(id);
+						getHotImage();
 					}
 				}
 				
