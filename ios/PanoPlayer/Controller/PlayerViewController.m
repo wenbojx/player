@@ -15,6 +15,7 @@
 //#import "SDImageCache.h"
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
+//#import "ImageViewController.h"
 //#import "ASINetworkQueue.h"
 
 @interface PlayerViewController ()
@@ -36,6 +37,9 @@
 @synthesize loading;
 @synthesize panoTitle;
 @synthesize alertOnce;
+@synthesize imageView;
+@synthesize closeBt;
+@synthesize aboveView;
 
 @synthesize imageProgressIndicator;
 
@@ -63,12 +67,12 @@
     faceSL = [[UIImage alloc] init];
     faceSL = [[UIImage alloc] init];
     
+    //self.view.autoresizesSubviews;
     self.alertOnce = false;
     
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
-    
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panoPlayerNotificationHandler:) name:@"panoId" object:nil];
 }
 
@@ -124,12 +128,14 @@
     int y = (height/2)-100;
     //NSLog(@"X-Y=%d-%d", x, y);
     [loading setFrame:CGRectMake(x,y,150,20)];
-    
-    
     [self.view addSubview:imageProgressIndicator];
     y = y+20;
     x = (width - progressWdith)/2;
     [imageProgressIndicator setFrame:CGRectMake(x,y,progressWdith,30)];
+    
+    
+    
+    
 }
 
 //修改载入图片进程
@@ -479,11 +485,27 @@
     return responseData;
 }
 
+-(void)drawImageView:(NSString *)panoId{
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    int height = result.height-85;
+    int width = result.width-20;
+    NSLog(@"adfsdf%d", height);
+    int x = 10;
+    int y = 10;
+
+    aboveView = [AboveViewController alloc];
+    [aboveView setImage:[UIImage imageNamed:@"default960.jpg"]];
+    [aboveView initWithFrame:CGRectMake(x, y, width, height)];
+    //[aboveView setImage:[UIImage imageNamed:@"imageCorp.png"]];
+    [self.view addSubview:aboveView];
+}
 
 //Hotspot event
 -(void)view:(UIView<PLIView> *)pView didClickHotspot:(PLHotspot *)hotspot screenPoint:(CGPoint)point scene3DPoint:(PLPosition)position
 {
-    //[plView reset];
+    [self drawImageView:@"33"];
+
+    /*
     [plView showProgressBar];
     NSString *clickHotspotId = [NSString stringWithFormat:@"%lld", hotspot.identifier];
     NSString *panoId = nil;
@@ -495,9 +517,8 @@
             panoId = linkScence;
         }
     }
-    
     [self startThread:panoId];
-    
+    */
 }
 
 - (void)viewDidUnload

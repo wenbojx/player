@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PLView.h"
+#import "AboveViewController.h"
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
     PLView *plView;
@@ -27,7 +28,6 @@
     Boolean finishDownLoad;
     NSString *panoTitle;
     Boolean alertOnce;
-    
 }
 
 //@property(retain, nonatomic)NSString *panoId;
@@ -43,6 +43,12 @@
 @property(retain, nonatomic)UILabel *loading;
 @property(retain, nonatomic)NSString *panoTitle;
 @property(assign, nonatomic)Boolean alertOnce;
+
+@property(assign, nonatomic)UIImageView *imageView;
+@property(assign, nonatomic)UIButton *closeBt;
+
+@property(assign, nonatomic)AboveViewController *aboveView;
+
 //@property(retain, nonatomic)PLCubicPanorama *cubicPanorama;
 
 
