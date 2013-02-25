@@ -64,7 +64,7 @@
     [closeBt setFrame:CGRectMake(width, -5, 40, 40)];
     
     //设置button标题
-    [closeBt setTitle:@"关闭1" forState:UIControlStateNormal];
+    [closeBt setTitle:@"关闭" forState:UIControlStateNormal];
     [closeBt setImage:[UIImage imageNamed:@"winclose.png"] forState:UIControlStateNormal];
     [closeBt addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
     closeBt.tag = 1;
