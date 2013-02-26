@@ -41,6 +41,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int about_info_detail=0x7f0b0000;
+        public static final int animate_bt=0x7f0b0009;
         public static final int area1=0x7f0b0017;
         public static final int area2=0x7f0b0018;
         public static final int area3=0x7f0b0019;
@@ -53,7 +54,6 @@ containing a value of this type.
         public static final int close_image_view=0x7f0b0004;
         public static final int drawImage=0x7f0b0003;
         public static final int drawImageLayout=0x7f0b0002;
-        public static final int exit_btn=0x7f0b0009;
         public static final int img=0x7f0b0001;
         public static final int info=0x7f0b0010;
         public static final int load_more_text=0x7f0b0005;
@@ -115,10 +115,12 @@ containing a value of this type.
         public static final int loading=0x7f05000f;
         public static final int marker_green=0x7f050010;
         public static final int marker_red=0x7f050011;
-        public static final int player=0x7f050012;
-        public static final int welcome=0x7f050013;
-        public static final int zoom_in=0x7f050014;
-        public static final int zoom_out=0x7f050015;
+        public static final int pause=0x7f050012;
+        public static final int player=0x7f050013;
+        public static final int repeat=0x7f050014;
+        public static final int welcome=0x7f050015;
+        public static final int zoom_in=0x7f050016;
+        public static final int zoom_out=0x7f050017;
     }
     public static final class string {
         public static final int about_info=0x7f080009;

@@ -1,14 +1,15 @@
 package com.yiluhao.panoplayer;
 
-import java.io.IOException;
+//import java.io.IOException;
 
-import com.yiluhao.utils.IoUtil;
+
+//import com.yiluhao.utils.IoUtil;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
+//import android.os.Handler;
+//import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,8 +21,8 @@ import android.widget.ImageView;
 public class WelcomeActivity extends Activity implements AnimationListener {  
     private ImageView  imageView = null;  
     private Animation alphaAnimation = null;  
-    private String configStr = "";
-    private final Handler mHandler = new Handler();  
+    //private String configStr = "";
+    //private final Handler mHandler = new Handler();  
       
     @Override  
     protected void onCreate(Bundle savedInstanceState) {  
