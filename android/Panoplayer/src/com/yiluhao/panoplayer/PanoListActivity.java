@@ -17,6 +17,7 @@ import com.yiluhao.utils.IoUtil;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -96,6 +97,16 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 
 	}
 
+	@Override
+	 public void onConfigurationChanged(Configuration newConfig) {
+	  // 当新设置中，屏幕布局模式为横排时
+		 if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//当前为横屏
+			 Log.v("aaa", "aaaa");
+        }else if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){//当前为竖屏
+       	 Log.v("bbb", "bbbb");
+        }
+        super.onConfigurationChanged(newConfig);
+	 }
 	/**
 	 * 错误提示
 	 */

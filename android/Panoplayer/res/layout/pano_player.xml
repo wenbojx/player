@@ -25,17 +25,6 @@
         android:background="#00000000"
         android:src="@raw/zoom_out" /> -->
 
-    <ImageButton
-        android:id="@+id/exit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="#00000000"
-        android:src="@raw/exit" />
-
     <!-- <LinearLayout 
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:ctc="http://schemas.android.com/apk/res/com.yiluhao.utils"
@@ -51,4 +40,14 @@
 	       android:src="@raw/welcome"
 	       android:gravity="center"/>
 	</LinearLayout> -->
+
+    <ImageButton
+        android:id="@+id/animate_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="#00000000"
+        android:src="@raw/repeat" />
+
 </RelativeLayout>

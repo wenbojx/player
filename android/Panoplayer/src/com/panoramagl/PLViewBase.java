@@ -50,6 +50,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.GestureDetector.OnDoubleTapListener;
 
@@ -826,6 +827,7 @@ public abstract class PLViewBase extends Activity implements PLIView, SensorEven
 							@Override
 							public void run(NSTimer target, Object[] userInfo)
 							{
+								//Log.v("aaaaa", "aaaaa");
 								drawView();
 							}
 						}

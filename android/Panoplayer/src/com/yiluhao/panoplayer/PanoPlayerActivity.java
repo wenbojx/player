@@ -1,15 +1,24 @@
 package com.yiluhao.panoplayer;
 
+import java.util.Date;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.microedition.khronos.opengles.GL10;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+//import org.openpanodroid.PanodroidGLView.MyTask;
+//import org.openpanodroid.panoutils.android.CubicPanoNative.TextureFaces;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.panoramagl.PLCubicPanorama;
-import com.panoramagl.PLIPanorama;
+import com.panoramagl.PLCamera;
+//import com.panoramagl.PLIPanorama;
 import com.panoramagl.PLIView;
 import com.panoramagl.PLImage;
 
@@ -27,10 +36,12 @@ import com.yiluhao.utils.TouchView;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -38,7 +49,7 @@ import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+//import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
@@ -64,6 +75,17 @@ public class PanoPlayerActivity extends PLView {
 	private ProgressDialog progressDialog;  
 	private String domain = "http://beta1.yiluhao.com/";
 	private boolean cancleHotImage = false;
+	private PLCubicPanorama cubicPanorama = null;
+	private int loadNumber = 1;
+	private GL10 gl;
+	private float cameraX = 0;
+	private float cameraY = 0;
+	private PLCamera currentCamera = null;
+	private int animateWaitTime = 4000;
+	private int animateRateTime = 10;
+	private float lookAtAddX = 0.03f;
+	private float lookAtAddY = 0.05f;
+	private boolean canAnimate = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -291,7 +313,14 @@ public class PanoPlayerActivity extends PLView {
 				if (linkId != "0" || pano_id_back != pano_id) {
 					//startPanoViewerActivity(linkId, project_id);
 					if(typePano ==  2){
-						loadNewPano(pano_id);
+						releasePage();
+						if(loadNumber <=5){
+							loadNewPano(pano_id);
+						}
+						else{
+							startPanoViewerActivity(pano_id, project_id);
+						}
+						loadNumber++;
 					}
 					else if(typePano == 4){
 						getHotImage();
@@ -317,6 +346,7 @@ public class PanoPlayerActivity extends PLView {
 		intent.putExtras(bundle);
 
 		startActivity(intent);
+		this.finish();
 	}
 
 	public class LoadFaceAsyncTask extends AsyncTask<Integer, Integer, String> {
@@ -466,8 +496,9 @@ public class PanoPlayerActivity extends PLView {
 	}
 	
 	private void loadPanorama(int index) {
-		GL10 gl = this.getCurrentGL();
-		PLIPanorama panorama = null;
+		
+		gl = this.getCurrentGL();
+		//PLIPanorama panorama = null;
 		// Lock panoramic view
 		this.setBlocked(true);
 		
@@ -522,7 +553,7 @@ public class PanoPlayerActivity extends PLView {
 		}
 		
 		if (index == 2) {
-			PLCubicPanorama cubicPanorama = new PLCubicPanorama();
+			cubicPanorama = new PLCubicPanorama();
 			cubicPanorama.setImage(gl, PLImage.imageWithBitmap(bfront, false),
 					PLCubeFaceOrientation.PLCubeFaceOrientationFront);
 			cubicPanorama.setImage(gl, PLImage.imageWithBitmap(bback, false),
@@ -535,7 +566,10 @@ public class PanoPlayerActivity extends PLView {
 					PLCubeFaceOrientation.PLCubeFaceOrientationUp);
 			cubicPanorama.setImage(gl, PLImage.imageWithBitmap(bdown, false),
 					PLCubeFaceOrientation.PLCubeFaceOrientationDown);
-			panorama = cubicPanorama;
+			
+			//cubicPanorama.
+			//panorama = cubicPanorama;
+
 		}
 		int id = 0;
 		float pan = 0f;
@@ -594,20 +628,105 @@ public class PanoPlayerActivity extends PLView {
 				resId = R.raw.iconimg;
 			}
 			
-			panorama.addHotspot(new PLHotspot(id, PLImage.imageWithBitmap(
+			cubicPanorama.addHotspot(new PLHotspot(id, PLImage.imageWithBitmap(
 					PLUtils.getBitmap(this, resId), false), tilt, pan,
 					hotspot, hotspot));
 		}
 		// Load panorama
 		this.reset();
-		this.setPanorama(panorama);
+		this.setPanorama(cubicPanorama);
+		currentCamera = cubicPanorama.getCurrentCamera();
 		// Unlock panoramic view
 		this.setBlocked(false);
+		StartAnimates();
 		if(hotspots != null){
 			setHotspotListener();
 		}
 	}
+	/*
+	 * private int animateWaitTime = 5000;
+	private int animateRateTime = 10;
+	private float lookAtAddX = 0.03f;
+	private float lookAtAddY = 0.05f;
+	 */
+	public void StartAnimates(){
+    	Timer timer = new Timer();
+        timer.schedule(new MyTask(), animateWaitTime, animateRateTime);
+    }
+    private class MyTask extends TimerTask {
+        public void run() {  
+            /*Message message = new Message();  
+            message.what = 1;  
+            Date currentDate = new Date();
+    		long currentTime = currentDate.getTime();
+    		//gl.*/    		
+    		cameraX = currentCamera.getPitch();
+    		cameraY = currentCamera.getYaw();
+    		if(!canAnimate){
+    			return ;
+    		}
+    		if(canAnimate){
+	    		cameraY += lookAtAddY;
+	    		if(cameraX !=0){
+	    			cameraX = cameraX > 0 ? (cameraX-lookAtAddX) : (cameraX+lookAtAddX);
+	    		}
+    		}
+    		//Log.v("aaaaa", cameraX+"-"+cameraY);
+    		currentCamera.lookAt(cameraX, cameraY);
+    		currentCamera.setPitch(cameraX);
+    		currentCamera.setYaw(cameraY);
+    		//a();
+        }     
+    }  
+    public void StopAnimate(){
+    	canAnimate = false;
+    	ImageButton exitButton = (ImageButton) findViewById(R.id.animate_bt);
+    	exitButton.setImageResource(R.raw.repeat);
+    }
+    public void ReAnimate(){
+    	canAnimate = true;
+    	ImageButton exitButton = (ImageButton) findViewById(R.id.animate_bt);
+    	exitButton.setImageResource(R.raw.pause);
+    }
+    
+	
+	private void releasePage (){
+		if(bfront != null){
+			bfront.recycle();
+			bfront = null;
+			bback.recycle();
+			bback = null;
+			bleft.recycle();
+			bleft = null;
+			bright.recycle();
+			bright = null;
+			bup.recycle();
+			bup = null;
+			bdown.recycle();
+			bdown = null;
+		}
+		System.gc();
+		//super.onDestroy();
+	}
+	@Override
+	protected void onDestroy() {
+		releasePage();
+		if (cubicPanorama != null) {
+			cubicPanorama.clearPanorama(gl);
+		}
+		super.onDestroy();
+	}
+	@Override
+	 public void onConfigurationChanged(Configuration newConfig) {
+	  // 当新设置中，屏幕布局模式为横排时
+		 if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//当前为横屏
 
+         }else if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){//当前为竖屏
+
+         }
+         super.onConfigurationChanged(newConfig);
+	 }
+	
 	@Override
 	protected void onGLContextCreated(GL10 gl) {
 		super.onGLContextCreated(gl);
@@ -618,11 +737,16 @@ public class PanoPlayerActivity extends PLView {
 		this.addContentView(mainView, new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
-		ImageButton exitButton = (ImageButton) findViewById(R.id.exit_btn);
+		ImageButton exitButton = (ImageButton) findViewById(R.id.animate_bt);
 		exitButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				startPanoViewerActivity();
+				if(!canAnimate){
+					ReAnimate();
+				}
+				else{
+					StopAnimate();
+				}
 			}
 		});
 		/*
@@ -645,15 +769,4 @@ public class PanoPlayerActivity extends PLView {
 		});
 		*/
 	}
-	private void startPanoViewerActivity() {
-		// Log.i(LOG_TAG, "id" + id);
-		Intent intent = new Intent(this, PanoTabActivity.class);
-
-		Bundle bundle = new Bundle();
-		bundle.putString("id", project_id);
-		intent.putExtras(bundle);
-
-		startActivity(intent);
-	}
-
 }
