@@ -29,6 +29,7 @@
 @synthesize responseData;
 @synthesize imageProgressIndicator;
 @synthesize loading;
+@synthesize reflashButton;
 
 -(NSString *)nibName
 {
@@ -39,7 +40,8 @@
 {
     [super loadView];
     panoId = 1001;
-
+    
+    self.navigationItem.hidesBackButton = YES;
     coordsData = [[NSArray alloc] init];
     
     [_viewScrollStub addSubview:_viewImageMap];
@@ -182,6 +184,7 @@
     NSArray *coords = [[request userInfo] objectForKey:@"coords"];
 	UIImage *img = [UIImage imageWithData:[request responseData]];
 	if (img) {
+        self.reflashButton.hidden = YES;
 		[self displayMap:img coords:coords];
 	}
     else{
@@ -286,6 +289,13 @@
     [playerView release];
 }
 
+//刷新页面
+-(IBAction)onClickButton:(id)sender{
+    [self.view removeFromSuperview];
+    MapViewController *mapView = [[MapViewController alloc] init];
+    mapView.title = @"地图";
+    [self.navigationController pushViewController:mapView animated:(YES)];
+}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

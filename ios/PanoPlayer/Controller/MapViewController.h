@@ -15,6 +15,7 @@
     UIProgressView *imageProgressIndicator;
     UILabel *loading;
     int panoId;
+    IBOutlet UIButton *reflashButton;
 }
 
 @property(nonatomic, retain) NSMutableArray *linkScene;
@@ -26,6 +27,7 @@
 @property (nonatomic, retain)          NSArray              *stateNames;
 @property(nonatomic, retain) NSArray *coordsData;
 @property(nonatomic, retain) NSString *responseData;
+@property(retain, nonatomic) IBOutlet UIButton *reflashButton;
 
 
 
@@ -33,5 +35,10 @@
 -(void)displayMap:(UIImage *)mapImage coords:(NSArray *)coords;
 -(void)downLoadImage:(NSString *)url;
 -(UIImage *)addImageLogo:(UIImage *)img waterMark:(UIImage *)logo left:(float)left top:(float)top;
+-(IBAction)onClickButton:(id)sender;
 
 @end
+
+
+
+

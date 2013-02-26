@@ -15,6 +15,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
 
+
 @interface HomeViewController ()
 
 @end
@@ -23,6 +24,7 @@
 
 @synthesize panoList;
 @synthesize panoListUrl;
+@synthesize reflashButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,6 +55,7 @@
 //该方法在UITableView显示一行时自动被调用
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.reflashButton.hidden = YES;
 	//必须和在ChatViewCell.xib中的设置一致（也可以不一致，但UITableViewCell的重用机制将无效）
 	static NSString * cellIdentifier = @"CellIdentifier";
 	
@@ -84,6 +87,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    NSLog(@"aaaaaaaaaaa");
     NSDictionary *panoInfo = [panoList objectAtIndex:indexPath.row];
     NSString *panoId = [panoInfo objectForKey:@"panoId"];
     //NSString *panoTitle = [panoInfo objectForKey:@"panoTitle"];
@@ -175,14 +179,18 @@
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;	// Do any additional setup after loading the view.
+    self.navigationItem.hidesBackButton = YES;
     
+    [self getPanoInfo];
+    
+}
+-(void) getPanoInfo{
     panoList = [[NSMutableArray alloc] init];
 	
 	NSString *responseData = [self getJsonFromUrl:panoListUrl];
     if(responseData !=nil){
         NSDictionary *resultsDictionary = [responseData objectFromJSONString];
         NSArray *panos = [resultsDictionary objectForKey:@"panos"];
-        //NSLog(@"res=%@", [ret objectForKey:@"panos"]);
         for(int i=0; i<panos.count; i++){
             NSDictionary  *tmp = [panos objectAtIndex:i];
             NSString *panoId = [tmp objectForKey:@"id"];
@@ -193,9 +201,17 @@
             [self addPano:panoId thumbImage:panoThumb panotitle:panoTitle photoTime:panoCreated];
         }
     }
-    
 }
 
+//刷新页面
+-(IBAction)onClickButton:(id)sender{
+
+    [self.view removeFromSuperview];
+    HomeViewController *homeView = [[HomeViewController alloc] init];
+    homeView.title = @"西湖秋景";
+    [self.navigationController pushViewController:homeView animated:(YES)];
+
+}
 
 - (void)viewDidUnload
 {
