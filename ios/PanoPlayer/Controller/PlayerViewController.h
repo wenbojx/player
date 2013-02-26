@@ -12,6 +12,8 @@
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
     PLView *plView;
+    PLCubicPanorama *cubicPanorama;
+    
     NSMutableArray *hotspots;
     //PLCubicPanorama *cubicPanorama;
     UIImage *faceSL;
@@ -28,6 +30,14 @@
     Boolean finishDownLoad;
     NSString *panoTitle;
     Boolean alertOnce;
+    Boolean isAnimation;
+    float lookAtX;
+    float lookAtY;
+    int animationWaitTime;
+    int animationMoveTime;
+
+    UIBarButtonItem *rightItemBar;
+    NSTimer *aniTimer;
 }
 
 //@property(retain, nonatomic)NSString *panoId;
@@ -43,6 +53,9 @@
 @property(retain, nonatomic)UILabel *loading;
 @property(retain, nonatomic)NSString *panoTitle;
 @property(assign, nonatomic)Boolean alertOnce;
+@property(assign,nonatomic)UIBarButtonItem *rightItemBar;
+
+
 
 @property(assign, nonatomic)UIImageView *imageView;
 @property(assign, nonatomic)UIButton *closeBt;
@@ -50,6 +63,9 @@
 @property(assign, nonatomic)AboveViewController *aboveView;
 
 //@property(retain, nonatomic)PLCubicPanorama *cubicPanorama;
+
+- (IBAction)rightItemClick:(id)sender;
+- (void)setAnimation;
 
 
 -(NSString *)getPanoInfoFromUrl:(NSString *)url;

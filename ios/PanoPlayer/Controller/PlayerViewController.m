@@ -40,6 +40,7 @@
 @synthesize imageView;
 @synthesize closeBt;
 @synthesize aboveView;
+@synthesize rightItemBar;
 
 @synthesize imageProgressIndicator;
 
@@ -54,6 +55,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    isAnimation = false;
+    lookAtX = 0.03f;
+    lookAtY = 0.05f;
+    animationWaitTime = 4000;
+    animationMoveTime = 10;
+
+    rightItemBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"repeat.png"] style:NO target:self action:@selector(rightItemClick:)];
+
+    self.navigationItem.rightBarButtonItem = rightItemBar;
     
     //self.navigationItem.title = @"sdfsdfsdf";
     //[self.navigationItem setTitle:@"asdfs"];
@@ -394,8 +405,8 @@
 
 -(void)displayPano{
     
-    NSObject<PLIPanorama> *panorama = nil;
-    PLCubicPanorama *cubicPanorama = [PLCubicPanorama panorama];
+    //NSObject<PLIPanorama> *panorama = nil;
+    cubicPanorama = [PLCubicPanorama panorama];
     
     CGImageRef cgFaceSF = CGImageRetain(faceSF.CGImage);
     //[faceSF release], faceSF = nil;
@@ -418,7 +429,7 @@
     [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSB]] face:PLCubeFaceOrientationBack];
     [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSU]] face:PLCubeFaceOrientationUp];
     [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithCGImage:cgFaceSD]] face:PLCubeFaceOrientationDown];
-    panorama = cubicPanorama;
+    //panorama = cubicPanorama;
     NSString *transform = @"";
     NSString *hotspotName = @"";
     for (int i=0; i<hotspots.count; i++) {
@@ -438,19 +449,67 @@
         
         PLHotspot *hotspot = [PLHotspot hotspotWithId:[hotspotId intValue] texture:hotspotTexture atv:[tilt floatValue] ath:[pan floatValue] width:0.03f height:0.03f];
         
-        [panorama addHotspot:hotspot];
+        [cubicPanorama addHotspot:hotspot];
         
     }
     //[self.view reloadInputViews];
     
-    [plView setPanorama:panorama];
+    [plView setPanorama:cubicPanorama];
     [plView hideProgressBar];
     //[imageProgressIndicator removeFromSuperview];
     //[loading removeFromSuperview];
+    
     imageProgressIndicator.hidden = YES;
     loading.hidden = YES;
     [self.navigationItem setTitle:panoTitle];
 }
+
+-(void) stopAnimation{
+    [aniTimer invalidate];
+    aniTimer = nil;
+    isAnimation = false;
+    [plView stopAnimation];
+}
+-(void) startAnimation{
+    isAnimation = true;
+    [plView startAnimation];
+    aniTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(setAnimation) userInfo:nil repeats:YES];
+}
+- (IBAction)rightItemClick:(id)sender {
+    if (isAnimation) {
+        [rightItemBar setImage:[UIImage imageNamed:@"repeat.png"]];
+        [self stopAnimation];
+    }
+    else{
+        
+        [rightItemBar setImage:[UIImage imageNamed:@"pause.png"]];
+        [self startAnimation];
+    }
+}
+
+- (void)setAnimation
+{
+    float cameraAtX = [[plView getCamera] getPitch];
+    float cameraAtY = [[plView getCamera] getYaw];
+    //[[plView getCamera] setInitialLookAtWithPitch:cameraAtX yaw:cameraAtY];
+    if (cameraAtX != 0) {
+        if (cameraAtX > 0) {
+            cameraAtX = (cameraAtX-lookAtX) > 0 ? (cameraAtX-lookAtX) : 0;
+        }
+        else{
+            cameraAtX = (cameraAtX+lookAtX) < 0 ? (cameraAtX+lookAtX) : 0;
+        }
+        //cameraAtX = cameraAtX >0 ? (cameraAtX-lookAtX) : (cameraAtX+lookAtX);
+    }
+
+    cameraAtY += lookAtY;
+
+    [[plView getCamera] lookAtWithPitch:cameraAtX yaw:cameraAtY];
+    [[plView getCamera] setPitch:cameraAtX];
+    [[plView getCamera] setYaw:cameraAtY];
+
+}
+
 
 - (void) getWrong:(NSString*)str{
     if (!alertOnce) {
