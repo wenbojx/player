@@ -581,10 +581,10 @@ public class PanoPlayerActivity extends PLView {
 		Display display = windowManager.getDefaultDisplay();
 		int screenWidth = display.getWidth();
 		int screenHeight = display.getHeight();
-		float hotspot = 0.04f;
+		float hotspot = 0.06f;
 		int maxWidth = screenWidth > screenHeight ? screenWidth : screenHeight;
 		if (maxWidth < 850) {
-			hotspot = 0.06f;
+			hotspot = 0.1f;
 		}
 		//hotspot = 0.04f;
 		// Add a hotspot
@@ -625,7 +625,7 @@ public class PanoPlayerActivity extends PLView {
 				}
 			}
 			else if(type==4){
-				resId = R.raw.iconimg;
+				resId = R.raw.imghotspot;
 			}
 			
 			cubicPanorama.addHotspot(new PLHotspot(id, PLImage.imageWithBitmap(
