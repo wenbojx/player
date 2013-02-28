@@ -668,7 +668,13 @@ public class PanoPlayerActivity extends PLView {
     		if(canAnimate){
 	    		cameraY += lookAtAddY;
 	    		if(cameraX !=0){
-	    			cameraX = cameraX > 0 ? (cameraX-lookAtAddX) : (cameraX+lookAtAddX);
+	    			if(cameraX >0){
+	    				cameraX = (cameraX-lookAtAddX) >= 0 ? (cameraX-lookAtAddX) : 0;
+	    			}
+	    			else{
+	    				cameraX = (cameraX+lookAtAddX) <= 0 ? (cameraX+lookAtAddX) : 0;
+	    			}
+	    			
 	    		}
     		}
     		//Log.v("aaaaa", cameraX+"-"+cameraY);
