@@ -221,7 +221,8 @@
             
             
             ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
-            NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            
+            NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
             [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
             
             //UIImage *img;
@@ -432,12 +433,19 @@
     //panorama = cubicPanorama;
     NSString *transform = @"";
     NSString *hotspotName = @"";
+    NSString *type = @"";
     for (int i=0; i<hotspots.count; i++) {
         
         NSMutableDictionary *hotspotDct = [hotspots objectAtIndex:i];
         
         transform = [hotspotDct objectForKey:@"transform"];
-        hotspotName = [NSString stringWithFormat:@"hotspots%@", transform];
+        type = [hotspotDct objectForKey:@"type"];
+        if([type isEqualToString:@"2"]){
+            hotspotName = [NSString stringWithFormat:@"hotspots%@", transform];
+        }
+        else{
+            hotspotName = @"imghotspot";
+        }
         
         //NSLog(@"aaa%@", hotspotName);
         PLTexture *hotspotTexture = [PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:hotspotName ofType:@"png"]]];
@@ -447,7 +455,7 @@
         NSString *tilt = [hotspotDct objectForKey:@"tilt"];
         NSString *pan = [hotspotDct objectForKey:@"pan"];
         
-        PLHotspot *hotspot = [PLHotspot hotspotWithId:[hotspotId intValue] texture:hotspotTexture atv:[tilt floatValue] ath:[pan floatValue] width:0.03f height:0.03f];
+        PLHotspot *hotspot = [PLHotspot hotspotWithId:[hotspotId intValue] texture:hotspotTexture atv:[tilt floatValue] ath:[pan floatValue] width:0.06f height:0.06f];
         
         [cubicPanorama addHotspot:hotspot];
         
@@ -531,8 +539,9 @@
     NSString *responseData = [[NSString alloc] init];
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];

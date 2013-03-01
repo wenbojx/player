@@ -140,10 +140,12 @@
     NSString *responseData = [[NSString alloc] init];
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //NSString *cacheFolder = [NSString stringWithFormat:@"resource/%d",panoId];
+
     
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //NSString *path = [cachePath stringByAppendingPathComponent:@"Caches"];
+
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
