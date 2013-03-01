@@ -84,7 +84,7 @@ public class PanoPlayerActivity extends PLView {
 	private int animateWaitTime = 4000;
 	private int animateRateTime = 10;
 	private float lookAtAddX = 0.03f;
-	private float lookAtAddY = 0.05f;
+	private float lookAtAddY = 0.04f;
 	private boolean canAnimate = false;
 
 	@Override
@@ -581,10 +581,10 @@ public class PanoPlayerActivity extends PLView {
 		Display display = windowManager.getDefaultDisplay();
 		int screenWidth = display.getWidth();
 		int screenHeight = display.getHeight();
-		float hotspot = 0.06f;
+		float hotspot = 0.05f;
 		int maxWidth = screenWidth > screenHeight ? screenWidth : screenHeight;
 		if (maxWidth < 850) {
-			hotspot = 0.1f;
+			hotspot = 0.08f;
 		}
 		//hotspot = 0.04f;
 		// Add a hotspot

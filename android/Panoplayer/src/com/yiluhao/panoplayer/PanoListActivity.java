@@ -42,7 +42,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class PanoListActivity extends ListActivity implements OnScrollListener {
 	private List<Map<String, Object>> panoDatas;
 	
-	private String project_id = "1";
+	private String project_id = "1001";
 	private View mLoadLayout;
 	private View mReflashLayout;
 	private ListView mListView;

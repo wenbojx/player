@@ -21,7 +21,7 @@ public class PanoTabActivity extends TabActivity implements OnCheckedChangeListe
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		String project_id = "1001";
+		String project_id = "1003";
 		if (extras != null) {
 			project_id = extras.getString("id");
 		}
