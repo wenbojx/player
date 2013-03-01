@@ -84,7 +84,7 @@ public class PanoPlayerActivity extends PLView {
 	private int animateWaitTime = 4000;
 	private int animateRateTime = 10;
 	private float lookAtAddX = 0.03f;
-	private float lookAtAddY = 0.05f;
+	private float lookAtAddY = 0.04f;
 	private boolean canAnimate = false;
 
 	@Override
@@ -581,10 +581,10 @@ public class PanoPlayerActivity extends PLView {
 		Display display = windowManager.getDefaultDisplay();
 		int screenWidth = display.getWidth();
 		int screenHeight = display.getHeight();
-		float hotspot = 0.04f;
+		float hotspot = 0.05f;
 		int maxWidth = screenWidth > screenHeight ? screenWidth : screenHeight;
 		if (maxWidth < 850) {
-			hotspot = 0.06f;
+			hotspot = 0.08f;
 		}
 		//hotspot = 0.04f;
 		// Add a hotspot
@@ -625,7 +625,7 @@ public class PanoPlayerActivity extends PLView {
 				}
 			}
 			else if(type==4){
-				resId = R.raw.iconimg;
+				resId = R.raw.imghotspot;
 			}
 			
 			cubicPanorama.addHotspot(new PLHotspot(id, PLImage.imageWithBitmap(
@@ -668,7 +668,13 @@ public class PanoPlayerActivity extends PLView {
     		if(canAnimate){
 	    		cameraY += lookAtAddY;
 	    		if(cameraX !=0){
-	    			cameraX = cameraX > 0 ? (cameraX-lookAtAddX) : (cameraX+lookAtAddX);
+	    			if(cameraX >0){
+	    				cameraX = (cameraX-lookAtAddX) >= 0 ? (cameraX-lookAtAddX) : 0;
+	    			}
+	    			else{
+	    				cameraX = (cameraX+lookAtAddX) <= 0 ? (cameraX+lookAtAddX) : 0;
+	    			}
+	    			
 	    		}
     		}
     		//Log.v("aaaaa", cameraX+"-"+cameraY);
