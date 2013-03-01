@@ -174,7 +174,7 @@
             msg = @"素材加载中...";
             break;
         case 7:
-            msg = @"正在渲染图片,马上就好";
+            msg = @"渲染图片...";
             break;
         default:
             break;
@@ -222,7 +222,7 @@
             
             ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
             NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
+            [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
             
             //UIImage *img;
             ASIHTTPRequest *request;

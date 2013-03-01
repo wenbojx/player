@@ -87,7 +87,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"aaaaaaaaaaa");
+    //NSLog(@"aaaaaaaaaaa");
     NSDictionary *panoInfo = [panoList objectAtIndex:indexPath.row];
     NSString *panoId = [panoInfo objectForKey:@"panoId"];
     //NSString *panoTitle = [panoInfo objectForKey:@"panoTitle"];
