@@ -6,8 +6,12 @@ package com.yiluhao.panoplayer;
 //import com.yiluhao.utils.IoUtil;
 
 import android.app.Activity;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
+
 import android.os.Bundle;
+import android.util.Log;
 //import android.os.Handler;
 //import android.util.Log;
 import android.view.KeyEvent;
@@ -19,6 +23,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class WelcomeActivity extends Activity implements AnimationListener {  
+	
     private ImageView  imageView = null;  
     private Animation alphaAnimation = null;  
     //private String configStr = "";
@@ -62,11 +67,23 @@ public class WelcomeActivity extends Activity implements AnimationListener {
     }  
       
     @Override  
-    public void onAnimationEnd(Animation animation) {  
-        //动画结束时结束欢迎界面并转到软件的主界面  
-        Intent intent = new Intent(this, PanoTabActivity.class);  
-        startActivity(intent);
-        this.finish();
+    public void onAnimationEnd(Animation animation) { 
+    	SharedPreferences userInfo = getSharedPreferences("projectInfo", 0);  
+        String project_id = userInfo.getString("project_id", "");  
+        Log.v("project_id", project_id);
+        Log.v("asdfsdf", "sdfsdfsdfsdfsdf");
+    	if(project_id == null || project_id.equals("")){
+    		
+    		Intent intent = new Intent(this, LoginActivity.class);
+	        startActivity(intent);
+	        this.finish();
+    	}
+    	else{
+	        //动画结束时结束欢迎界面并转到软件的主界面  
+	        Intent intent = new Intent(this, PanoTabActivity.class);  
+	        startActivity(intent);
+	        this.finish();
+    	}
     }  
       
     @Override  

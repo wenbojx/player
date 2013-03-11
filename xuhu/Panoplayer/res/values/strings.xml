@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="project_id">1001</string>
+    <string name="app_name">全景视界</string>
+    <string name="menu_settings">..</string>
+    <string name="welcome_word">欢迎使用全景视界</string>
+    <string name="loading_face">正在加载素材...</string>
+    <string name="loading_hotimage">正在加载图片...</string>
+
+    <string name="main_exit">退出</string>
+    <string name="pano_home">全景</string>
+    <string name="pano_info">简介</string>
+    <string name="pano_map">地图</string>
+    <string name="pano_back">返回</string>
+    <string name="main_item_info1">内含</string>
+    <string name="main_item_info2">个场景\r\n拍摄日期:</string>
+    <string name="photo_time">拍摄时间：</string>
+    
+    <string name="loading">加载中</string>
+    <string name="map_error">找不到地图</string>
+    <string name="loading_map">正在加载地图，请稍等</string>
+    
+    <string name="main_news">信息</string>
+    <string name="main_my_info">我的资料</string>
+    <string name="menu_search">搜索</string>
+    <string name="more">查看更多...</string>
+    <string name="net_error">获取数据错误请检查您的网络连接！</string>
+    
+    <string name="cancel">取消</string>
+    <string name="reflash">重新加载</string>
+
+</resources>

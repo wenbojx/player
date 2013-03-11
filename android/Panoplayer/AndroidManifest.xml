@@ -40,24 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.yiluhao.panoplayer.ExitActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.yiluhao.panoplayer.MainTabActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.yiluhao.panoplayer.MainActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.yiluhao.panoplayer.AboutActivity"
-            android:label="@string/app_name" >
-        </activity>
+        
         <activity
             android:name="com.yiluhao.panoplayer.PanoTabActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yiluhao.panoplayer.LoginActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -69,23 +58,6 @@
             android:label="@string/app_name" >
         </activity>
         
-        <activity
-            android:name="com.yiluhao.panoplayer.PanoMapActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.yiluhao.panoplayer.PanoViewActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.yiluhao.panoplayer.PanoViewGlActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.yiluhao.panoplayer.MapDragActivity"
-            android:label="@string/app_name" >
-            
-        </activity>
         <activity
             android:name="com.yiluhao.panoplayer.PanoListActivity"
             android:configChanges="orientation|keyboard"

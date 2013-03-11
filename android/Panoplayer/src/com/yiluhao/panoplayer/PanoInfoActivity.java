@@ -1,19 +1,12 @@
 package com.yiluhao.panoplayer;
 
 import java.io.IOException;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.yiluhao.utils.IoUtil;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class PanoInfoActivity extends Activity {
 

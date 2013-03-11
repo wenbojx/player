@@ -1,7 +1,5 @@
 package com.yiluhao.panoplayer;
 
-import java.util.Date;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -73,7 +71,7 @@ public class PanoPlayerActivity extends PLView {
 	private Bitmap hotImage = null;
 	private String hotImageUrl;
 	private ProgressDialog progressDialog;  
-	private String domain = "http://beta1.yiluhao.com/";
+	private String domain = "http://mb.yiluhao.com/";
 	private boolean cancleHotImage = false;
 	private PLCubicPanorama cubicPanorama = null;
 	private int loadNumber = 1;
@@ -81,7 +79,7 @@ public class PanoPlayerActivity extends PLView {
 	private float cameraX = 0;
 	private float cameraY = 0;
 	private PLCamera currentCamera = null;
-	private int animateWaitTime = 4000;
+	private int animateWaitTime = 3000;
 	private int animateRateTime = 10;
 	private float lookAtAddX = 0.03f;
 	private float lookAtAddY = 0.04f;
@@ -93,6 +91,7 @@ public class PanoPlayerActivity extends PLView {
 
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
+		project_id = getResources().getString(R.string.project_id);
 		if (extras != null) {
 			pano_id = extras.getString("pano_id");
 			project_id = extras.getString("project_id");
@@ -502,18 +501,6 @@ public class PanoPlayerActivity extends PLView {
 		// Lock panoramic view
 		this.setBlocked(true);
 		
-		/*if(bfront == null || bback == null || bleft == null || bright == null || bup == null || bdown == null){
-			getWrong("获取素材出错,请重试");
-			ioUtil.DelFile(project_id, front_url);
-			ioUtil.DelFile(project_id, back_url);
-			ioUtil.DelFile(project_id, left_url);
-			ioUtil.DelFile(project_id, right_url);
-			ioUtil.DelFile(project_id, up_url);
-			ioUtil.DelFile(project_id, down_url);
-			finish();
-			return ;
-		}*/
-		
 		
 		if(bfront == null){
 			ioUtil.DelFile(project_id, front_url);
@@ -655,14 +642,11 @@ public class PanoPlayerActivity extends PLView {
     }
     private class MyTask extends TimerTask {
         public void run() {  
-            /*Message message = new Message();  
-            message.what = 1;  
-            Date currentDate = new Date();
-    		long currentTime = currentDate.getTime();
-    		//gl.*/    		
+
     		cameraX = currentCamera.getPitch();
     		cameraY = currentCamera.getYaw();
     		if(!canAnimate){
+    			//StopAnimate();
     			return ;
     		}
     		if(canAnimate){
