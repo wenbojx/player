@@ -7,14 +7,12 @@
 //
 
 #import "AppDelegate.h"
-#import "HomeViewController.h"
-#import "InfoViewController.h"
-#import "MapViewController.h"
 
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize loginController;
 
 - (void)dealloc
 {
@@ -26,13 +24,43 @@
 {
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]autorelease];
-    //[[NSBundle mainBundle] loadNibNamed:@"TabBarController" owner:self options:nil];
-    //window.rootViewController = viewController;
+
+    NSString *projectID = [self getProjectId];
+    //NSLog(@"projectID==%@", projectID);
+    if (projectID == nil) {
+        [self showLogin];
+    }
+    else{
+        [self showTab];
+    }
+
+    return YES;
+
+}
+-(NSString *)getProjectId{
     
-    //create nagtive and tabbar
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+
+    return [data objectForKey:@"projectID"];
+}
+-(void)showLogin{
+    loginController = [[LoginViewController alloc] init];
+    loginController.title = @"登陆";
+    _window.rootViewController = loginController;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+
+}
+-(void)showTab{
+    
     navHomeController = [[UINavigationController alloc] init];
     navInfoController = [[UINavigationController alloc] init];
     navMapController = [[UINavigationController alloc] init];
+    navSetController = [[UINavigationController alloc] init];
     tabBarController = [[UITabBarController alloc] init];
     
     
@@ -49,11 +77,16 @@
     mapViewController.title = @"地图";
     mapViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"地图" image:[UIImage imageNamed:@"icon_pano_map.png"] tag:0];
     
+    SettingViewController *setViewController = [[SettingViewController alloc] init];
+    setViewController.title = @"设置";
+    setViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"地图" image:[UIImage imageNamed:@"icon_pano_map.png"] tag:0];
+    
     [navHomeController pushViewController:homeViewController animated:NO];
     [navInfoController pushViewController:infoViewController animated:(NO)];
     [navMapController pushViewController:mapViewController animated:NO];
+    [navSetController pushViewController:setViewController animated:NO];
     
-    tabBarController.viewControllers = [[NSArray alloc] initWithObjects:navHomeController, navInfoController, navMapController, nil];
+    tabBarController.viewControllers = [[NSArray alloc] initWithObjects:navHomeController, navInfoController, navMapController, navSetController, nil];
     //self.window.rootViewController = ;
     
     // Override point for customization after application launch.
@@ -61,7 +94,8 @@
     //[self.window addSubview:tabBarController.view];
     _window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
-    return YES;
+    
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
