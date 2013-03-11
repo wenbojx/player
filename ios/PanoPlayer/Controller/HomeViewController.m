@@ -87,7 +87,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"aaaaaaaaaaa");
+    //NSLog(@"aaaaaaaaaaa");
     NSDictionary *panoInfo = [panoList objectAtIndex:indexPath.row];
     NSString *panoId = [panoInfo objectForKey:@"panoId"];
     //NSString *panoTitle = [panoInfo objectForKey:@"panoTitle"];
@@ -140,10 +140,12 @@
     NSString *responseData = [[NSString alloc] init];
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //NSString *cacheFolder = [NSString stringWithFormat:@"resource/%d",panoId];
+
     
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //NSString *path = [cachePath stringByAppendingPathComponent:@"Caches"];
+
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];

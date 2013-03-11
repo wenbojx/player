@@ -116,8 +116,9 @@
     //NSString *responseData = [[NSString alloc] init];
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -154,8 +155,10 @@
     }
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"resource"]];
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+
     [cache setShouldRespectCacheControlHeaders:NO] ;
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
