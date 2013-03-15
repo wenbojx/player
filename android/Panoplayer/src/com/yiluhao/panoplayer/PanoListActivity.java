@@ -105,9 +105,9 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 	 public void onConfigurationChanged(Configuration newConfig) {
 	  // 当新设置中，屏幕布局模式为横排时
 		 if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//当前为横屏
-			 Log.v("aaa", "aaaa");
+			// Log.v("aaa", "aaaa");
         }else if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){//当前为竖屏
-       	 Log.v("bbb", "bbbb");
+       	// Log.v("bbb", "bbbb");
         }
         super.onConfigurationChanged(newConfig);
 	 }
@@ -402,7 +402,7 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 				    	if(!networkErrorTip){
 				    		getWrong("获取缩略图失败，请检查您的网络设置");
 				    	}
-				    	Log.v("tipsss", networkErrorTip+"");
+				    	//Log.v("tipsss", networkErrorTip+"");
 				    	networkErrorTip = true;
 				    	
 				    }

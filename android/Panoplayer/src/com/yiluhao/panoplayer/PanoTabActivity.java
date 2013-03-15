@@ -76,7 +76,7 @@ public class PanoTabActivity extends TabActivity implements OnCheckedChangeListe
 			    	}
 			    	ioUtil.SaveStringToSD(project_id, projectInfoUrl, response);
 			        ExtractProjectDatas(response);
-			        Log.v("level", "!2");
+			       // Log.v("level", "!2");
 			        
 			        display();
 			        return ;
@@ -122,7 +122,7 @@ public class PanoTabActivity extends TabActivity implements OnCheckedChangeListe
 		this.tabhost.addTab(tabhost.newTabSpec("iMap")
 	        	.setIndicator(getResources().getString(R.string.pano_map), getResources().getDrawable(R.drawable.icon_pano_map))
 	        	.setContent(iMap));
-		Log.v("level", level+"aaaa");
+		//Log.v("level", level+"aaaa");
 		if(level.equals("0") || level.equals("")){
 			
 			this.iSet = new Intent(this, SettingActivity.class);
@@ -185,7 +185,7 @@ public class PanoTabActivity extends TabActivity implements OnCheckedChangeListe
 		
 	}
 	private void setLevel(String num){
-		Log.v("num", num);
+		//Log.v("num", num);
     	SharedPreferences preferences  = getSharedPreferences("projectInfo", Context.MODE_PRIVATE);
 		Editor edit = preferences.edit();
 		edit.putString("level", num);

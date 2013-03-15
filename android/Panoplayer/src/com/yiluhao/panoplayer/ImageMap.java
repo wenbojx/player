@@ -231,7 +231,7 @@ public class ImageMap extends ImageView {
         	 
            	 	String name = singleObject.getString("linkTitle");
            	 	if ((shape != null) && (coords != null)) {
-           	 	Log.v("aaaa==", shape+"|"+name+"|"+coords+"|"+id);
+           	 	//Log.v("aaaa==", shape+"|"+name+"|"+coords+"|"+id);
         		a = addShape(shape,name,coords,id);
         		 if (a != null) {
         			 // add all of the area tag attributes
@@ -1110,7 +1110,7 @@ public class ImageMap extends ImageView {
 		if (mScrollLeft > 0) {
 			mScrollLeft = 0;
 		}
-		Log.v("aaaaaaa", mRightBound+"");
+		//Log.v("aaaaaaa", mRightBound+"");
 		if (mScrollLeft < mRightBound) {
 			mScrollLeft = mRightBound;
 		}
@@ -1121,7 +1121,7 @@ public class ImageMap extends ImageView {
 		if (mScrollTop < mBottomBound) {
 			mScrollTop = mBottomBound;
 		}
-		Log.v("aaa", mScrollTop+"-"+mScrollLeft);
+		//Log.v("aaa", mScrollTop+"-"+mScrollLeft);
 		invalidate();
 	}
 
