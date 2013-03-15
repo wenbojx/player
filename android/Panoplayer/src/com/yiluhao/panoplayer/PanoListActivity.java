@@ -17,6 +17,7 @@ import com.yiluhao.utils.IoUtil;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -69,10 +70,11 @@ public class PanoListActivity extends ListActivity implements OnScrollListener {
 
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		project_id = getResources().getString(R.string.project_id);
+
 		if (extras != null) {
 			project_id = extras.getString("id");
 		}
+		Log.v("project_id", project_id);
 		mLoadLayout = getLayoutInflater().inflate(R.layout.load_more, null);
 		loadMoreTip = (TextView) mLoadLayout.findViewById(R.id.load_more_text);
 		

@@ -46,6 +46,12 @@
     			android:drawableTop="@drawable/icon_pano_map"
     			android:id="@+id/pano_map_tab"
     			style="@style/main_tab_bottom"/>
+    		<RadioButton 
+    			android:layout_marginTop="2.0dip"
+    			android:text="@string/pano_setting"
+    			android:drawableTop="@drawable/icon_pano_set"
+    			android:id="@+id/pano_set_tab"
+    			style="@style/main_tab_bottom"/>
     		
     	</RadioGroup>
     </LinearLayout>

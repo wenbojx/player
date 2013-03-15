@@ -1110,6 +1110,7 @@ public class ImageMap extends ImageView {
 		if (mScrollLeft > 0) {
 			mScrollLeft = 0;
 		}
+		Log.v("aaaaaaa", mRightBound+"");
 		if (mScrollLeft < mRightBound) {
 			mScrollLeft = mRightBound;
 		}
@@ -1120,6 +1121,7 @@ public class ImageMap extends ImageView {
 		if (mScrollTop < mBottomBound) {
 			mScrollTop = mBottomBound;
 		}
+		Log.v("aaa", mScrollTop+"-"+mScrollLeft);
 		invalidate();
 	}
 

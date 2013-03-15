@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="project_id">0</string>
-    <string name="app_name">世纪海景</string>
+    <string name="project_id">1003</string>
+    <string name="app_name">全景视界</string>
     <string name="menu_settings">..</string>
     <string name="welcome_word">欢迎使用全景视界</string>
     <string name="loading_face">正在加载素材...</string>
@@ -9,8 +9,9 @@
 
     <string name="main_exit">退出</string>
     <string name="pano_home">全景</string>
+    <string name="pano_setting">设置</string>
     <string name="pano_info">简介</string>
-    <string name="pano_map">户型</string>
+    <string name="pano_map">地图</string>
     <string name="pano_back">返回</string>
     <string name="main_item_info1">内含</string>
     <string name="main_item_info2">个场景\r\n拍摄日期:</string>

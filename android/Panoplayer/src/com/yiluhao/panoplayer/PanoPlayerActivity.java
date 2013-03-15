@@ -47,6 +47,7 @@ import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 //import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -99,6 +100,7 @@ public class PanoPlayerActivity extends PLView {
 		else{
 			return ;
 		}
+		
 		//panoInfoUrl = "http://beta1.yiluhao.com/ajax/m/pv/id/"+pano_id;
 		panoInfoUrl = domain+"ajax/m/pv/id/"+pano_id;
 		
@@ -629,6 +631,7 @@ public class PanoPlayerActivity extends PLView {
 		if(hotspots != null){
 			setHotspotListener();
 		}
+		
 	}
 	/*
 	 * private int animateWaitTime = 5000;
@@ -728,6 +731,8 @@ public class PanoPlayerActivity extends PLView {
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
 		ImageButton exitButton = (ImageButton) findViewById(R.id.animate_bt);
+		TextView logo = (TextView)this.findViewById(R.id.player_logo);
+		logo.setText("www.yiluhao.com");
 		exitButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View view) {

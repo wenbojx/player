@@ -71,10 +71,10 @@ public class WelcomeActivity extends Activity implements AnimationListener {
     	SharedPreferences userInfo = getSharedPreferences("projectInfo", 0);  
         String project_id = userInfo.getString("project_id", "");  
         Log.v("project_id", project_id);
-        Log.v("asdfsdf", "sdfsdfsdfsdfsdf");
+        //Log.v("asdfsdf", "sdfsdfsdfsdfsdf");
+        //project_id = "1003";
     	if(project_id == null || project_id.equals("")){
-    		
-    		Intent intent = new Intent(this, LoginActivity.class);
+    		Intent intent = new Intent(this, SettingActivity.class);
 	        startActivity(intent);
 	        this.finish();
     	}

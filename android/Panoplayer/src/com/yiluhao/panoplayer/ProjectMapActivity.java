@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -49,7 +50,8 @@ public class ProjectMapActivity extends Activity {
 		
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		project_id = getResources().getString(R.string.project_id);
+		SharedPreferences userInfo = getSharedPreferences("projectInfo", 0);  
+        String project_id = userInfo.getString("project_id", "");  
 		if (extras != null) {
 			project_id = extras.getString("id");
 			mapInfoUrl = domain+"ajax/m/pm/id/"+project_id;
@@ -228,7 +230,6 @@ public class ProjectMapActivity extends Activity {
 		mImageMap.setImageBitmap(mImageMap.mapPicture);
 		//mImageMap.set
 		mImageMap.setScaleType(ImageView.ScaleType.CENTER);
-		
 		// add a click handler to react when areas are tapped
 		mImageMap.addOnImageMapClickedHandler(new ImageMap.OnImageMapClickedHandler() {
 					@Override

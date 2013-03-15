@@ -108,8 +108,9 @@ containing a value of this type.
         public static final int player=0x7f05000f;
         public static final int repeat=0x7f050010;
         public static final int welcome=0x7f050011;
-        public static final int zoom_in=0x7f050012;
-        public static final int zoom_out=0x7f050013;
+        public static final int welcome1=0x7f050012;
+        public static final int zoom_in=0x7f050013;
+        public static final int zoom_out=0x7f050014;
     }
     public static final class string {
         public static final int app_name=0x7f080001;
