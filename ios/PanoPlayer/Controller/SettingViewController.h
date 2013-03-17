@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingViewController : UIViewController
+@interface SettingViewController : UIViewController{
+    IBOutlet NSString *project_id;
+
+}
+
+@property(assign, nonatomic) IBOutlet NSString *project_id;
+
+-(IBAction)resetProjectID:(id)sender;
 
 @end

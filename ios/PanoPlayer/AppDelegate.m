@@ -26,14 +26,13 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]autorelease];
 
     NSString *projectID = [self getProjectId];
-    //NSLog(@"projectID==%@", projectID);
+    NSLog(@"projectID==%@", projectID);
     if (projectID == nil) {
-        [self showLogin];
-    }
-    else{
-        [self showTab];
+        //[self showLogin];
+        projectID = 1001;
     }
 
+    [self showTab];
     return YES;
 
 }
@@ -79,7 +78,7 @@
     
     SettingViewController *setViewController = [[SettingViewController alloc] init];
     setViewController.title = @"设置";
-    setViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"地图" image:[UIImage imageNamed:@"icon_pano_map.png"] tag:0];
+    setViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:[UIImage imageNamed:@"icon_pano_map.png"] tag:0];
     
     [navHomeController pushViewController:homeViewController animated:NO];
     [navInfoController pushViewController:infoViewController animated:(NO)];
