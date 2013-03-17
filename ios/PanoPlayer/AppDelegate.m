@@ -12,7 +12,6 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize loginController;
 
 - (void)dealloc
 {
@@ -26,12 +25,8 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]autorelease];
 
     NSString *projectID = [self getProjectId];
-    NSLog(@"projectID==%@", projectID);
-    if (projectID == nil) {
-        //[self showLogin];
-        projectID = 1001;
-    }
-
+    NSLog(@"project_id==%@", projectID);
+    level = [self getProjectLevel];
     [self showTab];
     return YES;
 
@@ -44,16 +39,30 @@
     NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
 
-    return [data objectForKey:@"projectID"];
+    NSString *project_id = [data objectForKey:@"project_id"];
+    if (project_id == nil) {
+        //[self showLogin];
+        project_id = @"1001";
+    }
+    return project_id;
 }
--(void)showLogin{
-    loginController = [[LoginViewController alloc] init];
-    loginController.title = @"登陆";
-    _window.rootViewController = loginController;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+-(NSString *)getProjectLevel{
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSString *level = [data objectForKey:@"level"];
+    //NSLog(@"level%@", level);
+    if (level == nil) {
+        //[self showLogin];
+        level = @"0";
+    }
+    return level;
+}
 
-}
 -(void)showTab{
     
     navHomeController = [[UINavigationController alloc] init];
@@ -64,7 +73,7 @@
     
     
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
-    homeViewController.title = @"西湖秋景";
+    homeViewController.title = @"全景视界";
     homeViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"icon_pano_home.png"] tag:0];
     
     InfoViewController *infoViewController = [[InfoViewController alloc] init];
@@ -78,14 +87,21 @@
     
     SettingViewController *setViewController = [[SettingViewController alloc] init];
     setViewController.title = @"设置";
-    setViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:[UIImage imageNamed:@"icon_pano_map.png"] tag:0];
+    setViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:[UIImage imageNamed:@"icon_pano_set.png"] tag:0];
     
     [navHomeController pushViewController:homeViewController animated:NO];
     [navInfoController pushViewController:infoViewController animated:(NO)];
     [navMapController pushViewController:mapViewController animated:NO];
-    [navSetController pushViewController:setViewController animated:NO];
+    if ([level isEqualToString:@"0"]) {
+        [navSetController pushViewController:setViewController animated:NO];
+    }
     
-    tabBarController.viewControllers = [[NSArray alloc] initWithObjects:navHomeController, navInfoController, navMapController, navSetController, nil];
+    if ([level isEqualToString:@"0"]) {
+        tabBarController.viewControllers = [[NSArray alloc] initWithObjects:navHomeController, navInfoController, navMapController, navSetController, nil];
+    }
+    else{
+        tabBarController.viewControllers = [[NSArray alloc] initWithObjects:navHomeController, navInfoController, navMapController, nil];
+    }
     //self.window.rootViewController = ;
     
     // Override point for customization after application launch.

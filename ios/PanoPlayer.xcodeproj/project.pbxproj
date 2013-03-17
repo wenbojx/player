@@ -29,8 +29,6 @@
 		1542E31216E0FA4E00BD1172 /* imghotspot.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542E31116E0FA4E00BD1172 /* imghotspot.png */; };
 		1543968C16EDD8320004FB6F /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1543968B16EDD8320004FB6F /* TabBarViewController.m */; };
 		1543968E16EDD8750004FB6F /* TabBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1543968D16EDD8750004FB6F /* TabBarView.xib */; };
-		1546DEC816EDE70B0032FE87 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1546DEC716EDE70B0032FE87 /* LoginViewController.m */; };
-		1546DECA16EDE7AC0032FE87 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1546DEC916EDE7AC0032FE87 /* LoginView.xib */; };
 		154DA6E516EDE10B0070638D /* AboveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154DA6E416EDE10B0070638D /* AboveViewController.m */; };
 		155F7AE516B77139008B51EC /* enter.png in Resources */ = {isa = PBXBuildFile; fileRef = 155F7ADC16B77139008B51EC /* enter.png */; };
 		155F7AE716B77139008B51EC /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 155F7ADE16B77139008B51EC /* loading.gif */; };
@@ -49,6 +47,7 @@
 		155F7B0716B772AE008B51EC /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155F7B0016B772AE008B51EC /* MapViewController.m */; };
 		155F7B0816B772AE008B51EC /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155F7B0216B772AE008B51EC /* PlayerViewController.m */; };
 		159ED7FD16DB677A00554DB5 /* winclose.png in Resources */ = {isa = PBXBuildFile; fileRef = 159ED7FC16DB677A00554DB5 /* winclose.png */; };
+		15E9BE5F16F580C3008682C6 /* icon_pano_set.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E9BE5E16F580C3008682C6 /* icon_pano_set.png */; };
 		C293036B16A93E5400D3530D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036A16A93E5400D3530D /* CoreMotion.framework */; };
 		C293036D16A93E6500D3530D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036C16A93E6500D3530D /* CoreLocation.framework */; };
 		C293036F16A93E7500D3530D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036E16A93E7500D3530D /* MobileCoreServices.framework */; };
@@ -174,9 +173,6 @@
 		1543968A16EDD8320004FB6F /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBarViewController.h; path = Controller/TabBarViewController.h; sourceTree = "<group>"; };
 		1543968B16EDD8320004FB6F /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBarViewController.m; path = Controller/TabBarViewController.m; sourceTree = "<group>"; };
 		1543968D16EDD8750004FB6F /* TabBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarView.xib; sourceTree = "<group>"; };
-		1546DEC616EDE70B0032FE87 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Controller/LoginViewController.h; sourceTree = "<group>"; };
-		1546DEC716EDE70B0032FE87 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Controller/LoginViewController.m; sourceTree = "<group>"; };
-		1546DEC916EDE7AC0032FE87 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		154DA6E316EDE10B0070638D /* AboveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboveViewController.h; path = Controller/AboveViewController.h; sourceTree = "<group>"; };
 		154DA6E416EDE10B0070638D /* AboveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboveViewController.m; path = Controller/AboveViewController.m; sourceTree = "<group>"; };
 		155F7ADC16B77139008B51EC /* enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enter.png; path = img/enter.png; sourceTree = "<group>"; };
@@ -205,6 +201,7 @@
 		1588650E16D51A5F00F6EA62 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		159ED7FC16DB677A00554DB5 /* winclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = winclose.png; path = img/winclose.png; sourceTree = "<group>"; };
 		15DB911316D875E500AD0A70 /* PanoPlayer copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PanoPlayer copy2-Info.plist"; path = "/Users/wenbojx/player/ios/PanoPlayer copy2-Info.plist"; sourceTree = "<absolute>"; };
+		15E9BE5E16F580C3008682C6 /* icon_pano_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_set.png; path = img/icon_pano_set.png; sourceTree = "<group>"; };
 		C293036A16A93E5400D3530D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C293036C16A93E6500D3530D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C293036E16A93E7500D3530D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -790,8 +787,6 @@
 				155F7B0016B772AE008B51EC /* MapViewController.m */,
 				155F7B0116B772AE008B51EC /* PlayerViewController.h */,
 				155F7B0216B772AE008B51EC /* PlayerViewController.m */,
-				1546DEC616EDE70B0032FE87 /* LoginViewController.h */,
-				1546DEC716EDE70B0032FE87 /* LoginViewController.m */,
 				1543968A16EDD8320004FB6F /* TabBarViewController.h */,
 				1543968B16EDD8320004FB6F /* TabBarViewController.m */,
 				1530A95316EDE9CA00ABEBCE /* SettingViewController.h */,
@@ -809,7 +804,6 @@
 				155F7AF016B77260008B51EC /* MapViewController.xib */,
 				155F7AF116B77260008B51EC /* PlayerViewController.xib */,
 				1539BC6B16D7514B00F5B43F /* HotImageView.xib */,
-				1546DEC916EDE7AC0032FE87 /* LoginView.xib */,
 				1543968D16EDD8750004FB6F /* TabBarView.xib */,
 				1530A95616EDE9DC00ABEBCE /* SettingView.xib */,
 			);
@@ -819,6 +813,7 @@
 		C2CA9FF216A8E6760040A428 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				15E9BE5E16F580C3008682C6 /* icon_pano_set.png */,
 				1542E3A916E1089300BD1172 /* Default-Landscape@2x~ipad.png */,
 				1542E3A716E1088A00BD1172 /* Default-Landscape~ipad.png */,
 				1542E3A516E1087D00BD1172 /* Default-Portrait@2x~ipad.png */,
@@ -947,9 +942,9 @@
 				1542E30F16E0F91800BD1172 /* hotspots16.png in Resources */,
 				1542E31016E0F91800BD1172 /* hotspots17.png in Resources */,
 				1542E31216E0FA4E00BD1172 /* imghotspot.png in Resources */,
-				1546DECA16EDE7AC0032FE87 /* LoginView.xib in Resources */,
 				1543968E16EDD8750004FB6F /* TabBarView.xib in Resources */,
 				1530A95716EDE9DC00ABEBCE /* SettingView.xib in Resources */,
+				15E9BE5F16F580C3008682C6 /* icon_pano_set.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1035,7 +1030,6 @@
 				155F7B0716B772AE008B51EC /* MapViewController.m in Sources */,
 				155F7B0816B772AE008B51EC /* PlayerViewController.m in Sources */,
 				1539BC7316D75B3300F5B43F /* ImageCropper.m in Sources */,
-				1546DEC816EDE70B0032FE87 /* LoginViewController.m in Sources */,
 				1543968C16EDD8320004FB6F /* TabBarViewController.m in Sources */,
 				154DA6E516EDE10B0070638D /* AboveViewController.m in Sources */,
 				1530A95516EDE9CA00ABEBCE /* SettingViewController.m in Sources */,

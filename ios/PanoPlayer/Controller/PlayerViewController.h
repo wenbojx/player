@@ -38,10 +38,13 @@
 
     UIBarButtonItem *rightItemBar;
     NSTimer *aniTimer;
+    NSString *level;
+    IBOutlet UILabel *logo;
 }
 
 //@property(retain, nonatomic)NSString *panoId;
 //@property(nonatomic, retain)PLCubicPanorama *cubicPanorama;
+@property(nonatomic, assign) IBOutlet UILabel *logo;
 @property(nonatomic, assign) UIProgressView *imageProgressIndicator;
 @property(retain, nonatomic)NSMutableArray *hotspots;
 @property(retain, nonatomic)UIImage *faceSL;

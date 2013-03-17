@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoginViewController.h"
 #import "HomeViewController.h"
 #import "InfoViewController.h"
 #import "MapViewController.h"
-#import "LoginViewController.h"
 #import "SettingViewController.h"
 
 
@@ -22,9 +20,9 @@
     UINavigationController *navMapController;
     UINavigationController *navSetController;
     UITabBarController *tabBarController;
+    NSString *level;
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic,retain) IBOutlet LoginViewController* loginController;
 -(void)showTab;
 @end

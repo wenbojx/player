@@ -43,6 +43,7 @@
 @synthesize rightItemBar;
 
 @synthesize imageProgressIndicator;
+@synthesize logo;
 
 -(void)didReceiveMemoryWarning
 {
@@ -81,10 +82,35 @@
     //self.view.autoresizesSubviews;
     self.alertOnce = false;
     
+    level = [self getProjectLevel];
+    if ([level isEqualToString:@"0"]) {
+        [logo setText:@"www.yiluhao.com"];
+    }
+    else if ([level isEqualToString:@"1"]) {
+        [logo setText:@"标准版测试，升级后此信息不显示"];
+    }
+    
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panoPlayerNotificationHandler:) name:@"panoId" object:nil];
+}
+
+-(NSString *)getProjectLevel{
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSString *level = [data objectForKey:@"level"];
+    NSLog(@"level%@", level);
+    if (level == nil) {
+        //[self showLogin];
+        level = @"0";
+    }
+    return level;
 }
 
 - (void)panoPlayerNotificationHandler:(NSNotification*)notification
