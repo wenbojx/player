@@ -34,6 +34,7 @@ import com.yiluhao.utils.TouchView;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -85,6 +86,7 @@ public class PanoPlayerActivity extends PLView {
 	private float lookAtAddX = 0.03f;
 	private float lookAtAddY = 0.04f;
 	private boolean canAnimate = false;
+	private String level = "2";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,10 @@ public class PanoPlayerActivity extends PLView {
 		else{
 			return ;
 		}
-		
+		SharedPreferences userInfo = getSharedPreferences("projectInfo", 0);  
+        level = userInfo.getString("level", "");
+        //level="2";
+        
 		//panoInfoUrl = "http://beta1.yiluhao.com/ajax/m/pv/id/"+pano_id;
 		panoInfoUrl = domain+"ajax/m/pv/id/"+pano_id;
 		
@@ -731,8 +736,10 @@ public class PanoPlayerActivity extends PLView {
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
 		ImageButton exitButton = (ImageButton) findViewById(R.id.animate_bt);
+		if(this.level.equals("0")){
 		TextView logo = (TextView)this.findViewById(R.id.player_logo);
-		logo.setText("www.yiluhao.com");
+			logo.setText("www.yiluhao.com");
+		}
 		exitButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View view) {
