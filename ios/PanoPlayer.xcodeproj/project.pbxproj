@@ -47,7 +47,6 @@
 		155F7B0716B772AE008B51EC /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155F7B0016B772AE008B51EC /* MapViewController.m */; };
 		155F7B0816B772AE008B51EC /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155F7B0216B772AE008B51EC /* PlayerViewController.m */; };
 		159ED7FD16DB677A00554DB5 /* winclose.png in Resources */ = {isa = PBXBuildFile; fileRef = 159ED7FC16DB677A00554DB5 /* winclose.png */; };
-		15E9BE5F16F580C3008682C6 /* icon_pano_set.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E9BE5E16F580C3008682C6 /* icon_pano_set.png */; };
 		C293036B16A93E5400D3530D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036A16A93E5400D3530D /* CoreMotion.framework */; };
 		C293036D16A93E6500D3530D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036C16A93E6500D3530D /* CoreLocation.framework */; };
 		C293036F16A93E7500D3530D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C293036E16A93E7500D3530D /* MobileCoreServices.framework */; };
@@ -160,16 +159,6 @@
 		1542E30816E0F91300BD1172 /* hotspots17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots17.png; path = img/hotspots17.png; sourceTree = "<group>"; };
 		1542E31116E0FA4E00BD1172 /* imghotspot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = imghotspot.png; path = img/imghotspot.png; sourceTree = "<group>"; };
 		1542E39516E106A300BD1172 /* PanoPlayer copy3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PanoPlayer copy3-Info.plist"; path = "/Users/wenbojx/player/ios/PanoPlayer copy3-Info.plist"; sourceTree = "<absolute>"; };
-		1542E39616E107CC00BD1172 /* iPhoneIcon_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPhoneIcon_Small.png; path = ../iPhoneIcon_Small.png; sourceTree = "<group>"; };
-		1542E39816E107DA00BD1172 /* iPhoneIcon_Big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPhoneIcon_Big.png; path = ../iPhoneIcon_Big.png; sourceTree = "<group>"; };
-		1542E39B16E107F900BD1172 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
-		1542E39D16E1080300BD1172 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		1542E39F16E1080E00BD1172 /* iPhoneIcon_Medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPhoneIcon_Medium.png; path = ../iPhoneIcon_Medium.png; sourceTree = "<group>"; };
-		1542E3A116E1081700BD1172 /* icon144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon144.png; path = ../icon144.png; sourceTree = "<group>"; };
-		1542E3A316E1083D00BD1172 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		1542E3A516E1087D00BD1172 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
-		1542E3A716E1088A00BD1172 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		1542E3A916E1089300BD1172 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		1543968A16EDD8320004FB6F /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBarViewController.h; path = Controller/TabBarViewController.h; sourceTree = "<group>"; };
 		1543968B16EDD8320004FB6F /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBarViewController.m; path = Controller/TabBarViewController.m; sourceTree = "<group>"; };
 		1543968D16EDD8750004FB6F /* TabBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarView.xib; sourceTree = "<group>"; };
@@ -198,10 +187,9 @@
 		155F7B0116B772AE008B51EC /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerViewController.h; path = Controller/PlayerViewController.h; sourceTree = "<group>"; };
 		155F7B0216B772AE008B51EC /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerViewController.m; path = Controller/PlayerViewController.m; sourceTree = "<group>"; };
 		1588650B16D519FB00F6EA62 /* PanoPlayer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PanoPlayer copy-Info.plist"; path = "/Users/wenbojx/player/ios/PanoPlayer copy-Info.plist"; sourceTree = "<absolute>"; };
-		1588650E16D51A5F00F6EA62 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		159ED7FC16DB677A00554DB5 /* winclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = winclose.png; path = img/winclose.png; sourceTree = "<group>"; };
 		15DB911316D875E500AD0A70 /* PanoPlayer copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PanoPlayer copy2-Info.plist"; path = "/Users/wenbojx/player/ios/PanoPlayer copy2-Info.plist"; sourceTree = "<absolute>"; };
-		15E9BE5E16F580C3008682C6 /* icon_pano_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_set.png; path = img/icon_pano_set.png; sourceTree = "<group>"; };
+		15E93A8516F765BB00D30B16 /* PanoPlayer copy4-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PanoPlayer copy4-Info.plist"; path = "/Users/wenbojx/player/ios/PanoPlayer copy4-Info.plist"; sourceTree = "<absolute>"; };
 		C293036A16A93E5400D3530D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C293036C16A93E6500D3530D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C293036E16A93E7500D3530D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -712,6 +700,7 @@
 				1588650B16D519FB00F6EA62 /* PanoPlayer copy-Info.plist */,
 				15DB911316D875E500AD0A70 /* PanoPlayer copy2-Info.plist */,
 				1542E39516E106A300BD1172 /* PanoPlayer copy3-Info.plist */,
+				15E93A8516F765BB00D30B16 /* PanoPlayer copy4-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -813,17 +802,6 @@
 		C2CA9FF216A8E6760040A428 /* icon */ = {
 			isa = PBXGroup;
 			children = (
-				15E9BE5E16F580C3008682C6 /* icon_pano_set.png */,
-				1542E3A916E1089300BD1172 /* Default-Landscape@2x~ipad.png */,
-				1542E3A716E1088A00BD1172 /* Default-Landscape~ipad.png */,
-				1542E3A516E1087D00BD1172 /* Default-Portrait@2x~ipad.png */,
-				1542E3A316E1083D00BD1172 /* Default-Portrait~ipad.png */,
-				1542E3A116E1081700BD1172 /* icon144.png */,
-				1542E39F16E1080E00BD1172 /* iPhoneIcon_Medium.png */,
-				1542E39D16E1080300BD1172 /* Default-568h@2x.png */,
-				1542E39B16E107F900BD1172 /* Default@2x.png */,
-				1542E39816E107DA00BD1172 /* iPhoneIcon_Big.png */,
-				1542E39616E107CC00BD1172 /* iPhoneIcon_Small.png */,
 				1542E31116E0FA4E00BD1172 /* imghotspot.png */,
 				1542E30116E0F8FE00BD1172 /* hotspots10.png */,
 				1542E30216E0F8FF00BD1172 /* hotspots11.png */,
@@ -836,7 +814,6 @@
 				153F404216DCC8A2008BEF58 /* pause.png */,
 				153F404316DCC8A2008BEF58 /* repeat.png */,
 				159ED7FC16DB677A00554DB5 /* winclose.png */,
-				1588650E16D51A5F00F6EA62 /* Default.png */,
 				153FD4CC16D5109D00465C05 /* icon_pano_about.png */,
 				153FD4CD16D5109D00465C05 /* icon_pano_home.png */,
 				153FD44216D50D2700465C05 /* map.jpg */,
@@ -944,7 +921,6 @@
 				1542E31216E0FA4E00BD1172 /* imghotspot.png in Resources */,
 				1543968E16EDD8750004FB6F /* TabBarView.xib in Resources */,
 				1530A95716EDE9DC00ABEBCE /* SettingView.xib in Resources */,
-				15E9BE5F16F580C3008682C6 /* icon_pano_set.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
