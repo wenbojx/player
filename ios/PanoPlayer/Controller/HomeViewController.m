@@ -28,8 +28,8 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    panoId = 1001;
-    panoListUrl = [NSString stringWithFormat:@"http://beta1.yiluhao.com/ajax/m/pl/id/%d", panoId];
+    panoId = [[self getProjectId] intValue];
+    panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", panoId];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"首页", @"首页");
@@ -38,6 +38,21 @@
     return self;
 }
 
+-(NSString *)getProjectId{
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSString *project_id = [data objectForKey:@"project_id"];
+    if (project_id == nil) {
+        //[self showLogin];
+        project_id = @"1003";
+    }
+    return project_id;
+}
 
 //返回UITableView共几行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

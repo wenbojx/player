@@ -7,6 +7,8 @@
 //
 
 #import "InfoViewController.h"
+#import "ASIHTTPRequest.h"
+#import "ASIDownloadCache.h"
 
 @interface InfoViewController ()
 
@@ -27,26 +29,100 @@
 {
     [super viewDidLoad];
     
+    panoId = [[self getProjectId] intValue];
+    
+    panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", panoId];
+    
+    NSString *responseData = [self getJsonFromUrl:panoListUrl];
+    NSString *style = @"<style>body{margin:5px;background-color:transparent;}</style>";
+    NSString *content = @"暂无简介";
+    if(responseData !=nil){
+        NSDictionary *resultsDictionary = [responseData objectFromJSONString];
+        content = [resultsDictionary objectForKey:@"info"];
+        
+    }
+    content = [style stringByAppendingFormat:@"%@", content];
+    
     iWebView = [[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.view addSubview:iWebView];
+    iWebView.opaque = NO;
+    iWebView.dataDetectorTypes = UIDataDetectorTypeNone;
     [iWebView setBackgroundColor:[UIColor clearColor]];
     
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
     [header setBackgroundColor:[UIColor clearColor]];
     
-    [self loadDocument:@"info.html"];
+    //NSString *htmlString = [content stringByAppendingFormat:@"%@", textview.text];
+    
+    [iWebView loadHTMLString:content baseURL:nil];
+    
+    [self.view addSubview:iWebView];
+    //[self loadDocument:@"info.html"];
     
 }
-//加载本地使用说明文件文件
--(void)loadDocument:(NSString *)docName
-{
-    NSString *mainBundleDirectory=[[NSBundle mainBundle] bundlePath];
-    NSString *path=[mainBundleDirectory stringByAppendingPathComponent:docName];
+- (void) getWrong:(NSString*)str{
+    NSString *msg = [NSString stringWithFormat:@"%@", str];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
+}
+/**
+ 获取全景图信息列表
+ */
+
+- (NSString *)getJsonFromUrl:(NSString *)url{
+    if(url == nil){
+        [self getWrong:@"参数错误"];
+        return @"";
+    }
+    NSString *responseData = [[NSString alloc] init];
     
-    NSURL *url=[NSURL fileURLWithPath:path];
-    NSURLRequest *request=[NSURLRequest requestWithURL:url];
-    iWebView.scalesPageToFit=YES;
-    [iWebView loadRequest:request];
+    ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
+    
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //NSString *path = [cachePath stringByAppendingPathComponent:@"Caches"];
+    
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+    
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    
+    [request setDownloadCache:cache];
+    
+    [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
+    [cache setShouldRespectCacheControlHeaders:NO];
+    //[]
+    [request setSecondsToCache:60*60*24*30*10]; //30
+    
+    [request startSynchronous];
+    
+    NSError *error = [request error];
+    if (!error) {
+        responseData = [request responseString];
+    }
+    else {
+        [self getWrong:@"获取数据失败"];
+    }
+    return responseData;
+}
+
+
+
+-(NSString *)getProjectId{
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSString *project_id = [data objectForKey:@"project_id"];
+    if (project_id == nil) {
+        //[self showLogin];
+        project_id = @"1003";
+    }
+    return project_id;
 }
 
 - (void)viewDidUnload

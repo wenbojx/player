@@ -39,7 +39,7 @@
 - (void)loadView
 {
     [super loadView];
-    panoId = 1001;
+    panoId = [[self getProjectId] intValue];
     
     self.navigationItem.hidesBackButton = YES;
     coordsData = [[NSArray alloc] init];
@@ -99,6 +99,23 @@
     }
     
 }
+
+-(NSString *)getProjectId{
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSString *project_id = [data objectForKey:@"project_id"];
+    if (project_id == nil) {
+        //[self showLogin];
+        project_id = @"1003";
+    }
+    return project_id;
+}
+
 - (void) getWrong:(NSString*)str{
     NSString *msg = [NSString stringWithFormat:@"%@", str];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

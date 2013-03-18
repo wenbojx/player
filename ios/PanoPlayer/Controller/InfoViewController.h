@@ -10,6 +10,8 @@
 
 @interface InfoViewController : UIViewController{
     UIWebView *iWebView;
+    int panoId;
+    NSString *panoListUrl;
 }
 
 @end
