@@ -1,6 +1,5 @@
 package com.yiluhao.panoplayer;
 
-import java.net.URLEncoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,19 +76,11 @@ public class PanoInfoActivity extends Activity {
 		
 	}
 	public void display(){
-		Log.v("content", content);
-		//content += "<br><p>技术支持</p>";
-		//content = "中文死定了福建省打开";
+
 		WebView webView= (WebView) this.findViewById(R.id.pano_info_detail);
 		webView.getSettings().setDefaultTextEncodingName(encoding);
-		
-		try {  
-		webView.loadData(content, mimeType, encoding); 
-		} catch (Exception ex) {
-			 
-			ex.printStackTrace();  
-			 
-			}  
+		webView.loadDataWithBaseURL(null, content, mimeType, encoding, null);
+
 	}
 	/**
 	 * 错误提示
@@ -99,7 +90,7 @@ public class PanoInfoActivity extends Activity {
 		.show();
 	}
 	private void ExtractProjectDatas(String response){
-		Log.v("aaaaaa", content);
+		//Log.v("aaaaaa", content);
 		if (response == "" || response == null) {
 			getWrong("获取项目信息失败，请检查您的网络设置");
 			return ;

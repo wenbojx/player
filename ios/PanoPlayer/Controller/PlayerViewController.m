@@ -44,6 +44,9 @@
 
 @synthesize imageProgressIndicator;
 @synthesize logo;
+@synthesize listFrame;
+@synthesize infoFrame;
+@synthesize mapFrame;
 
 -(void)didReceiveMemoryWarning
 {
@@ -650,6 +653,51 @@
         */
         [self drawImageView:panoId imagePath:filePath];
     }
+    
+}
+
+
+- (IBAction)btListClick:(id)sender{
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    int height = result.height-115;
+    int width = result.width-20;
+    //NSLog(@"adfsdf%d", height);
+    int x = 10;
+    int y = 10;
+    
+    listFrame = [ListFrameController alloc];
+    [listFrame initWithFrame:CGRectMake(x, y, width, height)];
+    [self.view addSubview:listFrame];
+
+}
+- (IBAction)btInfoClick:(id)sender{
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    int height = result.height-115;
+    int width = result.width-20;
+    //NSLog(@"adfsdf%d", height);
+    int x = 10;
+    int y = 10;
+    
+    infoFrame = [InfoFrameController alloc];
+    [infoFrame initWithFrame:CGRectMake(x, y, width, height)];
+    [self.view addSubview:infoFrame];
+}
+- (IBAction)btMapClick:(id)sender{
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    int height = result.height-115;
+    int width = result.width-20;
+    //NSLog(@"adfsdf%d", height);
+    int x = 10;
+    int y = 10;
+    
+    mapFrame = [MapFrameController alloc];
+    [mapFrame initWithFrame:CGRectMake(x, y, width, height)];
+    [self.view addSubview:mapFrame];
+}
+- (IBAction)btRoundClick:(id)sender{
+    
+}
+- (IBAction)btMusicClick:(id)sender{
     
 }
 

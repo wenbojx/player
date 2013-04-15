@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PLView.h"
 #import "AboveViewController.h"
+#import "ListFrameController.h"
+#import "InfoFrameController.h"
+#import "MapFrameController.h"
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
     PLView *plView;
@@ -40,11 +43,26 @@
     NSTimer *aniTimer;
     NSString *level;
     IBOutlet UILabel *logo;
+    IBOutlet UIButton *btList;//场景列表按钮
+    IBOutlet UIButton *btInfo;//简介按钮
+    IBOutlet UIButton *btMap;//地图按钮
+    IBOutlet UIButton *btRround;//自动旋转
+    IBOutlet UIButton *btMusic;//音乐
 }
 
 //@property(retain, nonatomic)NSString *panoId;
 //@property(nonatomic, retain)PLCubicPanorama *cubicPanorama;
 @property(nonatomic, assign) IBOutlet UILabel *logo;
+@property(nonatomic, assign) IBOutlet UIButton *btList;
+@property(nonatomic, assign) IBOutlet UIButton *btInfo;
+@property(nonatomic, assign) IBOutlet UIButton *btMap;
+@property(nonatomic, assign) IBOutlet UIButton *btRround;
+@property(nonatomic, assign) IBOutlet UIButton *btMusic;
+
+@property(assign, nonatomic)ListFrameController *listFrame;
+@property(assign, nonatomic)InfoFrameController *infoFrame;
+@property(assign, nonatomic)MapFrameController *mapFrame;
+
 @property(nonatomic, assign) UIProgressView *imageProgressIndicator;
 @property(retain, nonatomic)NSMutableArray *hotspots;
 @property(retain, nonatomic)UIImage *faceSL;
@@ -68,6 +86,12 @@
 //@property(retain, nonatomic)PLCubicPanorama *cubicPanorama;
 
 - (IBAction)rightItemClick:(id)sender;
+- (IBAction)btListClick:(id)sender;
+- (IBAction)btInfoClick:(id)sender;
+- (IBAction)btMapClick:(id)sender;
+- (IBAction)btRoundClick:(id)sender;
+- (IBAction)btMusicClick:(id)sender;
+
 - (void)setAnimation;
 
 

@@ -16,6 +16,7 @@
 @implementation SettingViewController
 @synthesize projectIdText;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,10 +33,24 @@
 	// Do any additional setup after loading the view.
     //projectIdText = [[UITextField alloc] init];
     level = @"0";
-    project_id = @"1003";
+    project_id = [self getProjectId];
     projectIdText.text = project_id;
 }
 
+-(NSString *)getProjectId{
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *plistPath1 = [paths objectAtIndex:0];
+    
+    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    
+    NSString *projectID = [data objectForKey:@"project_id"];
+    if (projectID == nil) {
+        projectID = @"1001";
+    }
+    return projectID;
+}
 
 -(IBAction)resetProjectID:(id)sender{
     project_id = projectIdText.text;
@@ -96,6 +111,7 @@
     
     //得到完整的文件名
     NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
+    NSLog(@"sdfsdfsdf%@", filename);
     //输入写入
     [data writeToFile:filename atomically:YES];
     
@@ -117,7 +133,7 @@
     
     
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
-    homeViewController.title = @"西湖秋景";
+    homeViewController.title = @"全景视界";
     homeViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"icon_pano_home.png"] tag:0];
     
     InfoViewController *infoViewController = [[InfoViewController alloc] init];

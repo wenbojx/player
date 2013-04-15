@@ -59,6 +59,7 @@
     //[self loadDocument:@"info.html"];
     
 }
+
 - (void) getWrong:(NSString*)str{
     NSString *msg = [NSString stringWithFormat:@"%@", str];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -120,7 +121,7 @@
     NSString *project_id = [data objectForKey:@"project_id"];
     if (project_id == nil) {
         //[self showLogin];
-        project_id = @"1003";
+        project_id = @"1001";
     }
     return project_id;
 }

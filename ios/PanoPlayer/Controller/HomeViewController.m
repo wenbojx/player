@@ -49,7 +49,7 @@
     NSString *project_id = [data objectForKey:@"project_id"];
     if (project_id == nil) {
         //[self showLogin];
-        project_id = @"1003";
+        project_id = @"1001";
     }
     return project_id;
 }
@@ -201,6 +201,7 @@
     [self getPanoInfo];
     
 }
+
 -(void) getPanoInfo{
     panoList = [[NSMutableArray alloc] init];
 	
