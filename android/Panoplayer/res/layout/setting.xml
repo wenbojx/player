@@ -44,7 +44,7 @@
     android:layout_marginTop="25dp"
     android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
-    android:text="首次使用或需要播放其它项目，请设置新项目信息.项目ID在项目列表中可以找到" />
+    android:text="首次使用或需要播放其它项目，请设置新项目信息.项目ID在项目列表中可以找到,测试请使用ID：1001，1002, 1003" />
   
 </RelativeLayout>
 
