@@ -29,6 +29,26 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    NSString *userName;
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSString *filename=[path stringByAppendingPathComponent:@"userInfo.plist"];
+    
+    //读文件
+    NSDictionary* userInfo = [NSDictionary dictionaryWithContentsOfFile:filename];
+    //NSLog(@"dic is:%@",userInfo);
+    if(userInfo == nil)
+    {
+        //1. 创建一个plist文件
+        NSFileManager* fm = [NSFileManager defaultManager];
+        [fm createFileAtPath:filename contents:nil attributes:nil];
+    }
+    else
+    {
+        userName = [userInfo objectForKey:@"userName"];
+        usernameField.text = userName;
+    }
 }
 
 - (void) getWrong:(NSString*)str{
@@ -40,7 +60,7 @@
 
 -(NSString *)getUserInfo:(NSString *)username{
     
-    NSString *projectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%@", username];
+    NSString *projectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/user/u/%@", username];
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:projectListUrl]];
     
@@ -62,10 +82,40 @@
     username = usernameField.text;
     if (username == nil || [username isEqualToString:@""]) {
         [self getWrong:@"请输入用户名"];
+        return;
     }
-    else{
-        NSString *userInfo = [self getUserInfo:username];
+    NSString *responseStr = [self getUserInfo:username];
+    NSLog(responseStr);
+    if(responseStr == nil && [responseStr isEqualToString:@""]){
+        [self getWrong:@"请输入用户名"];
+        return;
     }
+    NSDictionary *resultsDictionary = [responseStr objectFromJSONString];
+    NSString *state = [resultsDictionary objectForKey:@"state"];
+    if ([state isEqualToString:@"0"]) {
+        [self getWrong:@"帐号不存在"];
+        return;
+    }
+    NSString *mid = [resultsDictionary objectForKey:@"m_id"];
+    if(mid == nil || [mid isEqualToString:@""] || [mid isEqualToString:@"0"]){
+        [self getWrong:@"帐号信息错误"];
+        return;
+    }
+    NSString *userName = [resultsDictionary objectForKey:@"userName"];
+    
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths    objectAtIndex:0];
+    NSString *filename=[path stringByAppendingPathComponent:@"userInfo.plist"];   //获取路径
+    
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    //添加一项内容
+    [data setObject:mid forKey:@"mid"];
+    [data setObject:userName forKey:@"userName"];
+
+    [data writeToFile:filename atomically:YES];
+    //NSLog(@"data=%@", data);
+    [self getWrong:@"数据保存成功"];
+    
 }
 
 - (IBAction) ProjectIdDoneEditing:(id)sender{

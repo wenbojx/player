@@ -19,6 +19,15 @@
 		153145B1171BF9CF0047E1CB /* btMusic.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A8171BF9CF0047E1CB /* btMusic.png */; };
 		153145B2171BF9CF0047E1CB /* btRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A9171BF9CF0047E1CB /* btRound.png */; };
 		153145B3171BF9CF0047E1CB /* btRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A9171BF9CF0047E1CB /* btRound.png */; };
+		15363613171EAF6400D2069F /* AOWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363610171EAF6400D2069F /* AOWaterView.m */; };
+		15363614171EAF6400D2069F /* MessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363612171EAF6400D2069F /* MessView.m */; };
+		1536361C171EAF7400D2069F /* EGORefreshTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363617171EAF7400D2069F /* EGORefreshTableFooterView.m */; };
+		1536361D171EAF7400D2069F /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363619171EAF7400D2069F /* EGORefreshTableHeaderView.m */; };
+		1536363D171EB13400D2069F /* dataList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1536363C171EB13400D2069F /* dataList.plist */; };
+		15363643171EB1BC00D2069F /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363640171EB1BC00D2069F /* DataAccess.m */; };
+		15363644171EB1BC00D2069F /* DataInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363642171EB1BC00D2069F /* DataInfo.m */; };
+		1536364D171ECF7600D2069F /* ProjectTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1536364C171ECF7500D2069F /* ProjectTableCell.xib */; };
+		15363650171ED14000D2069F /* ProjectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536364F171ED14000D2069F /* ProjectTableCell.m */; };
 		1539BC6C16D7514C00F5B43F /* HotImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1539BC6B16D7514B00F5B43F /* HotImageView.xib */; };
 		1539BC7316D75B3300F5B43F /* ImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1539BC7216D75B3300F5B43F /* ImageCropper.m */; };
 		153F404416DCC8A2008BEF58 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 153F404216DCC8A2008BEF58 /* pause.png */; };
@@ -301,6 +310,23 @@
 		153145A7171BF9CF0047E1CB /* btMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btMap.png; path = img/btMap.png; sourceTree = "<group>"; };
 		153145A8171BF9CF0047E1CB /* btMusic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btMusic.png; path = img/btMusic.png; sourceTree = "<group>"; };
 		153145A9171BF9CF0047E1CB /* btRound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btRound.png; path = img/btRound.png; sourceTree = "<group>"; };
+		1536360F171EAF6400D2069F /* AOWaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AOWaterView.h; sourceTree = "<group>"; };
+		15363610171EAF6400D2069F /* AOWaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOWaterView.m; sourceTree = "<group>"; };
+		15363611171EAF6400D2069F /* MessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessView.h; sourceTree = "<group>"; };
+		15363612171EAF6400D2069F /* MessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessView.m; sourceTree = "<group>"; };
+		15363616171EAF7400D2069F /* EGORefreshTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableFooterView.h; sourceTree = "<group>"; };
+		15363617171EAF7400D2069F /* EGORefreshTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableFooterView.m; sourceTree = "<group>"; };
+		15363618171EAF7400D2069F /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		15363619171EAF7400D2069F /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		1536361A171EAF7400D2069F /* EGOViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOViewCommon.h; sourceTree = "<group>"; };
+		1536363C171EB13400D2069F /* dataList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dataList.plist; sourceTree = "<group>"; };
+		1536363F171EB1BC00D2069F /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccess.h; sourceTree = "<group>"; };
+		15363640171EB1BC00D2069F /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccess.m; sourceTree = "<group>"; };
+		15363641171EB1BC00D2069F /* DataInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInfo.h; sourceTree = "<group>"; };
+		15363642171EB1BC00D2069F /* DataInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInfo.m; sourceTree = "<group>"; };
+		1536364C171ECF7500D2069F /* ProjectTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectTableCell.xib; sourceTree = "<group>"; };
+		1536364E171ED13F00D2069F /* ProjectTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectTableCell.h; path = Controller/ProjectTableCell.h; sourceTree = "<group>"; };
+		1536364F171ED14000D2069F /* ProjectTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectTableCell.m; path = Controller/ProjectTableCell.m; sourceTree = "<group>"; };
 		1539BC6B16D7514B00F5B43F /* HotImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotImageView.xib; sourceTree = "<group>"; };
 		1539BC7116D75B3300F5B43F /* ImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCropper.h; sourceTree = "<group>"; };
 		1539BC7216D75B3300F5B43F /* ImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropper.m; sourceTree = "<group>"; };
@@ -616,6 +642,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1536360E171EAF6400D2069F /* AOWaterView */ = {
+			isa = PBXGroup;
+			children = (
+				1536360F171EAF6400D2069F /* AOWaterView.h */,
+				15363610171EAF6400D2069F /* AOWaterView.m */,
+				15363611171EAF6400D2069F /* MessView.h */,
+				15363612171EAF6400D2069F /* MessView.m */,
+			);
+			path = AOWaterView;
+			sourceTree = "<group>";
+		};
+		15363615171EAF7400D2069F /* EGO */ = {
+			isa = PBXGroup;
+			children = (
+				15363616171EAF7400D2069F /* EGORefreshTableFooterView.h */,
+				15363617171EAF7400D2069F /* EGORefreshTableFooterView.m */,
+				15363618171EAF7400D2069F /* EGORefreshTableHeaderView.h */,
+				15363619171EAF7400D2069F /* EGORefreshTableHeaderView.m */,
+				1536361A171EAF7400D2069F /* EGOViewCommon.h */,
+				1536361B171EAF7400D2069F /* LoadMoreDataView */,
+			);
+			path = EGO;
+			sourceTree = "<group>";
+		};
+		1536361B171EAF7400D2069F /* LoadMoreDataView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoadMoreDataView;
+			sourceTree = "<group>";
+		};
+		1536363E171EB1BC00D2069F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				1536363F171EB1BC00D2069F /* DataAccess.h */,
+				15363640171EB1BC00D2069F /* DataAccess.m */,
+				15363641171EB1BC00D2069F /* DataInfo.h */,
+				15363642171EB1BC00D2069F /* DataInfo.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		1539BC7016D75B3300F5B43F /* ImageCropper */ = {
 			isa = PBXGroup;
 			children = (
@@ -774,6 +842,8 @@
 		C2C77A6716ACF2DE00B7E8F6 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				15363615171EAF7400D2069F /* EGO */,
+				1536360E171EAF6400D2069F /* AOWaterView */,
 				1539BC7016D75B3300F5B43F /* ImageCropper */,
 				C293037C16A93F3700D3530D /* PanoramaGL */,
 				C2EC012F16AA963900413EFD /* ImageMapView */,
@@ -946,6 +1016,7 @@
 			children = (
 				C2CA9FD416A8E5760040A428 /* AppDelegate.h */,
 				C2CA9FD516A8E5760040A428 /* AppDelegate.m */,
+				1536363E171EB1BC00D2069F /* model */,
 				C2C77A6716ACF2DE00B7E8F6 /* Util */,
 				C2CA9FE216A8E5EA0040A428 /* View */,
 				C2CA9FE116A8E5D40040A428 /* Controller */,
@@ -960,6 +1031,7 @@
 				153FD4C116D5108300465C05 /* html */,
 				C2CA9FF216A8E6760040A428 /* icon */,
 				C2CA9FCD16A8E5760040A428 /* PanoPlayer-Info.plist */,
+				1536363C171EB13400D2069F /* dataList.plist */,
 				C2CA9FCE16A8E5760040A428 /* InfoPlist.strings */,
 				C2CA9FD116A8E5760040A428 /* main.m */,
 				C2CA9FD316A8E5760040A428 /* PanoPlayer-Prefix.pch */,
@@ -998,6 +1070,8 @@
 				15407AC6171E8A3500BB4F78 /* ProjectsViewController.m */,
 				15407ACA171E93F700BB4F78 /* SettingController.h */,
 				15407ACB171E93F700BB4F78 /* SettingController.m */,
+				1536364E171ED13F00D2069F /* ProjectTableCell.h */,
+				1536364F171ED14000D2069F /* ProjectTableCell.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1015,6 +1089,7 @@
 				1530A95616EDE9DC00ABEBCE /* SettingView.xib */,
 				15407AC8171E8C7B00BB4F78 /* ProjectsView.xib */,
 				15407ACD171E940E00BB4F78 /* Setting.xib */,
+				1536364C171ECF7500D2069F /* ProjectTableCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1242,6 +1317,8 @@
 				153145B2171BF9CF0047E1CB /* btRound.png in Resources */,
 				15407AC9171E8C7B00BB4F78 /* ProjectsView.xib in Resources */,
 				15407ACE171E940E00BB4F78 /* Setting.xib in Resources */,
+				1536363D171EB13400D2069F /* dataList.plist in Resources */,
+				1536364D171ECF7600D2069F /* ProjectTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1420,6 +1497,13 @@
 				15550958171C1258001815E4 /* MapFrameController.m in Sources */,
 				15407AC7171E8A3500BB4F78 /* ProjectsViewController.m in Sources */,
 				15407ACC171E93F700BB4F78 /* SettingController.m in Sources */,
+				15363613171EAF6400D2069F /* AOWaterView.m in Sources */,
+				15363614171EAF6400D2069F /* MessView.m in Sources */,
+				1536361C171EAF7400D2069F /* EGORefreshTableFooterView.m in Sources */,
+				1536361D171EAF7400D2069F /* EGORefreshTableHeaderView.m in Sources */,
+				15363643171EB1BC00D2069F /* DataAccess.m in Sources */,
+				15363644171EB1BC00D2069F /* DataInfo.m in Sources */,
+				15363650171ED14000D2069F /* ProjectTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

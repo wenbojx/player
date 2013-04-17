@@ -8,20 +8,52 @@
 
 #import <UIKit/UIKit.h>
 #import "HomeViewController.h"
+
+/*
 #import "InfoViewController.h"
 #import "MapViewController.h"
-#import "SettingController.h"
+ */
 
-@interface ProjectsViewController : UIViewController{
+#import "SettingController.h"
+#import "ASIHTTPRequest.h"
+#import "ASIDownloadCache.h"
+/*
+#import "EGORefreshTableHeaderView.h"
+#import "EGORefreshTableFooterView.h"
+#import "AOWaterView.h"
+ */
+
+#import "ProjectTableCell.h"
+
+#import "UIImageView+WebCache.h"
+#import "ASIHTTPRequest.h"
+#import "ASIDownloadCache.h"
+
+
+@interface ProjectsViewController : UIViewController {
+    /*
     UINavigationController *navLoginController;
     UINavigationController *navHomeController;
     UINavigationController *navInfoController;
     UINavigationController *navMapController;
-    UINavigationController *navSetController;
+     
     UITabBarController *tabBarController;
+     */
+    IBOutlet UIButton *reflashButton;
+    NSMutableArray *projectList;
+
 }
 
--(void) settingConfig;
+@property(retain, nonatomic) NSMutableArray *projectList;
+@property(retain, nonatomic) IBOutlet UIButton *reflashButton;
+
+
+- (void)addProject:(NSString *)projectId thumbImage:(NSString *)thumbImage projectTitle:(NSString *)projectTitle photoTime:(NSString *)photoTime;
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)getJsonFromUrl:(NSString *)url;
+-(IBAction)onClickButton:(id)sender;
+
 -(IBAction)settingConfig:(id)pressed;
 
 @end

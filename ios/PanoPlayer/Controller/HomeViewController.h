@@ -11,13 +11,13 @@
 
 @interface HomeViewController : UIViewController{
     NSMutableArray *panoList;
-    NSString *panoListUrl;
-    int panoId;
+    NSString *projectListUrl;
+    //int panoId;
     IBOutlet UIButton *reflashButton;
 }
 
 @property(retain, nonatomic) NSMutableArray *panoList;
-@property(retain, nonatomic) NSString *panoListUrl;
+@property(retain, nonatomic) NSString *projectListUrl;
 @property(retain, nonatomic) IBOutlet UIButton *reflashButton;
 
 

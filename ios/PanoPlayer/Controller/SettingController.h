@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProjectsViewController.h"
 
 @interface SettingController : UIViewController{
     NSString *username;

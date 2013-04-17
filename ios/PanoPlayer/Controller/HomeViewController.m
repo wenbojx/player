@@ -23,21 +23,50 @@
 @implementation HomeViewController
 
 @synthesize panoList;
-@synthesize panoListUrl;
+@synthesize projectListUrl;
 @synthesize reflashButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    panoId = [[self getProjectId] intValue];
-    panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", panoId];
+
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"首页", @"首页");
-        self.tabBarItem.image = [UIImage imageNamed:@"home"];
+        
     }
     return self;
 }
 
+
+//解析json数据
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProjectPlayerNotificationHandler:) name:@"projectId" object:nil];
+    
+}
+
+- (void)ProjectPlayerNotificationHandler:(NSNotification*)notification
+{
+    //NSLog(@"sdfsf%@", @"fsdfsdf");
+    NSString *projectId = [[notification userInfo] objectForKey:@"projectId"];
+    NSString *projectTitle = [[notification userInfo] objectForKey:@"projectTitle"];
+    //NSLog(@"projectTitle%@", projectTitle);
+    
+    projectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%@", projectId];
+    
+    	// Do any additional setup after loading the view.
+    [self setItemTitle:projectTitle];
+    [self getPanoInfo];
+
+    
+}
+-(void)setItemTitle:(NSString *)title{
+    self.title = NSLocalizedString(title, title);
+    self.tabBarItem.image = [UIImage imageNamed:@"home"];
+}
+
+/*
 -(NSString *)getProjectId{
     
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
@@ -53,6 +82,7 @@
     }
     return project_id;
 }
+ */
 
 //返回UITableView共几行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -108,6 +138,9 @@
     //NSString *panoTitle = [panoInfo objectForKey:@"panoTitle"];
     //NSLog(@"idddd=%@", panoId);
     
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
     PlayerViewController *playerView = [[PlayerViewController alloc] init];
     
     playerView.hidesBottomBarWhenPushed = YES;
@@ -135,6 +168,7 @@
     
     [panoList addObject:pano];
 }
+
 - (void) getWrong:(NSString*)str{
     NSString *msg = [NSString stringWithFormat:@"%@", str];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -189,23 +223,13 @@
 }
 
 
-//解析json数据
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backButton;	// Do any additional setup after loading the view.
-    self.navigationItem.hidesBackButton = YES;
-    
-    [self getPanoInfo];
-    
-}
+
 
 -(void) getPanoInfo{
     panoList = [[NSMutableArray alloc] init];
 	
-	NSString *responseData = [self getJsonFromUrl:panoListUrl];
+	NSString *responseData = [self getJsonFromUrl:projectListUrl];
+    //NSLog(@"sdfdsf=%@", responseData);
     if(responseData !=nil){
         NSDictionary *resultsDictionary = [responseData objectFromJSONString];
         NSArray *panos = [resultsDictionary objectForKey:@"panos"];
@@ -226,7 +250,7 @@
 
     [self.view removeFromSuperview];
     HomeViewController *homeView = [[HomeViewController alloc] init];
-    homeView.title = @"西湖秋景";
+    //homeView.title = @"西湖秋景";
     [self.navigationController pushViewController:homeView animated:(YES)];
 
 }
@@ -251,6 +275,217 @@
  - (BOOL)shouldAutorotate {
  return YES;
  }*/
+
+
+
+
+/*
+ 
+ 
+ 
+ - (void)didReceiveMemoryWarning
+ {
+ [super didReceiveMemoryWarning];
+ // Dispose of any resources that can be recreated.
+ }
+ //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+ //初始化刷新视图
+ //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+ #pragma mark
+ #pragma methods for creating and removing the header view
+ 
+ -(void)createHeaderView{
+ if (_refreshHeaderView && [_refreshHeaderView superview]) {
+ [_refreshHeaderView removeFromSuperview];
+ }
+ _refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:
+ CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,
+ self.view.frame.size.width, self.view.bounds.size.height)];
+ _refreshHeaderView.delegate = self;
+ 
+ [self.aoView addSubview:_refreshHeaderView];
+ 
+ [_refreshHeaderView refreshLastUpdatedDate];
+ }
+ 
+ -(void)removeHeaderView{
+ if (_refreshHeaderView && [_refreshHeaderView superview]) {
+ [_refreshHeaderView removeFromSuperview];
+ }
+ _refreshHeaderView = nil;
+ }
+ 
+ -(void)setFooterView{
+ UIEdgeInsets test = self.aoView.contentInset;
+ // if the footerView is nil, then create it, reset the position of the footer
+ CGFloat height = MAX(self.aoView.contentSize.height, self.aoView.frame.size.height);
+ if (_refreshFooterView && [_refreshFooterView superview]) {
+ // reset position
+ _refreshFooterView.frame = CGRectMake(0.0f,
+ height,
+ self.aoView.frame.size.width,
+ self.view.bounds.size.height);
+ }else {
+ // create the footerView
+ _refreshFooterView = [[EGORefreshTableFooterView alloc] initWithFrame:
+ CGRectMake(0.0f, height,
+ self.aoView.frame.size.width, self.view.bounds.size.height)];
+ _refreshFooterView.delegate = self;
+ [self.aoView addSubview:_refreshFooterView];
+ }
+ 
+ if (_refreshFooterView) {
+ [_refreshFooterView refreshLastUpdatedDate];
+ }
+ }
+ 
+ -(void)removeFooterView{
+ if (_refreshFooterView && [_refreshFooterView superview]) {
+ [_refreshFooterView removeFromSuperview];
+ }
+ _refreshFooterView = nil;
+ }
+ 
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ return NO;
+ }
+ 
+ #pragma mark-
+ #pragma mark force to show the refresh headerView
+ -(void)showRefreshHeader:(BOOL)animated{
+ if (animated)
+ {
+ [UIView beginAnimations:nil context:NULL];
+ [UIView setAnimationDuration:0.2];
+ self.aoView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
+ // scroll the table view to the top region
+ [self.aoView scrollRectToVisible:CGRectMake(0, 0.0f, 1, 1) animated:NO];
+ [UIView commitAnimations];
+ }
+ else
+ {
+ self.aoView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
+ [self.aoView scrollRectToVisible:CGRectMake(0, 0.0f, 1, 1) animated:NO];
+ }
+ 
+ [_refreshHeaderView setState:EGOOPullRefreshLoading];
+ }
+ //===============
+ //刷新delegate
+ #pragma mark -
+ #pragma mark data reloading methods that must be overide by the subclass
+ 
+ -(void)beginToReloadData:(EGORefreshPos)aRefreshPos{
+ 
+ //  should be calling your tableviews data source model to reload
+ _reloading = YES;
+ 
+ if (aRefreshPos == EGORefreshHeader) {
+ // pull down to refresh data
+ [self performSelector:@selector(refreshView) withObject:nil afterDelay:2.0];
+ }else if(aRefreshPos == EGORefreshFooter){
+ // pull up to load more data
+ [self performSelector:@selector(getNextPageView) withObject:nil afterDelay:2.0];
+ }
+ 
+ // overide, the actual loading data operation is done in the subclass
+ }
+ 
+ #pragma mark -
+ #pragma mark method that should be called when the refreshing is finished
+ - (void)finishReloadingData{
+ 
+ //  model should call this when its done loading
+ _reloading = NO;
+ 
+ if (_refreshHeaderView) {
+ [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.aoView];
+ }
+ 
+ if (_refreshFooterView) {
+ [_refreshFooterView egoRefreshScrollViewDataSourceDidFinishedLoading:self.aoView];
+ [self setFooterView];
+ }
+ 
+ // overide, the actula reloading tableView operation and reseting position operation is done in the subclass
+ }
+ 
+ #pragma mark -
+ #pragma mark UIScrollViewDelegate Methods
+ 
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+ if (_refreshHeaderView) {
+ [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+ }
+ 
+ if (_refreshFooterView) {
+ [_refreshFooterView egoRefreshScrollViewDidScroll:scrollView];
+ }
+ }
+ 
+ - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+ if (_refreshHeaderView) {
+ [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+ }
+ 
+ if (_refreshFooterView) {
+ [_refreshFooterView egoRefreshScrollViewDidEndDragging:scrollView];
+ }
+ }
+ 
+ 
+ #pragma mark -
+ #pragma mark EGORefreshTableDelegate Methods
+ 
+ - (void)egoRefreshTableDidTriggerRefresh:(EGORefreshPos)aRefreshPos{
+ 
+ [self beginToReloadData:aRefreshPos];
+ 
+ }
+ 
+ - (BOOL)egoRefreshTableDataSourceIsLoading:(UIView*)view{
+ 
+ return _reloading; // should return if data source model is reloading
+ 
+ }
+ 
+ 
+ // if we don't realize this method, it won't display the refresh timestamp
+ - (NSDate*)egoRefreshTableDataSourceLastUpdated:(UIView*)view{
+ 
+ return [NSDate date]; // should return date data source was last changed
+ 
+ }
+ 
+ //刷新调用的方法
+ -(void)refreshView{
+ DataAccess *dataAccess= [[DataAccess alloc]init];
+ NSMutableArray *dataArray = [dataAccess getDateArray];
+ [self.aoView refreshView:dataArray];
+ [self testFinishedLoadData];
+ 
+ }
+ //加载调用的方法
+ -(void)getNextPageView{
+ [self removeFooterView];
+ DataAccess *dataAccess= [[DataAccess alloc]init];
+ NSMutableArray *dataArray = [dataAccess getDateArray];
+ //    NSMutableArray *testData = [[NSMutableArray alloc]init];
+ //    for (int i=0; i<9; i++) {
+ //        [testData addObject:[dataArray objectAtIndex:i]];
+ //    }
+ [self.aoView getNextPage:dataArray];
+ [self testFinishedLoadData];
+ 
+ }-(void)testFinishedLoadData{
+ 
+ [self finishReloadingData];
+ [self setFooterView];
+ }
+ 
+ */
+
+
 
 
 

@@ -120,7 +120,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{170, 59}, {147, 21}}</string>
 								<reference key="NSSuperview" ref="242671804"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -150,7 +149,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{346, 84}</string>
+						<string key="NSFrameSize">{346, 80}</string>
 						<reference key="NSSuperview" ref="348675188"/>
 						<reference key="NSNextKeyView" ref="474173389"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
@@ -165,14 +164,14 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{346, 85}</string>
+				<string key="NSFrameSize">{346, 81}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="242671804"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="242671804"/>
 				<string key="IBUIReuseIdentifier">CellIdentifier</string>
-				<real value="85" key="IBUIRowHeight"/>
+				<real value="81" key="IBUIRowHeight"/>
 			</object>
 			<object class="IBUIBarButtonItem" id="132819025">
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -294,7 +293,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">20</int>
+			<int key="maxID">21</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
