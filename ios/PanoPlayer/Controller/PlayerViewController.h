@@ -12,10 +12,12 @@
 #import "ListFrameController.h"
 #import "InfoFrameController.h"
 #import "MapFrameController.h"
+#import "AVFoundation/AVFoundation.h"
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
     PLView *plView;
     PLCubicPanorama *cubicPanorama;
+    NSString *curentPanoID;
     
     NSMutableArray *hotspots;
     //PLCubicPanorama *cubicPanorama;
@@ -39,7 +41,7 @@
     int animationWaitTime;
     int animationMoveTime;
 
-    UIBarButtonItem *rightItemBar;
+    //UIBarButtonItem *rightItemBar;
     NSTimer *aniTimer;
     NSString *level;
     IBOutlet UILabel *logo;
@@ -47,7 +49,11 @@
     IBOutlet UIButton *btInfo;//简介按钮
     IBOutlet UIButton *btMap;//地图按钮
     IBOutlet UIButton *btRround;//自动旋转
-    IBOutlet UIButton *btMusic;//音乐
+    
+    IBOutlet UIButton * btMusic;//播放音乐
+    IBOutlet UIButton * playPause;//播放暂停
+    //定义一个声音的播放器
+    AVAudioPlayer *musicPlayer;
 }
 
 //@property(retain, nonatomic)NSString *panoId;
@@ -74,7 +80,7 @@
 @property(retain, nonatomic)UILabel *loading;
 @property(retain, nonatomic)NSString *panoTitle;
 @property(assign, nonatomic)Boolean alertOnce;
-@property(assign,nonatomic)UIBarButtonItem *rightItemBar;
+//@property(assign,nonatomic)UIBarButtonItem *rightItemBar;
 
 
 
@@ -85,12 +91,15 @@
 
 //@property(retain, nonatomic)PLCubicPanorama *cubicPanorama;
 
-- (IBAction)rightItemClick:(id)sender;
+//- (IBAction)rightItemClick:(id)sender;
 - (IBAction)btListClick:(id)sender;
 - (IBAction)btInfoClick:(id)sender;
 - (IBAction)btMapClick:(id)sender;
 - (IBAction)btRoundClick:(id)sender;
 - (IBAction)btMusicClick:(id)sender;
+
+-(IBAction)playSoundPressed:(id)pressed;
+
 
 - (void)setAnimation;
 

@@ -17,10 +17,11 @@
 
     NSArray *coordsData;
     NSString *responseData;
-    UIProgressView *imageProgressIndicator;
-    UILabel *loading;
-    int panoId;
-    
+    UIActivityIndicatorView *loading;
+    int ProjectId;
+    NSString *panoId;
+    int layoutWidh;
+    int layoutHeight;
 }
 
 @property(retain, nonatomic)UIButton *closeBt;
@@ -31,14 +32,12 @@
 
 @property(nonatomic, retain) NSMutableArray *linkScene;
 
-@property(nonatomic, assign) UIProgressView *imageProgressIndicator;
-@property(nonatomic, assign)UILabel *loading;
-@property (nonatomic, assign) IBOutlet UIScrollView         *viewScrollStub;
-@property (nonatomic, assign) IBOutlet MTImageMapView       *viewImageMap;
-@property (nonatomic, retain)          NSArray              *stateNames;
+@property(nonatomic, assign)UIActivityIndicatorView *loading;
+@property (nonatomic, assign) UIScrollView *viewScrollStub;
+@property (nonatomic, assign) MTImageMapView *viewImageMap;
+@property (nonatomic, retain) NSArray *stateNames;
 @property(nonatomic, retain) NSArray *coordsData;
 @property(nonatomic, retain) NSString *responseData;
-@property(retain, nonatomic) IBOutlet UIButton *reflashButton;
 
 
 
@@ -46,5 +45,7 @@
 -(void)displayMap:(UIImage *)mapImage coords:(NSArray *)coords;
 -(void)downLoadImage:(NSString *)url;
 -(UIImage *)addImageLogo:(UIImage *)img waterMark:(UIImage *)logo left:(float)left top:(float)top;
+
+-(void) setPanoId:(NSString *)pid;
 
 @end

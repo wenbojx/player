@@ -31,17 +31,23 @@
     
     
     panoId = [[self getProjectId] intValue];
+    //panoId = 10130;
     
-    panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", panoId];
+    panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pv/id/%d", panoId];
     
     NSString *responseData = [self getJsonFromUrl:panoListUrl];
     NSString *style = @"<style>body{margin:5px;background-color:transparent;}</style>";
-    NSString *content = @"暂无简介";
+    NSString *content = @"暂无描述";
     if(responseData !=nil){
-        NSDictionary *resultsDictionary = [responseData objectFromJSONString];
-        content = [resultsDictionary objectForKey:@"info"];
         
+        NSDictionary *resultsDictionary = [responseData objectFromJSONString];
+        NSDictionary *pano = [resultsDictionary objectForKey:@"pano"];
+        NSString *contentTmp = [pano objectForKey:@"info"];
+        if (contentTmp != nil) {
+            content = contentTmp;
+        }
     }
+    
     content = [style stringByAppendingFormat:@"%@", content];
     
     int width = frame.size.width-10;

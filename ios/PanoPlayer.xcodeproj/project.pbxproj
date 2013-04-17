@@ -28,6 +28,11 @@
 		153FD4C316D5108300465C05 /* info.html in Resources */ = {isa = PBXBuildFile; fileRef = 153FD4C216D5108300465C05 /* info.html */; };
 		153FD4D616D5109D00465C05 /* icon_pano_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 153FD4CC16D5109D00465C05 /* icon_pano_about.png */; };
 		153FD4D716D5109D00465C05 /* icon_pano_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 153FD4CD16D5109D00465C05 /* icon_pano_home.png */; };
+		15407A61171E4DB900BB4F78 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15407A60171E4DB900BB4F78 /* AVFoundation.framework */; };
+		15407AC7171E8A3500BB4F78 /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15407AC6171E8A3500BB4F78 /* ProjectsViewController.m */; };
+		15407AC9171E8C7B00BB4F78 /* ProjectsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15407AC8171E8C7B00BB4F78 /* ProjectsView.xib */; };
+		15407ACC171E93F700BB4F78 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15407ACB171E93F700BB4F78 /* SettingController.m */; };
+		15407ACE171E940E00BB4F78 /* Setting.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15407ACD171E940E00BB4F78 /* Setting.xib */; };
 		1542E30916E0F91800BD1172 /* hotspots10.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542E30116E0F8FE00BD1172 /* hotspots10.png */; };
 		1542E30A16E0F91800BD1172 /* hotspots11.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542E30216E0F8FF00BD1172 /* hotspots11.png */; };
 		1542E30B16E0F91800BD1172 /* hotspots12.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542E30316E0F90000BD1172 /* hotspots12.png */; };
@@ -306,6 +311,13 @@
 		153FD4C216D5108300465C05 /* info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = info.html; sourceTree = "<group>"; };
 		153FD4CC16D5109D00465C05 /* icon_pano_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_about.png; path = img/icon_pano_about.png; sourceTree = "<group>"; };
 		153FD4CD16D5109D00465C05 /* icon_pano_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_pano_home.png; path = img/icon_pano_home.png; sourceTree = "<group>"; };
+		15407A60171E4DB900BB4F78 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		15407AC5171E8A3500BB4F78 /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectsViewController.h; path = Controller/ProjectsViewController.h; sourceTree = "<group>"; };
+		15407AC6171E8A3500BB4F78 /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectsViewController.m; path = Controller/ProjectsViewController.m; sourceTree = "<group>"; };
+		15407AC8171E8C7B00BB4F78 /* ProjectsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectsView.xib; sourceTree = "<group>"; };
+		15407ACA171E93F700BB4F78 /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingController.h; path = Controller/SettingController.h; sourceTree = "<group>"; };
+		15407ACB171E93F700BB4F78 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingController.m; path = Controller/SettingController.m; sourceTree = "<group>"; };
+		15407ACD171E940E00BB4F78 /* Setting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Setting.xib; sourceTree = "<group>"; };
 		1542E30116E0F8FE00BD1172 /* hotspots10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots10.png; path = img/hotspots10.png; sourceTree = "<group>"; };
 		1542E30216E0F8FF00BD1172 /* hotspots11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots11.png; path = img/hotspots11.png; sourceTree = "<group>"; };
 		1542E30316E0F90000BD1172 /* hotspots12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotspots12.png; path = img/hotspots12.png; sourceTree = "<group>"; };
@@ -583,6 +595,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15407A61171E4DB900BB4F78 /* AVFoundation.framework in Frameworks */,
 				C2C8B8D616B26EDA00E1666D /* libxml2.dylib in Frameworks */,
 				C2D4618B16AD61E700F12996 /* MapKit.framework in Frameworks */,
 				C2D4618816AD61BA00F12996 /* ImageIO.framework in Frameworks */,
@@ -909,6 +922,7 @@
 		C2CA9FC416A8E5760040A428 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15407A60171E4DB900BB4F78 /* AVFoundation.framework */,
 				C2D4618A16AD61E700F12996 /* MapKit.framework */,
 				C2D4618716AD61BA00F12996 /* ImageIO.framework */,
 				C293037616A93E9A00D3530D /* CFNetwork.framework */,
@@ -980,6 +994,10 @@
 				15550954171C0FBE001815E4 /* InfoFrameController.m */,
 				15550956171C1257001815E4 /* MapFrameController.h */,
 				15550957171C1257001815E4 /* MapFrameController.m */,
+				15407AC5171E8A3500BB4F78 /* ProjectsViewController.h */,
+				15407AC6171E8A3500BB4F78 /* ProjectsViewController.m */,
+				15407ACA171E93F700BB4F78 /* SettingController.h */,
+				15407ACB171E93F700BB4F78 /* SettingController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -995,6 +1013,8 @@
 				1539BC6B16D7514B00F5B43F /* HotImageView.xib */,
 				1543968D16EDD8750004FB6F /* TabBarView.xib */,
 				1530A95616EDE9DC00ABEBCE /* SettingView.xib */,
+				15407AC8171E8C7B00BB4F78 /* ProjectsView.xib */,
+				15407ACD171E940E00BB4F78 /* Setting.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1220,6 +1240,8 @@
 				153145AE171BF9CF0047E1CB /* btMap.png in Resources */,
 				153145B0171BF9CF0047E1CB /* btMusic.png in Resources */,
 				153145B2171BF9CF0047E1CB /* btRound.png in Resources */,
+				15407AC9171E8C7B00BB4F78 /* ProjectsView.xib in Resources */,
+				15407ACE171E940E00BB4F78 /* Setting.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1396,6 +1418,8 @@
 				154A2477171BE83100F48989 /* ListFrameController.m in Sources */,
 				15550955171C0FBE001815E4 /* InfoFrameController.m in Sources */,
 				15550958171C1258001815E4 /* MapFrameController.m in Sources */,
+				15407AC7171E8A3500BB4F78 /* ProjectsViewController.m in Sources */,
+				15407ACC171E93F700BB4F78 /* SettingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

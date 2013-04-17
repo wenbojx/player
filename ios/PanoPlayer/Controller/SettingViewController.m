@@ -14,7 +14,6 @@
 @end
 
 @implementation SettingViewController
-@synthesize projectIdText;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,11 +31,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     //projectIdText = [[UITextField alloc] init];
+    /*
     level = @"0";
     project_id = [self getProjectId];
     projectIdText.text = project_id;
+     */
 }
 
+/*
 -(NSString *)getProjectId{
     
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
@@ -164,9 +166,13 @@
     [self presentViewController:tabBarController animated:YES completion:nil];
     
 }
+
+
 - (IBAction) ProjectIdDoneEditing:(id)sender{
     [sender resignFirstResponder];
 }
+ 
+*/
 
 - (void)didReceiveMemoryWarning
 {

@@ -15,21 +15,16 @@
 
 @end
 
-@implementation MapFrameController{
-    UIScrollView         *_viewScrollStub;
-    MTImageMapView       *_viewImageMap;
-    NSArray              *_stateNames;
-}
+@implementation MapFrameController
 
 @synthesize closeBt;
 
-@synthesize viewScrollStub  = _viewScrollStub;
-@synthesize viewImageMap    = _viewImageMap;
-@synthesize stateNames      = _stateNames;
+@synthesize viewScrollStub;
+@synthesize viewImageMap;
+@synthesize stateNames;
 @synthesize linkScene;
 @synthesize coordsData;
 @synthesize responseData;
-@synthesize imageProgressIndicator;
 @synthesize loading;
 
 
@@ -42,47 +37,60 @@
         self.layer.borderWidth = 3;   //设置弹出框视图边框宽度
         self.layer.borderColor = [[UIColor colorWithRed:0.10 green:0.10 blue:0.10 alpha:0.5] CGColor];   //设置弹出框边框颜色
         self.autoresizesSubviews = YES;
+        //self.layer.backgroundColor =
         CGSize result = frame.size;
         width = result.width-35;
  
     }
-    [self setCloseButton];
+    
+    layoutWidh = frame.size.width-20;
+    layoutHeight = frame.size.height-30;
+    
+    viewScrollStub = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 10, layoutWidh, layoutHeight)];
+
+    [self showWaiting];
+    
+    [self addSubview:viewScrollStub];
     [self loadMap];
+
+    [self setCloseButton];
+    
     return self;
 }
 
--(void) loadMap{
-    panoId = [[self getProjectId] intValue];
-    coordsData = [[NSArray alloc] init];
+-(void)showWaiting {
     
-    [_viewScrollStub addSubview:_viewImageMap];
-    [_viewScrollStub setContentSize:[_viewImageMap sizeThatFits:CGSizeZero]];
+    loading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(layoutWidh/2, layoutHeight/2, 20, 20)];
+    //loading.center=CGPointMake(self.center.x,100);
+    
+    [loading setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    loading.color = [UIColor blackColor];
+    [self.viewScrollStub addSubview:loading];
+    [loading startAnimating];
+}
+//消除滚动轮指示器
+-(void)hideWaiting
+{
+    [loading stopAnimating];
+}
 
-    loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-    loading.text = @"地图加载中...";
-    loading.backgroundColor = [UIColor clearColor];
-    loading.font = [UIFont fontWithName:@"Arial" size:12];
-    //loading.textAlignment = UITextAlignmentCenter;
-    //loading.font
-    [_viewScrollStub addSubview:loading];
-    
-    CGSize result = [[UIScreen mainScreen] bounds].size;
-    int height = result.height;
-    int width = result.width;
-    int progressWdith = width/2;
-    int x = (width - 90)/2;
-    int y = (height/2)-100;
-    [loading setFrame:CGRectMake(x,y,90,20)];
-    
-    
-    imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
-    [_viewScrollStub addSubview:imageProgressIndicator];
-    y = y+20;
-    x = (width - progressWdith)/2;
-    [imageProgressIndicator setFrame:CGRectMake(x,y,progressWdith,30)];
+-(void) setPanoId:(NSString *)pid{
+    panoId = pid;
+}
+
+
+-(void) loadMap{
+    ProjectId = [[self getProjectId] intValue];
+    coordsData = [[NSArray alloc] init];
+
+    loading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(100, 100, 30, 30)];
+    loading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    loading.hidesWhenStopped = YES;
+    [viewScrollStub addSubview:loading];
+    [loading startAnimating];
 
     responseData = [[NSString alloc] init];
-    NSString *panoInfoUrl = [NSString stringWithFormat:@"http://beta1.yiluhao.com/ajax/m/pm/id/%d", panoId];
+    NSString *panoInfoUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pm/id/%d", ProjectId];
     //NSLog(@"panoInfoUrl=%@", panoInfoUrl);
     responseData = [self getPanoMapFromUrl:panoInfoUrl];
     //}
@@ -107,8 +115,6 @@
 
 }
 
-
-
 -(NSString *)getProjectId{
     
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
@@ -131,8 +137,8 @@
     [alert show];
     [alert release];
     self.loading.hidden = YES;
-    self.imageProgressIndicator.hidden = YES;
 }
+
 
 -(NSString *)getPanoMapFromUrl:(NSString *)url{
     if(url == nil){
@@ -171,9 +177,8 @@
     return responseData;
 }
 
+
 -(void)downLoadImage:(NSString *)url{
-    //return;
-    //url = @"http://beta1.yiluhao.com/html/pano-6000.jpg";
     
     if(url == nil){
         [self getWrong:@"加载地图失败,请检查您的网络设置"];
@@ -192,14 +197,14 @@
     [request setDownloadCache:cache];
     
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-    [request setDownloadProgressDelegate:imageProgressIndicator];
+    //[request setDownloadProgressDelegate:imageProgressIndicator];
     [request setSecondsToCache:60*60*24*30*10]; //30
     
     [request setUserInfo:[NSDictionary dictionaryWithObject:coordsData forKey:@"coords"]];
     
-    MapFrameController *a = [MapFrameController alloc];
+    //MapFrameController *a = [MapFrameController alloc];
     
-    [request setDelegate : a ];
+    [request setDelegate : self ];
     Boolean cached = [cache isCachedDataCurrentForRequest:request];
     if(cached){
         //[imageProgressIndicator setProgress:100];
@@ -210,7 +215,6 @@
 }
 - ( void )requestFinished:( ASIHTTPRequest *)request
 {
-    NSLog(@"sdfsf=%@", @"dddddd");
     //[imageProgressIndicator setProgress:100000 animated:YES];
     NSArray *coords = [[request userInfo] objectForKey:@"coords"];
 	UIImage *img = [UIImage imageWithData:[request responseData]];
@@ -225,12 +229,11 @@
     [self hideProgress];
 }
 -(void)hideProgress{
-    self.imageProgressIndicator.hidden = YES;
+    //self.imageProgressIndicator.hidden = YES;
     self.loading.hidden = YES;
 }
 - ( void )requestFailed:( ASIHTTPRequest *)request
 {
-    NSLog(@"sdfsf=%@", @"eeeeee");
     if ([[request error] domain] != NetworkRequestErrorDomain || [[request error] code] != ASIRequestCancelledErrorType) {
         [self getWrong:@"下载地图出错，请检查您的网络设置"];
     }
@@ -239,13 +242,13 @@
 
 
 -(void)displayMap:(UIImage *)mapImage coords:(NSArray *)coords{
-    NSLog(@"cccccc");
-    NSLog(@"coordsData=%@", coordsData);
-    return;
+
+    viewImageMap = [[MTImageMapView alloc] initWithImage:[UIImage imageNamed:@"map.jpg"]];
     NSMutableArray *arrStates = [[NSMutableArray alloc] init];
     linkScene = [[NSMutableArray alloc] init];
     UIImage *logo = [UIImage imageNamed:@"marker_green.png"];
-    
+    UIImage *logoRed = [UIImage imageNamed:@"marker_red.png"];
+    NSLog(@"sdf%@",panoId);
     for (int i=0; i<coordsData.count; i++) {
         NSDictionary  *tmp = [coordsData objectAtIndex:i];
         NSString *coords = [tmp objectForKey:@"coords"];
@@ -257,26 +260,33 @@
         float marginTop = [[aArray objectAtIndex:1] floatValue];
         //if(i==3){
         //添加水印
-        mapImage = [self addImageLogo:mapImage waterMark:logo left:marginLeft top:marginTop];
+        if ([linkId isEqualToString:panoId]) {
+            mapImage = [self addImageLogo:mapImage waterMark:logoRed left:marginLeft top:marginTop];
+        }
+        else{
+            mapImage = [self addImageLogo:mapImage waterMark:logo left:marginLeft top:marginTop];
+        }
         //}
     }
+
     [logo release], logo=nil;
+    viewImageMap.image = mapImage;
+    [viewImageMap sizeToFit];
     
-    _viewImageMap.image = mapImage;
-    [_viewImageMap sizeToFit];
-    
-    [_viewScrollStub addSubview:_viewImageMap];
-    
-    
-    [_viewScrollStub setContentSize:
-     [_viewImageMap sizeThatFits:CGSizeZero]
+    [viewScrollStub addSubview:viewImageMap];
+    //[viewImageMap initWithImage:<#(UIImage *)#>]
+
+    [viewScrollStub setContentSize:
+     [viewImageMap sizeThatFits:CGSizeZero]
 	 ];
-    
-    [_viewImageMap
+    viewImageMap.delegate = self;
+    //[viewImageMap ]
+    [viewImageMap
      setMapping:arrStates
      doneBlock:^(MTImageMapView *imageMapView) {
          NSLog(@"Areas are all mapped");
      }];
+    [self hideWaiting];
 }
 
 -(UIImage *)addImageLogo:(UIImage *)img waterMark:(UIImage *)logo left:(float)left top:(float)top{
@@ -305,7 +315,6 @@
 {
     //NSDictionary *panoInfo = [panoList objectAtIndex:indexPath.row];
     NSString *panoId = [linkScene objectAtIndex:inIndexSelected];
-    //NSLog(@"idddd=%@", panoId);
     
     PlayerViewController *playerView = [[PlayerViewController alloc] init];
     playerView.hidesBottomBarWhenPushed = YES;
@@ -317,7 +326,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:dic];
     
     //playerView.title = @"player";
-    
+    [self removeFromSuperview];
     [playerView release];
 }
 

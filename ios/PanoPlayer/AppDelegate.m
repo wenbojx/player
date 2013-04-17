@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ProjectsViewController.h"
 
 @implementation AppDelegate
 
@@ -22,15 +22,30 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    navHomeController = [[UINavigationController alloc] init];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]autorelease];
+    
+    ProjectsViewController *homeViewController = [[ProjectsViewController alloc] init];
+    homeViewController.title = @"全景视界";
+    [navHomeController pushViewController:homeViewController animated:NO];
+    
+    //tabBarController.viewControllers = [[NSArray alloc] initWithObjects:navHomeController,nil];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    //[self.window addSubview:tabBarController.view];
+    _window.rootViewController = navHomeController;
+    [self.window makeKeyAndVisible];
 
-    NSString *projectID = [self getProjectId];
-    NSLog(@"project_id==%@", projectID);
-    level = [self getProjectLevel];
-    [self showTab];
+
+    //NSString *projectID = [self getProjectId];
+    //NSLog(@"project_id==%@", projectID);
+    //level = [self getProjectLevel];
+    //[self showTab];
     return YES;
 
 }
+/*
 -(NSString *)getProjectId{
     
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
@@ -62,6 +77,7 @@
     }
     return level;
 }
+
 
 -(void)showTab{
     
@@ -112,7 +128,7 @@
     
 
 }
-
+*/
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

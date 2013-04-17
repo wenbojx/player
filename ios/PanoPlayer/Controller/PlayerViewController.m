@@ -40,7 +40,7 @@
 @synthesize imageView;
 @synthesize closeBt;
 @synthesize aboveView;
-@synthesize rightItemBar;
+//@synthesize rightItemBar;
 
 @synthesize imageProgressIndicator;
 @synthesize logo;
@@ -66,9 +66,11 @@
     animationWaitTime = 4000;
     animationMoveTime = 10;
 
+    /*
     rightItemBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"repeat.png"] style:NO target:self action:@selector(rightItemClick:)];
 
     self.navigationItem.rightBarButtonItem = rightItemBar;
+     */
     
     //self.navigationItem.title = @"sdfsdfsdf";
     //[self.navigationItem setTitle:@"asdfs"];
@@ -90,7 +92,7 @@
         [logo setText:@"www.yiluhao.com"];
     }
     else if ([level isEqualToString:@"1"]) {
-        [logo setText:@"标准版测试，升级后此信息不显示"];
+        [logo setText:@"www.yiluhao.com"];
     }
     
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
@@ -212,10 +214,11 @@
 }
 
 -(void)startDownload:(NSString *)panoId{
-    
+    //panoId = @"10129";
+    curentPanoID = panoId;
     hotspots = [[NSMutableArray alloc] init];
     if(panoId != nil){
-        NSString *panoInfoUrl = [NSString stringWithFormat:@"http://beta1.yiluhao.com/ajax/m/pv/id/%@", panoId];
+        NSString *panoInfoUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pv/id/%@", panoId];
         
         NSString *responseData = [self getPanoInfoFromUrl:panoInfoUrl];
         if(responseData ==nil){
@@ -258,9 +261,8 @@
             ASIHTTPRequest *request;
             
             NSDictionary *pano = [resultsDictionary objectForKey:@"pano"];
+            //NSLog(@"pano=%@", pano);
             self.panoTitle = [pano objectForKey:@"title"];
-            
-            //NSLog(@"aaaa%@", panoTitle);
             
             NSString *s_f = [pano objectForKey:@"s_f"];
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_f]];
@@ -309,6 +311,12 @@
             cached = [cache isCachedDataCurrentForRequest:request];
             if(cached){
                 NSLog(@"cached3");
+            }
+            
+            NSString *musicUrl = [resultsDictionary objectForKey:@"music"];
+            //NSLog(@"music=%@", musicUrl);
+            if (musicUrl != nil) {
+                [self downloadMusic:musicUrl];
             }
             
             [self changeLoadState:3];
@@ -512,6 +520,7 @@
     [plView startAnimation];
     aniTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(setAnimation) userInfo:nil repeats:YES];
 }
+/*
 - (IBAction)rightItemClick:(id)sender {
     if (isAnimation) {
         [rightItemBar setImage:[UIImage imageNamed:@"repeat.png"]];
@@ -523,6 +532,7 @@
         [self startAnimation];
     }
 }
+ */
 
 - (void)setAnimation
 {
@@ -559,6 +569,71 @@
     }
     self.alertOnce = true;
 }
+-(void) downloadMusic:(NSString *)url{
+    
+    if(url == nil){
+        return;
+    }
+    //NSLog(@"%@", @"DOWNLOAD MUSIC");
+    ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+    
+    [cache setShouldRespectCacheControlHeaders:NO] ;
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [request setDownloadCache:cache];
+    
+    [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
+    //[request setDownloadProgressDelegate:imageProgressIndicator];
+    [request setSecondsToCache:60*60*24*30*10]; //300
+
+    //MapFrameController *a = [MapFrameController alloc];
+    
+    [request setDelegate : self ];
+    Boolean cached = [cache isCachedDataCurrentForRequest:request];
+    if(cached){
+        NSLog(@"music cached");
+    }
+    
+    [request startAsynchronous];
+}
+
+- ( void )requestFinished:( ASIHTTPRequest *)request{
+    
+    NSData *music = [[NSData alloc] initWithData:[request responseData]];
+	if (music!=nil) {
+        NSError *error;
+        //NSLog(@"ccc%@", @"sdf");
+        musicPlayer = [[AVAudioPlayer alloc] initWithData:music error:&error];
+        [self playMusic];
+	}
+    else{
+        
+    }
+}
+- ( void )requestFailed:( ASIHTTPRequest *)request{
+
+}
+-(void)playMusic{
+    [musicPlayer play];
+}
+-(IBAction)playSoundPressed:(id)pressed{
+    if (musicPlayer) {
+        if ([musicPlayer isPlaying]) {
+            [musicPlayer pause];
+            NSLog(@"播放暂停");
+        }
+        else{
+            [musicPlayer play];
+            NSLog(@"开始播放");
+        }
+    }
+}
+
+
 
 -(NSString *)getPanoInfoFromUrl:(NSString *)url{
     if(url == nil){
@@ -691,13 +766,25 @@
     int y = 10;
     
     mapFrame = [MapFrameController alloc];
+    [mapFrame setPanoId:curentPanoID];
     [mapFrame initWithFrame:CGRectMake(x, y, width, height)];
     [self.view addSubview:mapFrame];
 }
+
+
 - (IBAction)btRoundClick:(id)sender{
-    
+    if (isAnimation) {
+        //[rightItemBar setImage:[UIImage imageNamed:@"repeat.png"]];
+        [self stopAnimation];
+    }
+    else{
+        //[rightItemBar setImage:[UIImage imageNamed:@"pause.png"]];
+        [self startAnimation];
+    }
+
 }
 - (IBAction)btMusicClick:(id)sender{
+    //下载音乐
     
 }
 
@@ -715,6 +802,7 @@
 -(void)dealloc
 {
     [super dealloc];
+    [musicPlayer release];
 }
 
 
