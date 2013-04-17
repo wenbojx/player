@@ -618,7 +618,7 @@
 
 }
 -(void)playMusic{
-    [musicPlayer play];
+    //[musicPlayer play];
 }
 -(IBAction)playSoundPressed:(id)pressed{
     if (musicPlayer) {
