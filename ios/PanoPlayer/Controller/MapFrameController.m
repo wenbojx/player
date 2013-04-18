@@ -78,9 +78,12 @@
     panoId = pid;
 }
 
+-(void) setProjectId:(int)pid{
+    projectId = pid;
+}
 
 -(void) loadMap{
-    ProjectId = [[self getProjectId] intValue];
+    //ProjectId = [[self getProjectId] intValue];
     coordsData = [[NSArray alloc] init];
 
     loading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(100, 100, 30, 30)];
@@ -90,8 +93,8 @@
     [loading startAnimating];
 
     responseData = [[NSString alloc] init];
-    NSString *panoInfoUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pm/id/%d", ProjectId];
-    //NSLog(@"panoInfoUrl=%@", panoInfoUrl);
+    NSString *panoInfoUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pm/id/%d", projectId];
+    NSLog(@"panoInfoUrl=%@", panoInfoUrl);
     responseData = [self getPanoMapFromUrl:panoInfoUrl];
     //}
     Boolean flag = false;
@@ -113,22 +116,6 @@
         
     }
 
-}
-
--(NSString *)getProjectId{
-    
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath1 = [paths objectAtIndex:0];
-    
-    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-    
-    NSString *project_id = [data objectForKey:@"project_id"];
-    if (project_id == nil) {
-        //[self showLogin];
-        project_id = @"1001";
-    }
-    return project_id;
 }
 
 - (void) getWrong:(NSString*)str{

@@ -26,7 +26,7 @@
     NSString *panoListUrl;
     int panoId;
     UITableView *tableView;
-    
+    int projectId;
 }
 
 @property(retain, nonatomic) NSMutableArray *panoList;
@@ -42,5 +42,7 @@
 - (NSString *)getJsonFromUrl:(NSString *)url;
 
 -(void) setCloseButton;
+
+-(void) setProjectId:(int)pid;
 
 @end

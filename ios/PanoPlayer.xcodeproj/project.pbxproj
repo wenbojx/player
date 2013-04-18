@@ -19,13 +19,7 @@
 		153145B1171BF9CF0047E1CB /* btMusic.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A8171BF9CF0047E1CB /* btMusic.png */; };
 		153145B2171BF9CF0047E1CB /* btRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A9171BF9CF0047E1CB /* btRound.png */; };
 		153145B3171BF9CF0047E1CB /* btRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A9171BF9CF0047E1CB /* btRound.png */; };
-		15363613171EAF6400D2069F /* AOWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363610171EAF6400D2069F /* AOWaterView.m */; };
-		15363614171EAF6400D2069F /* MessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363612171EAF6400D2069F /* MessView.m */; };
-		1536361C171EAF7400D2069F /* EGORefreshTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363617171EAF7400D2069F /* EGORefreshTableFooterView.m */; };
-		1536361D171EAF7400D2069F /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363619171EAF7400D2069F /* EGORefreshTableHeaderView.m */; };
 		1536363D171EB13400D2069F /* dataList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1536363C171EB13400D2069F /* dataList.plist */; };
-		15363643171EB1BC00D2069F /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363640171EB1BC00D2069F /* DataAccess.m */; };
-		15363644171EB1BC00D2069F /* DataInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15363642171EB1BC00D2069F /* DataInfo.m */; };
 		1536364D171ECF7600D2069F /* ProjectTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1536364C171ECF7500D2069F /* ProjectTableCell.xib */; };
 		15363650171ED14000D2069F /* ProjectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536364F171ED14000D2069F /* ProjectTableCell.m */; };
 		1539BC6C16D7514C00F5B43F /* HotImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1539BC6B16D7514B00F5B43F /* HotImageView.xib */; };
@@ -53,6 +47,21 @@
 		1542E31216E0FA4E00BD1172 /* imghotspot.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542E31116E0FA4E00BD1172 /* imghotspot.png */; };
 		1543968C16EDD8320004FB6F /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1543968B16EDD8320004FB6F /* TabBarViewController.m */; };
 		1543968E16EDD8750004FB6F /* TabBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1543968D16EDD8750004FB6F /* TabBarView.xib */; };
+		15456564171FF1CF00D81905 /* MosaicData.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456558171FF1CF00D81905 /* MosaicData.m */; };
+		15456565171FF1CF00D81905 /* TwoDimentionalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 1545655B171FF1CF00D81905 /* TwoDimentionalArray.m */; };
+		15456566171FF1CF00D81905 /* MosaicDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456561171FF1CF00D81905 /* MosaicDataView.m */; };
+		15456567171FF1CF00D81905 /* MosaicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456563171FF1CF00D81905 /* MosaicView.m */; };
+		1545656B171FF23F00D81905 /* PanoListMosaicDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1545656A171FF23F00D81905 /* PanoListMosaicDatasource.m */; };
+		15456577171FF3EB00D81905 /* 001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1545656D171FF3EB00D81905 /* 001.jpg */; };
+		15456578171FF3EB00D81905 /* 002.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1545656E171FF3EB00D81905 /* 002.jpg */; };
+		15456579171FF3EB00D81905 /* 003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1545656F171FF3EB00D81905 /* 003.jpg */; };
+		1545657A171FF3EB00D81905 /* 004.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15456570171FF3EB00D81905 /* 004.jpg */; };
+		1545657B171FF3EB00D81905 /* 005.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15456571171FF3EB00D81905 /* 005.jpg */; };
+		1545657C171FF3EB00D81905 /* 006.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15456572171FF3EB00D81905 /* 006.jpg */; };
+		1545657D171FF3EB00D81905 /* 007.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15456573171FF3EB00D81905 /* 007.jpg */; };
+		1545657E171FF3EB00D81905 /* 008.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15456574171FF3EB00D81905 /* 008.jpg */; };
+		1545657F171FF3EB00D81905 /* 009.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15456575171FF3EB00D81905 /* 009.jpg */; };
+		15456580171FF3EB00D81905 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 15456576171FF3EB00D81905 /* data.json */; };
 		154A2477171BE83100F48989 /* ListFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154A2476171BE83100F48989 /* ListFrameController.m */; };
 		154DA6E516EDE10B0070638D /* AboveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154DA6E416EDE10B0070638D /* AboveViewController.m */; };
 		15550955171C0FBE001815E4 /* InfoFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15550954171C0FBE001815E4 /* InfoFrameController.m */; };
@@ -310,20 +319,7 @@
 		153145A7171BF9CF0047E1CB /* btMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btMap.png; path = img/btMap.png; sourceTree = "<group>"; };
 		153145A8171BF9CF0047E1CB /* btMusic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btMusic.png; path = img/btMusic.png; sourceTree = "<group>"; };
 		153145A9171BF9CF0047E1CB /* btRound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btRound.png; path = img/btRound.png; sourceTree = "<group>"; };
-		1536360F171EAF6400D2069F /* AOWaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AOWaterView.h; sourceTree = "<group>"; };
-		15363610171EAF6400D2069F /* AOWaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOWaterView.m; sourceTree = "<group>"; };
-		15363611171EAF6400D2069F /* MessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessView.h; sourceTree = "<group>"; };
-		15363612171EAF6400D2069F /* MessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessView.m; sourceTree = "<group>"; };
-		15363616171EAF7400D2069F /* EGORefreshTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableFooterView.h; sourceTree = "<group>"; };
-		15363617171EAF7400D2069F /* EGORefreshTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableFooterView.m; sourceTree = "<group>"; };
-		15363618171EAF7400D2069F /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
-		15363619171EAF7400D2069F /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
-		1536361A171EAF7400D2069F /* EGOViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOViewCommon.h; sourceTree = "<group>"; };
 		1536363C171EB13400D2069F /* dataList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dataList.plist; sourceTree = "<group>"; };
-		1536363F171EB1BC00D2069F /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccess.h; sourceTree = "<group>"; };
-		15363640171EB1BC00D2069F /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccess.m; sourceTree = "<group>"; };
-		15363641171EB1BC00D2069F /* DataInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInfo.h; sourceTree = "<group>"; };
-		15363642171EB1BC00D2069F /* DataInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInfo.m; sourceTree = "<group>"; };
 		1536364C171ECF7500D2069F /* ProjectTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectTableCell.xib; sourceTree = "<group>"; };
 		1536364E171ED13F00D2069F /* ProjectTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectTableCell.h; path = Controller/ProjectTableCell.h; sourceTree = "<group>"; };
 		1536364F171ED14000D2069F /* ProjectTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectTableCell.m; path = Controller/ProjectTableCell.m; sourceTree = "<group>"; };
@@ -356,6 +352,28 @@
 		1543968A16EDD8320004FB6F /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBarViewController.h; path = Controller/TabBarViewController.h; sourceTree = "<group>"; };
 		1543968B16EDD8320004FB6F /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBarViewController.m; path = Controller/TabBarViewController.m; sourceTree = "<group>"; };
 		1543968D16EDD8750004FB6F /* TabBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarView.xib; sourceTree = "<group>"; };
+		15456557171FF1CF00D81905 /* MosaicData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicData.h; sourceTree = "<group>"; };
+		15456558171FF1CF00D81905 /* MosaicData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MosaicData.m; sourceTree = "<group>"; };
+		1545655A171FF1CF00D81905 /* TwoDimentionalArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimentionalArray.h; sourceTree = "<group>"; };
+		1545655B171FF1CF00D81905 /* TwoDimentionalArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDimentionalArray.m; sourceTree = "<group>"; };
+		1545655D171FF1CF00D81905 /* MosaicViewDatasourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicViewDatasourceProtocol.h; sourceTree = "<group>"; };
+		1545655E171FF1CF00D81905 /* MosaicViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicViewDelegateProtocol.h; sourceTree = "<group>"; };
+		15456560171FF1CF00D81905 /* MosaicDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicDataView.h; sourceTree = "<group>"; };
+		15456561171FF1CF00D81905 /* MosaicDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MosaicDataView.m; sourceTree = "<group>"; };
+		15456562171FF1CF00D81905 /* MosaicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicView.h; sourceTree = "<group>"; };
+		15456563171FF1CF00D81905 /* MosaicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MosaicView.m; sourceTree = "<group>"; };
+		15456569171FF23F00D81905 /* PanoListMosaicDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PanoListMosaicDatasource.h; path = model/PanoListMosaicDatasource.h; sourceTree = "<group>"; };
+		1545656A171FF23F00D81905 /* PanoListMosaicDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PanoListMosaicDatasource.m; path = model/PanoListMosaicDatasource.m; sourceTree = "<group>"; };
+		1545656D171FF3EB00D81905 /* 001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 001.jpg; sourceTree = "<group>"; };
+		1545656E171FF3EB00D81905 /* 002.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 002.jpg; sourceTree = "<group>"; };
+		1545656F171FF3EB00D81905 /* 003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 003.jpg; sourceTree = "<group>"; };
+		15456570171FF3EB00D81905 /* 004.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 004.jpg; sourceTree = "<group>"; };
+		15456571171FF3EB00D81905 /* 005.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 005.jpg; sourceTree = "<group>"; };
+		15456572171FF3EB00D81905 /* 006.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 006.jpg; sourceTree = "<group>"; };
+		15456573171FF3EB00D81905 /* 007.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 007.jpg; sourceTree = "<group>"; };
+		15456574171FF3EB00D81905 /* 008.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 008.jpg; sourceTree = "<group>"; };
+		15456575171FF3EB00D81905 /* 009.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 009.jpg; sourceTree = "<group>"; };
+		15456576171FF3EB00D81905 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = tools/data.json; sourceTree = "<group>"; };
 		154A2475171BE83100F48989 /* ListFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFrameController.h; path = Controller/ListFrameController.h; sourceTree = "<group>"; };
 		154A2476171BE83100F48989 /* ListFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListFrameController.m; path = Controller/ListFrameController.m; sourceTree = "<group>"; };
 		154DA6E316EDE10B0070638D /* AboveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboveViewController.h; path = Controller/AboveViewController.h; sourceTree = "<group>"; };
@@ -642,48 +660,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1536360E171EAF6400D2069F /* AOWaterView */ = {
-			isa = PBXGroup;
-			children = (
-				1536360F171EAF6400D2069F /* AOWaterView.h */,
-				15363610171EAF6400D2069F /* AOWaterView.m */,
-				15363611171EAF6400D2069F /* MessView.h */,
-				15363612171EAF6400D2069F /* MessView.m */,
-			);
-			path = AOWaterView;
-			sourceTree = "<group>";
-		};
-		15363615171EAF7400D2069F /* EGO */ = {
-			isa = PBXGroup;
-			children = (
-				15363616171EAF7400D2069F /* EGORefreshTableFooterView.h */,
-				15363617171EAF7400D2069F /* EGORefreshTableFooterView.m */,
-				15363618171EAF7400D2069F /* EGORefreshTableHeaderView.h */,
-				15363619171EAF7400D2069F /* EGORefreshTableHeaderView.m */,
-				1536361A171EAF7400D2069F /* EGOViewCommon.h */,
-				1536361B171EAF7400D2069F /* LoadMoreDataView */,
-			);
-			path = EGO;
-			sourceTree = "<group>";
-		};
-		1536361B171EAF7400D2069F /* LoadMoreDataView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LoadMoreDataView;
-			sourceTree = "<group>";
-		};
-		1536363E171EB1BC00D2069F /* model */ = {
-			isa = PBXGroup;
-			children = (
-				1536363F171EB1BC00D2069F /* DataAccess.h */,
-				15363640171EB1BC00D2069F /* DataAccess.m */,
-				15363641171EB1BC00D2069F /* DataInfo.h */,
-				15363642171EB1BC00D2069F /* DataInfo.m */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
 		1539BC7016D75B3300F5B43F /* ImageCropper */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +675,81 @@
 				153FD4C216D5108300465C05 /* info.html */,
 			);
 			path = html;
+			sourceTree = "<group>";
+		};
+		15456555171FF1CF00D81905 /* MosaicUI */ = {
+			isa = PBXGroup;
+			children = (
+				15456556171FF1CF00D81905 /* Entities */,
+				15456559171FF1CF00D81905 /* Logic */,
+				1545655C171FF1CF00D81905 /* Protocols */,
+				1545655F171FF1CF00D81905 /* Views */,
+			);
+			path = MosaicUI;
+			sourceTree = "<group>";
+		};
+		15456556171FF1CF00D81905 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				15456557171FF1CF00D81905 /* MosaicData.h */,
+				15456558171FF1CF00D81905 /* MosaicData.m */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		15456559171FF1CF00D81905 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				1545655A171FF1CF00D81905 /* TwoDimentionalArray.h */,
+				1545655B171FF1CF00D81905 /* TwoDimentionalArray.m */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		1545655C171FF1CF00D81905 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1545655D171FF1CF00D81905 /* MosaicViewDatasourceProtocol.h */,
+				1545655E171FF1CF00D81905 /* MosaicViewDelegateProtocol.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		1545655F171FF1CF00D81905 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				15456560171FF1CF00D81905 /* MosaicDataView.h */,
+				15456561171FF1CF00D81905 /* MosaicDataView.m */,
+				15456562171FF1CF00D81905 /* MosaicView.h */,
+				15456563171FF1CF00D81905 /* MosaicView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		15456568171FF1F800D81905 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				15456569171FF23F00D81905 /* PanoListMosaicDatasource.h */,
+				1545656A171FF23F00D81905 /* PanoListMosaicDatasource.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		1545656C171FF3EB00D81905 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				1545656D171FF3EB00D81905 /* 001.jpg */,
+				1545656E171FF3EB00D81905 /* 002.jpg */,
+				1545656F171FF3EB00D81905 /* 003.jpg */,
+				15456570171FF3EB00D81905 /* 004.jpg */,
+				15456571171FF3EB00D81905 /* 005.jpg */,
+				15456572171FF3EB00D81905 /* 006.jpg */,
+				15456573171FF3EB00D81905 /* 007.jpg */,
+				15456574171FF3EB00D81905 /* 008.jpg */,
+				15456575171FF3EB00D81905 /* 009.jpg */,
+			);
+			name = Assets;
+			path = tools/Assets;
 			sourceTree = "<group>";
 		};
 		C293037C16A93F3700D3530D /* PanoramaGL */ = {
@@ -842,8 +893,7 @@
 		C2C77A6716ACF2DE00B7E8F6 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				15363615171EAF7400D2069F /* EGO */,
-				1536360E171EAF6400D2069F /* AOWaterView */,
+				15456555171FF1CF00D81905 /* MosaicUI */,
 				1539BC7016D75B3300F5B43F /* ImageCropper */,
 				C293037C16A93F3700D3530D /* PanoramaGL */,
 				C2EC012F16AA963900413EFD /* ImageMapView */,
@@ -1016,7 +1066,7 @@
 			children = (
 				C2CA9FD416A8E5760040A428 /* AppDelegate.h */,
 				C2CA9FD516A8E5760040A428 /* AppDelegate.m */,
-				1536363E171EB1BC00D2069F /* model */,
+				15456568171FF1F800D81905 /* model */,
 				C2C77A6716ACF2DE00B7E8F6 /* Util */,
 				C2CA9FE216A8E5EA0040A428 /* View */,
 				C2CA9FE116A8E5D40040A428 /* Controller */,
@@ -1028,6 +1078,8 @@
 		C2CA9FCC16A8E5760040A428 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1545656C171FF3EB00D81905 /* Assets */,
+				15456576171FF3EB00D81905 /* data.json */,
 				153FD4C116D5108300465C05 /* html */,
 				C2CA9FF216A8E6760040A428 /* icon */,
 				C2CA9FCD16A8E5760040A428 /* PanoPlayer-Info.plist */,
@@ -1319,6 +1371,16 @@
 				15407ACE171E940E00BB4F78 /* Setting.xib in Resources */,
 				1536363D171EB13400D2069F /* dataList.plist in Resources */,
 				1536364D171ECF7600D2069F /* ProjectTableCell.xib in Resources */,
+				15456577171FF3EB00D81905 /* 001.jpg in Resources */,
+				15456578171FF3EB00D81905 /* 002.jpg in Resources */,
+				15456579171FF3EB00D81905 /* 003.jpg in Resources */,
+				1545657A171FF3EB00D81905 /* 004.jpg in Resources */,
+				1545657B171FF3EB00D81905 /* 005.jpg in Resources */,
+				1545657C171FF3EB00D81905 /* 006.jpg in Resources */,
+				1545657D171FF3EB00D81905 /* 007.jpg in Resources */,
+				1545657E171FF3EB00D81905 /* 008.jpg in Resources */,
+				1545657F171FF3EB00D81905 /* 009.jpg in Resources */,
+				15456580171FF3EB00D81905 /* data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,13 +1559,12 @@
 				15550958171C1258001815E4 /* MapFrameController.m in Sources */,
 				15407AC7171E8A3500BB4F78 /* ProjectsViewController.m in Sources */,
 				15407ACC171E93F700BB4F78 /* SettingController.m in Sources */,
-				15363613171EAF6400D2069F /* AOWaterView.m in Sources */,
-				15363614171EAF6400D2069F /* MessView.m in Sources */,
-				1536361C171EAF7400D2069F /* EGORefreshTableFooterView.m in Sources */,
-				1536361D171EAF7400D2069F /* EGORefreshTableHeaderView.m in Sources */,
-				15363643171EB1BC00D2069F /* DataAccess.m in Sources */,
-				15363644171EB1BC00D2069F /* DataInfo.m in Sources */,
 				15363650171ED14000D2069F /* ProjectTableCell.m in Sources */,
+				15456564171FF1CF00D81905 /* MosaicData.m in Sources */,
+				15456565171FF1CF00D81905 /* TwoDimentionalArray.m in Sources */,
+				15456566171FF1CF00D81905 /* MosaicDataView.m in Sources */,
+				15456567171FF1CF00D81905 /* MosaicView.m in Sources */,
+				1545656B171FF23F00D81905 /* PanoListMosaicDatasource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

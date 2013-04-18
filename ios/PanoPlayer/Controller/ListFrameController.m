@@ -30,10 +30,10 @@
         self.layer.borderColor = [[UIColor colorWithRed:0.10 green:0.10 blue:0.10 alpha:0.5] CGColor];   //设置弹出框边框颜色
         self.autoresizesSubviews = YES;
         
-        int width = frame.size.width-10;
-        int height = frame.size.height-30;
+        int widths = frame.size.width-10;
+        int heights = frame.size.height-30;
         
-        tableView = [[UITableView alloc] initWithFrame: CGRectMake(5, 20, width, height)];
+        tableView = [[UITableView alloc] initWithFrame: CGRectMake(5, 20, widths, heights)];
         tableView.delegate = self;
         tableView.dataSource = self;
         
@@ -41,13 +41,18 @@
     CGSize result = frame.size;
     width = result.width-35;
     
-    panoId = [[self getProjectId] intValue];
-    panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", panoId];
+    //panoId = [[self getProjectId] intValue];
+    
+    panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", projectId];
     [self getPanoInfo];
     //NSLog(@"ADF%@", @"SDFSADF");
     [self addSubview:tableView];
     [self setCloseButton];
     return self;
+}
+
+-(void) setProjectId:(int)pid{
+    projectId = pid;
 }
 
 -(void) setCloseButton{
@@ -86,22 +91,6 @@
     }
 }
 
-
--(NSString *)getProjectId{
-    
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath1 = [paths objectAtIndex:0];
-    
-    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-    
-    NSString *project_id = [data objectForKey:@"project_id"];
-    if (project_id == nil) {
-        //[self showLogin];
-        project_id = @"1001";
-    }
-    return project_id;
-}
 
 //返回UITableView共几行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

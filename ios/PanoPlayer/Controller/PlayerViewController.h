@@ -18,6 +18,7 @@
     PLView *plView;
     PLCubicPanorama *cubicPanorama;
     NSString *curentPanoID;
+    NSString *curentProjectId;
     
     NSMutableArray *hotspots;
     //PLCubicPanorama *cubicPanorama;

@@ -18,7 +18,7 @@
     NSArray *coordsData;
     NSString *responseData;
     UIActivityIndicatorView *loading;
-    int ProjectId;
+    int projectId;
     NSString *panoId;
     int layoutWidh;
     int layoutHeight;
@@ -47,5 +47,6 @@
 -(UIImage *)addImageLogo:(UIImage *)img waterMark:(UIImage *)logo left:(float)left top:(float)top;
 
 -(void) setPanoId:(NSString *)pid;
+-(void) setProjectId:(int)pid;
 
 @end

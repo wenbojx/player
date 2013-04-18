@@ -20,7 +20,7 @@
     int panoId;
     NSString *panoListUrl;
 }
-
+@property(assign, nonatomic) int panoId;
 @property(retain, nonatomic)UIButton *closeBt;
 
 -(void) setCloseButton;

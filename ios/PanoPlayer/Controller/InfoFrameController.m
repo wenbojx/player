@@ -14,10 +14,11 @@
 
 @implementation InfoFrameController
 @synthesize closeBt;
-
+@synthesize panoId;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
+    
     if (self) {
         [self setBackgroundColor:[UIColor whiteColor]];
         self.layer.cornerRadius = 10;    //设置弹出框为圆角视图
@@ -30,7 +31,7 @@
     }
     
     
-    panoId = [[self getProjectId] intValue];
+    //panoId = [[self getProjectId] intValue];
     //panoId = 10130;
     
     panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pv/id/%d", panoId];
@@ -72,7 +73,9 @@
     return self;
 }
 
-
+-(void) setPanoId:(int)pid{
+    panoId = pid;
+}
 
 -(void) setCloseButton{
     closeBt = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -141,23 +144,6 @@
     return responseData;
 }
 
-
-
--(NSString *)getProjectId{
-    
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath1 = [paths objectAtIndex:0];
-    
-    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-    
-    NSString *project_id = [data objectForKey:@"project_id"];
-    if (project_id == nil) {
-        //[self showLogin];
-        project_id = @"1001";
-    }
-    return project_id;
-}
 
 
 
