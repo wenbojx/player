@@ -19,6 +19,7 @@
 @synthesize imageProgressIndicator;
 @synthesize panoList;
 @synthesize panoListUrl;
+@synthesize ViewBoxDelegate;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame: frame])) {
@@ -36,16 +37,14 @@
         tableView = [[UITableView alloc] initWithFrame: CGRectMake(5, 20, widths, heights)];
         tableView.delegate = self;
         tableView.dataSource = self;
-        
     }
     CGSize result = frame.size;
     width = result.width-35;
     
     //panoId = [[self getProjectId] intValue];
-    
+    //projectId = 1001;
     panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", projectId];
     [self getPanoInfo];
-    //NSLog(@"ADF%@", @"SDFSADF");
     [self addSubview:tableView];
     [self setCloseButton];
     return self;
@@ -69,6 +68,7 @@
 }
 -(IBAction)onClickButton:(id)sender{
     [self removeFromSuperview];
+    [ViewBoxDelegate closeBox:@"list"];
 }
 
 -(void) getPanoInfo{

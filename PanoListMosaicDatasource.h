@@ -13,6 +13,7 @@
     NSMutableArray *elements;
 }
 
-+ (PanoListMosaicDatasource *)sharedInstance:(NSMutableArray *) datas;
++ (PanoListMosaicDatasource *)sharedInstance;
+
 
 @end

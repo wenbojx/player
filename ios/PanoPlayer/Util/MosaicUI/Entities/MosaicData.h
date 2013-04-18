@@ -9,15 +9,21 @@
 #import <Foundation/Foundation.h>
 
 @interface MosaicData : NSObject{
-    NSString *imageFilename;
+    NSString *url;
     NSString *title;
     NSInteger size;
+    float width;
+    float height;
+    NSString *pid;
 }
 
 -(id)initWithDictionary:(NSDictionary *)aDict;
 
-@property (strong) NSString *imageFilename;
+@property (strong) NSString *pid;
+@property (strong) NSString *url;
 @property (strong) NSString *title;
 @property (readwrite) NSInteger size;
+@property (readwrite) float width;
+@property (readwrite) float height;
 
 @end

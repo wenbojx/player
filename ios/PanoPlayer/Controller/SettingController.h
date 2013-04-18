@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ProjectsViewController.h"
+#import "JSONKit.h"
 
 @interface SettingController : UIViewController{
     NSString *username;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PLView.h"
+#import "JSONKit.h"
 #import "AboveViewController.h"
 #import "ListFrameController.h"
 #import "InfoFrameController.h"
@@ -55,6 +56,11 @@
     IBOutlet UIButton * playPause;//播放暂停
     //定义一个声音的播放器
     AVAudioPlayer *musicPlayer;
+    
+    Boolean boxList;
+    Boolean boxInfo;
+    Boolean boxMap;
+    
 }
 
 //@property(retain, nonatomic)NSString *panoId;
@@ -65,6 +71,9 @@
 @property(nonatomic, assign) IBOutlet UIButton *btMap;
 @property(nonatomic, assign) IBOutlet UIButton *btRround;
 @property(nonatomic, assign) IBOutlet UIButton *btMusic;
+@property(nonatomic, assign) Boolean boxList;
+@property(nonatomic, assign) Boolean boxInfo;
+@property(nonatomic, assign) Boolean boxMap;
 
 @property(assign, nonatomic)ListFrameController *listFrame;
 @property(assign, nonatomic)InfoFrameController *infoFrame;

@@ -10,9 +10,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
+#import "JSONKit.h"
 
 @interface InfoFrameController : UIView {
     //UIImage *UIimage;
+    id ViewBoxDelegate;
+    
     UIButton *closeBt;
     int width;
     
@@ -20,6 +23,8 @@
     int panoId;
     NSString *panoListUrl;
 }
+
+@property(nonatomic, assign) id ViewBoxDelegate;
 @property(assign, nonatomic) int panoId;
 @property(retain, nonatomic)UIButton *closeBt;
 

@@ -14,33 +14,39 @@
 
 #pragma mark - Private
 
--(void)loadFromDisk:(NSMutableArray *) datas{
+-(void)loadFromDisk{
+    NSString *pathString = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
+    NSData *elementsData = [NSData dataWithContentsOfFile:pathString];
     
-    for (NSDictionary *aModuleDict in datas){
+    NSError *anError = nil;
+    NSArray *parsedElements = [NSJSONSerialization JSONObjectWithData:elementsData
+                                                              options:NSJSONReadingAllowFragments
+                                                                error:&anError];
+    
+    for (NSDictionary *aModuleDict in parsedElements){
         MosaicData *aMosaicModule = [[MosaicData alloc] initWithDictionary:aModuleDict];
         [elements addObject:aMosaicModule];
     }
-    //NSLog(@"datas=%@", elements);
 }
 
 #pragma mark - Public
 
--(id)init:(NSMutableArray *) datas{
+-(id)init{
     self = [super init];
+    
     if (self){
         elements = [[NSMutableArray alloc] init];
-        
-        [self loadFromDisk:datas];
+        [self loadFromDisk];
     }
     
     return self;
 }
 
 //  Singleton method proposed in WWDC 2012
-+ (PanoListMosaicDatasource *)sharedInstance:(NSMutableArray *) datas {
++ (PanoListMosaicDatasource *)sharedInstance {
 	static PanoListMosaicDatasource *sharedInstance;
 	if (sharedInstance == nil)
-		sharedInstance = [[PanoListMosaicDatasource alloc] init:datas];
+		sharedInstance = [PanoListMosaicDatasource new];
 	return sharedInstance;
 }
 

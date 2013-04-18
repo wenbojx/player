@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ImageCropper.h"
+#import "JSONKit.h"
 
 @interface AboveViewController : UIView {
     //UIImage *UIimage;

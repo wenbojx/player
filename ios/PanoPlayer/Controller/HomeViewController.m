@@ -15,7 +15,7 @@
 
 #import "MosaicData.h"
 #import "MosaicDataView.h"
-#import "PanoListMosaicDatasource.h"
+
 
 
 @interface HomeViewController ()
@@ -58,8 +58,10 @@
     // Do any additional setup after loading the view.
     [self setItemTitle:projectTitle];
     [self getPanoInfo];
+
+    //[datasSource setDatas:panoList];
     
-    mosaicView.datasource = [PanoListMosaicDatasource sharedInstance];
+    mosaicView.datasource = [PanoListMosaicDatasource sharedInstance:panoList];
     mosaicView.delegate = self;
     
 }
@@ -84,32 +86,34 @@
             NSString *panoTitle = [tmp objectForKey:@"title"];
             NSString *panoCreated = [tmp objectForKey:@"created"];
             NSString *panoThumb = [tmp objectForKey:@"thumb"];
+            NSString *width = [tmp objectForKey:@"thumb-w"];
+            NSString *height = [tmp objectForKey:@"thumb-h"];
+            NSString *size = [tmp objectForKey:@"size"];
+            if(size == nil || [size isEqualToString:@""]){
+                size = @"1";
+            }
+            //NSString *size = @"1";
             //NSLog(@"panoTilet=%@", panoThumb);
-            [self addPano:panoId thumbImage:panoThumb panotitle:panoTitle photoTime:panoCreated];
+            [self addPano:panoId thumbImage:panoThumb panotitle:panoTitle width:width height:height size:size   photoTime:panoCreated];
         }
+        //NSLog(@"AAAA%@", panoList);
     }
 }
 
 
 
-- (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle photoTime:(NSString *)photoTime{
+- (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle  width:(NSString *)width height:(NSString *)height size:(NSString *)size photoTime:(NSString *)photoTime{
     
-    //NSMutableDictionary * pano = [[NSMutableDictionary alloc] init];
-    /*
-    NSString *height = @"210";
-    NSString *width = @"250";
+    NSMutableDictionary * pano = [[NSMutableDictionary alloc] init];
     
-    DataInfo *data=[[DataInfo alloc]init];
-
-    data.height= height.floatValue;
-
-    data.width= width.floatValue;
-    data.url = thumbImage;
-    data.title= panoTitle;
-    data.mess= Nil;
-    data.panoId = panoId;
-    [panoList addObject:data];
-     */
+    [pano setValue:panoId forKey:@"pid"];
+    [pano setValue:panoTitle forKey:@"title"];
+    [pano setValue:thumbImage forKey:@"url"];
+    [pano setValue:height forKey:@"height"];
+    [pano setValue:width forKey:@"width"];
+    [pano setValue:size forKey:@"size"];
+    //NSLog(@"AAAA%@", pano);
+    [panoList addObject:pano];
 }
 
 - (void) getWrong:(NSString*)str{
@@ -186,6 +190,26 @@ static UIImageView *captureSnapshotOfView(UIView *targetView){
 - (void)viewDidLayoutSubviews{
 }
 
+-(void)loadPano:(NSString *) panoId{
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
+    PlayerViewController *playerView = [[PlayerViewController alloc] init];
+    
+    playerView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:playerView animated:YES];
+    
+    NSMutableDictionary * pano = [[NSMutableDictionary alloc] init];
+    
+    [pano setValue:panoId forKey:@"panoId"];
+    [pano setValue:currentProjectId forKey:@"projectId"];
+
+    //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:pano];
+
+    [playerView release];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -193,6 +217,15 @@ static UIImageView *captureSnapshotOfView(UIView *targetView){
     // Dispose of any resources that can be recreated.
 }
 
+-(void)mosaicViewDidTap:(MosaicDataView *)aModule{
+    [self loadPano:aModule.module.pid];
+    //NSLog(@"#DEBUG Tapped %@", aModule.module.pid);
+}
+
+-(void)mosaicViewDidDoubleTap:(MosaicDataView *)aModule{
+    [self loadPano:aModule.module.pid];
+    //NSLog(@"#DEBUG Double Tapped %@", aModule.module.pid);
+}
 
 
 @end

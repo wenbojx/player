@@ -47,10 +47,10 @@
 		1542E31216E0FA4E00BD1172 /* imghotspot.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542E31116E0FA4E00BD1172 /* imghotspot.png */; };
 		1543968C16EDD8320004FB6F /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1543968B16EDD8320004FB6F /* TabBarViewController.m */; };
 		1543968E16EDD8750004FB6F /* TabBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1543968D16EDD8750004FB6F /* TabBarView.xib */; };
-		15456564171FF1CF00D81905 /* MosaicData.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456558171FF1CF00D81905 /* MosaicData.m */; };
+		15456564171FF1CF00D81905 /* MosaicData.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456558171FF1CF00D81905 /* MosaicData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		15456565171FF1CF00D81905 /* TwoDimentionalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 1545655B171FF1CF00D81905 /* TwoDimentionalArray.m */; };
-		15456566171FF1CF00D81905 /* MosaicDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456561171FF1CF00D81905 /* MosaicDataView.m */; };
-		15456567171FF1CF00D81905 /* MosaicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456563171FF1CF00D81905 /* MosaicView.m */; };
+		15456566171FF1CF00D81905 /* MosaicDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456561171FF1CF00D81905 /* MosaicDataView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		15456567171FF1CF00D81905 /* MosaicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15456563171FF1CF00D81905 /* MosaicView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1545656B171FF23F00D81905 /* PanoListMosaicDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1545656A171FF23F00D81905 /* PanoListMosaicDatasource.m */; };
 		15456577171FF3EB00D81905 /* 001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1545656D171FF3EB00D81905 /* 001.jpg */; };
 		15456578171FF3EB00D81905 /* 002.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1545656E171FF3EB00D81905 /* 002.jpg */; };

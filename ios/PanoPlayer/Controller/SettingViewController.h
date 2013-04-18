@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSONKit.h"
 
 @interface SettingViewController : UIViewController{
     IBOutlet UITextField *projectIdText;

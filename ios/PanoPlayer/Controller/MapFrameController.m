@@ -26,6 +26,7 @@
 @synthesize coordsData;
 @synthesize responseData;
 @synthesize loading;
+@synthesize ViewBoxDelegate;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -333,8 +334,8 @@
     
 }
 -(IBAction)onClickButton:(id)sender{
-    //self.removeFromSuperview;
     [self removeFromSuperview];
+    [ViewBoxDelegate closeBox:@"map"];
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "MosaicView.h"
 #define kMosaicDataViewDidTouchNotification @"kMosaicDataViewDidTouchNotification"
 #define kMosaicDataViewFont @"Helvetica-Bold"
+#import "UIImageView+WebCache.h"
 
 @implementation MosaicDataView
 @synthesize mosaicView;
@@ -62,14 +63,19 @@
 -(void)setModule:(MosaicData *)newModule{
     module = newModule;
     
-    UIImage *anImage = [UIImage imageNamed:self.module.imageFilename];
-    imageView.image = anImage;
+    //NSLog(@"sdfsf%@", self.module);
+    //UIImage *anImage = [UIImage imageNamed:self.module.imageFilename];
+    NSURL *url = [NSURL URLWithString:self.module.url];
+    [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"loading.gif"]];
     
     CGSize imgFinalSize = CGSizeZero;
+    
+    float imgWidth = self.module.width;
+    float imgHeight = self.module.height;
 
-    if (anImage.size.width < anImage.size.height){
+    if (imgWidth < imgHeight){
         imgFinalSize.width = self.bounds.size.width;
-        imgFinalSize.height = self.bounds.size.width * anImage.size.height / anImage.size.width;
+        imgFinalSize.height = self.bounds.size.width * imgHeight / imgWidth;
         
         //  This is to avoid black bars on the bottom and top of the image
         //  Happens when images have its height lesser than its bounds
@@ -79,7 +85,7 @@
         }
     }else{
         imgFinalSize.height = self.bounds.size.height;
-        imgFinalSize.width = self.bounds.size.height * anImage.size.width / anImage.size.height;
+        imgFinalSize.width = self.bounds.size.height * imgWidth / imgHeight;
         
         //  This is to avoid black bars on the left and right of the image
         //  Happens when images have its width lesser than its bounds
@@ -103,7 +109,7 @@
     
     CGSize newSize = [module.title sizeWithFont:titleLabel.font constrainedToSize:titleLabel.frame.size];
     CGRect newRect = CGRectMake(marginLeft,
-                                self.frame.size.height - newSize.height - marginBottom,
+                                self.frame.size.height - newSize.height - marginBottom+10,
                                 newSize.width,
                                 newSize.height);
     titleLabel.frame = newRect;

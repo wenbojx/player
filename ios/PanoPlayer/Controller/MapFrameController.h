@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "MTImageMapView.h"
+#import "JSONKit.h"
 
 @interface MapFrameController : UIView <MTImageMapDelegate>{
 
+    id ViewBoxDelegate;
     UIButton *closeBt;
     int width;
 
@@ -24,11 +26,10 @@
     int layoutHeight;
 }
 
+@property(nonatomic, assign) id ViewBoxDelegate;
 @property(retain, nonatomic)UIButton *closeBt;
 
 -(void) setCloseButton;
-
-
 
 @property(nonatomic, retain) NSMutableArray *linkScene;
 

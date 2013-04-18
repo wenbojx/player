@@ -16,6 +16,9 @@
 
 
 @interface ListFrameController : UIView <UITableViewDataSource,UITableViewDelegate>{
+    
+    id ViewBoxDelegate;
+    
     //UIImage *UIimage;
     UIButton *closeBt;
     int width;
@@ -28,6 +31,8 @@
     UITableView *tableView;
     int projectId;
 }
+
+@property(nonatomic, assign) id ViewBoxDelegate;
 
 @property(retain, nonatomic) NSMutableArray *panoList;
 @property(retain, nonatomic) NSString *panoListUrl;

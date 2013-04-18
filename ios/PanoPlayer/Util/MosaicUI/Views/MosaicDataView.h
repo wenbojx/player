@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MosaicData.h"
 #import "MosaicViewDelegateProtocol.h"
+
+
 @class MosaicView;
 
 @interface MosaicDataView : UIView <UIGestureRecognizerDelegate>{

@@ -15,6 +15,7 @@
 @implementation InfoFrameController
 @synthesize closeBt;
 @synthesize panoId;
+@synthesize ViewBoxDelegate;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -91,8 +92,8 @@
     
 }
 -(IBAction)onClickButton:(id)sender{
-    //self.removeFromSuperview;
     [self removeFromSuperview];
+    [ViewBoxDelegate closeBox:@"info"];
 }
 
 

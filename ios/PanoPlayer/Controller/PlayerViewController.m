@@ -47,6 +47,7 @@
 @synthesize listFrame;
 @synthesize infoFrame;
 @synthesize mapFrame;
+@synthesize boxList, boxInfo, boxMap;
 
 -(void)didReceiveMemoryWarning
 {
@@ -99,7 +100,7 @@
 {
     NSString *panoId = [[notification userInfo] objectForKey:@"panoId"];
     curentProjectId = [[notification userInfo] objectForKey:@"projectId"];
-    NSLog(@"projectId=%@", curentProjectId);
+    //NSLog(@"projectId=%@", curentProjectId);
     [self startThread:panoId];
     
     //[self.navigationItem setTitle:@"asdfs"];
@@ -705,8 +706,21 @@
     
 }
 
-
+-(void)closeBox:(NSString *) boxName{
+    if([boxName isEqualToString:@"list"]){
+        self.boxList = NO;
+    }
+    else if ([boxName isEqualToString:@"info"]){
+        self.boxInfo = NO;
+    }
+    else if ([boxName isEqualToString:@"map"]){
+        self.boxMap = NO;
+    }
+}
 - (IBAction)btListClick:(id)sender{
+    if(boxList){
+        return;
+    }
     CGSize result = [[UIScreen mainScreen] bounds].size;
     int height = result.height-115;
     int width = result.width-20;
@@ -717,10 +731,15 @@
     listFrame = [ListFrameController alloc];
     [listFrame setProjectId:[curentProjectId intValue]];
     [listFrame initWithFrame:CGRectMake(x, y, width, height)];
+    listFrame.ViewBoxDelegate = self;
     [self.view addSubview:listFrame];
-
+    boxList = YES;
 }
+
 - (IBAction)btInfoClick:(id)sender{
+    if(boxInfo){
+        return;
+    }
     CGSize result = [[UIScreen mainScreen] bounds].size;
     int height = result.height-115;
     int width = result.width-20;
@@ -731,9 +750,14 @@
     infoFrame = [InfoFrameController alloc];
     infoFrame.panoId = [curentPanoID intValue];
     [infoFrame initWithFrame:CGRectMake(x, y, width, height)];
+    infoFrame.ViewBoxDelegate = self;
     [self.view addSubview:infoFrame];
+    boxInfo = YES;
 }
 - (IBAction)btMapClick:(id)sender{
+    if(boxMap){
+        return;
+    }
     CGSize result = [[UIScreen mainScreen] bounds].size;
     int height = result.height-115;
     int width = result.width-20;
@@ -745,7 +769,9 @@
     [mapFrame setPanoId:curentPanoID];
     [mapFrame setProjectId:[curentProjectId intValue]];
     [mapFrame initWithFrame:CGRectMake(x, y, width, height)];
+    mapFrame.ViewBoxDelegate = self;
     [self.view addSubview:mapFrame];
+    boxMap = YES;
 }
 
 
