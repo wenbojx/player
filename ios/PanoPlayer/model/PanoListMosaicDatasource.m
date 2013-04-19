@@ -39,8 +39,9 @@
 //  Singleton method proposed in WWDC 2012
 + (PanoListMosaicDatasource *)sharedInstance:(NSMutableArray *) datas {
 	static PanoListMosaicDatasource *sharedInstance;
-	if (sharedInstance == nil)
-		sharedInstance = [[PanoListMosaicDatasource alloc] init:datas];
+	
+    sharedInstance = [[PanoListMosaicDatasource alloc] init:datas];
+    //}
 	return sharedInstance;
 }
 

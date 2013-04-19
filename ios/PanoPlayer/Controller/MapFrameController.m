@@ -302,19 +302,26 @@
    didSelectMapArea:(NSUInteger)inIndexSelected
 {
     //NSDictionary *panoInfo = [panoList objectAtIndex:indexPath.row];
-    NSString *panoId = [linkScene objectAtIndex:inIndexSelected];
+    NSString *panoId_select = [linkScene objectAtIndex:inIndexSelected];
     
     PlayerViewController *playerView = [[PlayerViewController alloc] init];
     playerView.hidesBottomBarWhenPushed = YES;
     
-    NSDictionary *dic=[[NSDictionary alloc] initWithObjectsAndKeys:panoId,@"panoId", nil];
+    //NSDictionary *dic=[[NSDictionary alloc] initWithObjectsAndKeys:panoId,@"panoId", nil];
+    
+    NSMutableDictionary * pano = [[NSMutableDictionary alloc] init];
+    
+    [pano setValue:panoId_select forKey:@"panoId"];
+    NSString *projectId_select = [NSString stringWithFormat: @"%d", projectId];
+    [pano setValue:projectId_select forKey:@"projectId"];
     //NSDictionary
     
     //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:dic];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:pano];
     
     //playerView.title = @"player";
     [self removeFromSuperview];
+    [ViewBoxDelegate closeBox:@"map"];
     [playerView release];
 }
 

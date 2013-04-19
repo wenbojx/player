@@ -15,6 +15,7 @@
 @interface HomeViewController : UIViewController <MosaicViewDelegateProtocol>{
     
     __weak IBOutlet MosaicView *mosaicView;
+    //MosaicView *mosaicView;
     PanoListMosaicDatasource *datasSource;
     
     UIImageView *snapshotBeforeRotation;

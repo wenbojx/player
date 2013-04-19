@@ -54,16 +54,18 @@
     currentProjectId = projectId;
     
     projectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%@", projectId];
-    
     // Do any additional setup after loading the view.
     [self setItemTitle:projectTitle];
     [self getPanoInfo];
 
     //[datasSource setDatas:panoList];
-    
+    //mosaicView = [[MosaicView alloc] init];
+    //[self.view addSubview:mosaicView];
+    //[mosaicView refresh];
     mosaicView.datasource = [PanoListMosaicDatasource sharedInstance:panoList];
+    //NSLog(@"AAA%@", mosaicView.datasource);
     mosaicView.delegate = self;
-    
+    //[mosaicView refresh];
 }
 
 
@@ -89,7 +91,7 @@
             NSString *width = [tmp objectForKey:@"thumb-w"];
             NSString *height = [tmp objectForKey:@"thumb-h"];
             NSString *size = [tmp objectForKey:@"size"];
-            NSLog(@"size=%@", size);
+            //NSLog(@"size=%@", size);
             if(size == nil){
                 size = @"1";
             }
@@ -228,5 +230,11 @@ static UIImageView *captureSnapshotOfView(UIView *targetView){
     //NSLog(@"#DEBUG Double Tapped %@", aModule.module.pid);
 }
 
+
+- (void)dealloc {
+    [mosaicView removeFromSuperview];
+    [self.view removeFromSuperview];
+    [super dealloc];
+}
 
 @end

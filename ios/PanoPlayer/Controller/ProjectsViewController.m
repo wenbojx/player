@@ -195,13 +195,14 @@
     return mid;
 }
 
-
+//-(void)
 
 -(void)showTab:(NSString *)projectId{
     
+    /*
     HomeViewController *homeView = [[HomeViewController alloc] init];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStylePlain target:nil action:nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     
     homeView.hidesBottomBarWhenPushed = YES;
@@ -222,7 +223,35 @@
     
     //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
     [[NSNotificationCenter defaultCenter] postNotificationName:@"projectId" object:nil userInfo:project];
-
+    [homeView release];
+    */
+    
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
+    HomeViewController *homeView = [[HomeViewController alloc] init];
+    
+    homeView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:homeView animated:YES];
+    
+    NSString *projectTitle = @"";
+    
+    for (int i=0; i<projectList.count; i++) {
+        NSDictionary  *tmp = [projectList objectAtIndex:i];
+        NSString *projectId_tmp = [tmp objectForKey:@"projectId"];
+        if([projectId isEqualToString:projectId_tmp]){
+            projectTitle = [tmp objectForKey:@"projectTitle"];
+        }
+    }
+    
+    NSMutableDictionary * project = [[NSMutableDictionary alloc] init];
+    [project setValue:projectId forKey:@"projectId"];
+    [project setValue:projectTitle forKey:@"projectTitle"];
+    
+    //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"projectId" object:nil userInfo:project];
+    
     [homeView release];
 }
 

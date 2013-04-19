@@ -102,7 +102,7 @@
     curentProjectId = [[notification userInfo] objectForKey:@"projectId"];
     //NSLog(@"projectId=%@", curentProjectId);
     [self startThread:panoId];
-    
+    NSLog(@"panoId=%@", panoId);
     //[self.navigationItem setTitle:@"asdfs"];
     
 }
@@ -206,10 +206,30 @@
             NSDictionary *camera = [resultsDictionary objectForKey:@"camera"];
             vlookat = 0-[[camera objectForKey:@"vlookat"] intValue];
             hlookat = 0-[[camera objectForKey:@"hlookat"] intValue];
-            athmin = 0-[[camera objectForKey:@"athmax"] intValue];
-            athmax = 0-[[camera objectForKey:@"athmin"] intValue];
-            atvmax = [[camera objectForKey:@"atvmax"] intValue];
-            atvmin = [[camera objectForKey:@"atvmin"] intValue];
+            if ([camera objectForKey:@"athmax"]!=nil) {
+                athmin = 0-[[camera objectForKey:@"athmax"] intValue];
+            }
+            else{
+                athmin = -180;
+            }
+            if ([camera objectForKey:@"athmin"]!=nil) {
+                athmax = 0-[[camera objectForKey:@"athmin"] intValue];
+            }
+            else{
+                athmax = 180;
+            }
+            if ([camera objectForKey:@"atvmax"]!=nil) {
+                atvmax = [[camera objectForKey:@"atvmax"] intValue];
+            }
+            else{
+                atvmax = 90;
+            }
+            if ([camera objectForKey:@"atvmin"]!=nil) {
+                atvmin = [[camera objectForKey:@"atvmin"] intValue];
+            }
+            else{
+                atvmin = -90;
+            }
             
             NSArray *hotspotDct = [resultsDictionary objectForKey:@"hotspots"];
             for(int i=0; i<hotspotDct.count; i++){
