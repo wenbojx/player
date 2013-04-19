@@ -60,7 +60,8 @@
     Boolean boxList;
     Boolean boxInfo;
     Boolean boxMap;
-    
+    int vlookat, hlookat;
+    int athmax, athmin, atvmax, atvmin;
 }
 
 //@property(retain, nonatomic)NSString *panoId;

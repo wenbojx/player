@@ -89,7 +89,8 @@
             NSString *width = [tmp objectForKey:@"thumb-w"];
             NSString *height = [tmp objectForKey:@"thumb-h"];
             NSString *size = [tmp objectForKey:@"size"];
-            if(size == nil || [size isEqualToString:@""]){
+            NSLog(@"size=%@", size);
+            if(size == nil){
                 size = @"1";
             }
             //NSString *size = @"1";

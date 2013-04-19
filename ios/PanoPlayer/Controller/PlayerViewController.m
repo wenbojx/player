@@ -203,8 +203,15 @@
         }
         else{
             NSDictionary *resultsDictionary = [responseData objectFromJSONString];
+            NSDictionary *camera = [resultsDictionary objectForKey:@"camera"];
+            vlookat = 0-[[camera objectForKey:@"vlookat"] intValue];
+            hlookat = 0-[[camera objectForKey:@"hlookat"] intValue];
+            athmin = 0-[[camera objectForKey:@"athmax"] intValue];
+            athmax = 0-[[camera objectForKey:@"athmin"] intValue];
+            atvmax = [[camera objectForKey:@"atvmax"] intValue];
+            atvmin = [[camera objectForKey:@"atvmin"] intValue];
+            
             NSArray *hotspotDct = [resultsDictionary objectForKey:@"hotspots"];
-            //NSLog(@"res=%@", [ret objectForKey:@"panos"]);
             for(int i=0; i<hotspotDct.count; i++){
                 NSDictionary  *tmp = [hotspotDct objectAtIndex:i];
                 
@@ -222,8 +229,6 @@
                 }
                 
                 [self addHotspot:hotspotId linkSceneId:link_scene_id tilt:tilt pan:pan transform:transform type:type filePath:filePath];
-                //NSLog(@"id=%@", hotspotId);
-                //NSLog(@"link_scene_id=%@", link_scene_id);
             }
             
             
@@ -472,12 +477,19 @@
         [cubicPanorama addHotspot:hotspot];
         
     }
-    //[self.view reloadInputViews];
+    
+    PLCamera *currentCamera = [cubicPanorama currentCamera];
+
+    currentCamera.pitchRange = PLRangeMake(atvmin, atvmax);
+    currentCamera.yawRange = PLRangeMake(athmin, athmax);
+    //[currentCamera setInitialLookAtWithPitch:vlookat yaw:hlookat];
     
     [plView setPanorama:cubicPanorama];
+    
+    [currentCamera lookAtWithPitch:vlookat yaw:hlookat];
+    NSLog(@"vlookat=%d, hlookat=%d, atvmax=%d, atvmin=%d, athmax=%d, athmin=%d",vlookat, hlookat, atvmax,atvmin, athmax, athmin);
+    
     [plView hideProgressBar];
-    //[imageProgressIndicator removeFromSuperview];
-    //[loading removeFromSuperview];
     
     imageProgressIndicator.hidden = YES;
     loading.hidden = YES;

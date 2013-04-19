@@ -109,7 +109,7 @@
     
     CGSize newSize = [module.title sizeWithFont:titleLabel.font constrainedToSize:titleLabel.frame.size];
     CGRect newRect = CGRectMake(marginLeft,
-                                self.frame.size.height - newSize.height - marginBottom+10,
+                                self.frame.size.height - newSize.height - marginBottom+5,
                                 newSize.width,
                                 newSize.height);
     titleLabel.frame = newRect;
