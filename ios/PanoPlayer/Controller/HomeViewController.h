@@ -21,14 +21,23 @@
     UIImageView *snapshotBeforeRotation;
     UIImageView *snapshotAfterRotation;
     NSMutableArray *panoList;
+    NSArray *pagePanos;
+    
     NSString *projectListUrl;
     NSString *currentProjectId;
+    int pageSize;
+    int curentPage;
+    int totalPage;
+    int totalNum;
     //int panoId;
 
 }
 
 
 @property(retain, nonatomic) NSMutableArray *panoList;
+@property(retain, nonatomic) NSArray *pagePanos;
+@property(assign, nonatomic) int totalNum;
+
 @property(retain, nonatomic) NSString *projectListUrl;
 
 

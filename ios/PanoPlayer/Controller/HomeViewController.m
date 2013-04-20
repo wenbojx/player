@@ -25,7 +25,10 @@
 @implementation HomeViewController
 
 @synthesize panoList;
+@synthesize pagePanos;
+@synthesize totalNum;
 @synthesize projectListUrl;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    pageSize = 20;
+    curentPage = 1;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProjectPlayerNotificationHandler:) name:@"projectId" object:nil];
     
@@ -57,56 +62,90 @@
     // Do any additional setup after loading the view.
     [self setItemTitle:projectTitle];
     [self getPanoInfo];
-
-    //[datasSource setDatas:panoList];
-    //mosaicView = [[MosaicView alloc] init];
-    //[self.view addSubview:mosaicView];
-    //[mosaicView refresh];
-    mosaicView.datasource = [PanoListMosaicDatasource sharedInstance:panoList];
-    //NSLog(@"AAA%@", mosaicView.datasource);
+    panoList = [[NSMutableArray alloc] init];
+    [self getPageList];
     mosaicView.delegate = self;
-    //[mosaicView refresh];
+    [self displayMocaic];
+    
+}
+-(void)displayMocaic{
+    //NSLog(@"panoList=%d", panoList.count);
+    mosaicView.datasource = [PanoListMosaicDatasource sharedInstance:panoList];
+    [mosaicView refresh];
+    //mosaicView.
 }
 
-
+-(void)scrollHead{
+    //return;
+    //NSLog(@"head");
+    curentPage = curentPage-1;
+    if (curentPage<1) {
+        curentPage = 1;
+    }
+    panoList = [[NSMutableArray alloc] init];
+    [self getPageList];
+    [self displayMocaic];
+}
+-(void)scrollFoot{
+    curentPage = curentPage+1;
+    if(curentPage>totalPage){
+        curentPage = totalPage;
+        return;
+    }
+    panoList = [[NSMutableArray alloc] init];
+    [self getPageList];
+    [self displayMocaic];
+    //[mosaicView setScrollHead];
+}
 
 -(void)setItemTitle:(NSString *)title{
     self.title = NSLocalizedString(title, title);
     self.tabBarItem.image = [UIImage imageNamed:@"home"];
 }
 -(void) getPanoInfo{
-    panoList = [[NSMutableArray alloc] init];
-	
+    self.pagePanos = [[NSMutableArray alloc] init];
 	NSString *responseData = [self getJsonFromUrl:projectListUrl];
-    //NSLog(@"sdfdsf=%@", responseData);
     if(responseData !=nil){
         NSDictionary *resultsDictionary = [responseData objectFromJSONString];
-        NSArray *panos = [resultsDictionary objectForKey:@"panos"];
-        for(int i=0; i<panos.count; i++){
-            NSDictionary  *tmp = [panos objectAtIndex:i];
-            NSString *panoId = [tmp objectForKey:@"id"];
-            NSString *panoTitle = [tmp objectForKey:@"title"];
-            NSString *panoCreated = [tmp objectForKey:@"created"];
-            NSString *panoThumb = [tmp objectForKey:@"thumb"];
-            NSString *width = [tmp objectForKey:@"thumb-w"];
-            NSString *height = [tmp objectForKey:@"thumb-h"];
-            NSString *size = [tmp objectForKey:@"size"];
-            //NSLog(@"size=%@", size);
-            if(size == nil){
-                size = @"1";
-            }
-            //NSString *size = @"1";
-            //NSLog(@"panoTilet=%@", panoThumb);
-            [self addPano:panoId thumbImage:panoThumb panotitle:panoTitle width:width height:height size:size   photoTime:panoCreated];
+        self.pagePanos = [resultsDictionary objectForKey:@"panos"];
+        self.totalNum = pagePanos.count;
+        totalPage = pagePanos.count/pageSize;
+        if (pagePanos.count%pageSize>0) {
+            totalPage++;
         }
-        //NSLog(@"AAAA%@", panoList);
     }
 }
 
+-(void) getPageList{
+    
+    int from = (curentPage-1)*pageSize;
+    int to = from+pageSize;
+    
+    if (to>self.totalNum) {
+        to = self.totalNum;
+    }
+    for(int i=from; i<to; i++){
+        
+        NSDictionary  *tmp = [self.pagePanos objectAtIndex:i];
+        NSString *panoId = [tmp objectForKey:@"id"];
+        NSString *panoTitle = [tmp objectForKey:@"title"];
+        NSString *panoCreated = [tmp objectForKey:@"created"];
+        NSString *panoThumb = [tmp objectForKey:@"thumb"];
+        NSString *width = [tmp objectForKey:@"thumb-w"];
+        NSString *height = [tmp objectForKey:@"thumb-h"];
+        NSString *size = [tmp objectForKey:@"size"];
+        if(size == nil){
+            size = @"1";
+        }
+        
+        [self addPano:panoId thumbImage:panoThumb panotitle:panoTitle width:width height:height size:size   photoTime:panoCreated];
+    }
+
+}
 
 
 - (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle  width:(NSString *)width height:(NSString *)height size:(NSString *)size photoTime:(NSString *)photoTime{
-    
+
     NSMutableDictionary * pano = [[NSMutableDictionary alloc] init];
     
     [pano setValue:panoId forKey:@"pid"];
@@ -116,7 +155,7 @@
     [pano setValue:width forKey:@"width"];
     [pano setValue:size forKey:@"size"];
     //NSLog(@"AAAA%@", pano);
-    [panoList addObject:pano];
+    [self.panoList addObject:pano];
 }
 
 - (void) getWrong:(NSString*)str{

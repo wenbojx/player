@@ -14,5 +14,7 @@
 
 -(void)mosaicViewDidTap:(MosaicDataView *)aModule;
 -(void)mosaicViewDidDoubleTap:(MosaicDataView *)aModule;
+-(void)scrollHead;
+-(void)scrollFoot;
 
 @end

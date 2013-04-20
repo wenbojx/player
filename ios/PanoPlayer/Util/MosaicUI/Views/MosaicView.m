@@ -12,11 +12,12 @@
 
 #define kModuleSizeInPoints_iPhone 80
 #define kModuleSizeInPoints_iPad 128
-#define kMaxScrollPages_iPhone 4
-#define kMaxScrollPages_iPad 4
+#define kMaxScrollPages_iPhone 10
+#define kMaxScrollPages_iPad 10
 
 @implementation MosaicView
 @synthesize datasource, delegate;
+@synthesize scrollViewDelegate;
 
 #pragma mark - Private
 
@@ -27,8 +28,29 @@
     //  Add scrollview and set its position and size using autolayout constraints
     scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     scrollView.backgroundColor = [UIColor blackColor];
-    [self addSubview:scrollView];    
+    scrollView.delegate = self;
+    [self addSubview:scrollView];
+    
 }
+-(void)setScrollHead{
+    [scrollView setContentOffset:CGPointMake(0,0) animated:NO];
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollViews{
+    CGPoint offset = scrollViews.contentOffset;
+    CGRect bounds = scrollViews.bounds;
+    CGSize size = scrollViews.contentSize;
+    UIEdgeInsets inset = scrollViews.contentInset;
+    CGFloat currentOffset = offset.y + bounds.size.height-inset.bottom;
+    CGFloat maximumOffset = size.height;
+    if(currentOffset == maximumOffset){
+        [self.delegate scrollFoot];
+    }
+    if(offset.y==0){
+        [self.delegate scrollHead];
+    }
+    
+}
+
 
 - (BOOL)doesModuleWithCGSize:(CGSize)aSize fitsInCoord:(CGPoint)aPoint{
     BOOL retVal = YES;
@@ -165,7 +187,6 @@
     if (retVal == -1){
         retVal = self.frame.size.height / [self moduleSizeInPoints] * [self maxScrollPages];
     }
-    
     return retVal;
 }
 
@@ -250,6 +271,7 @@
 }
 
 - (void)refresh{
+    [self setup];
     NSArray *mosaicElements = [self.datasource mosaicElements];
     [self setupLayoutWithMosaicElements:mosaicElements];
 }

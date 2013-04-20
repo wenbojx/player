@@ -20,7 +20,7 @@
         MosaicData *aMosaicModule = [[MosaicData alloc] initWithDictionary:aModuleDict];
         [elements addObject:aMosaicModule];
     }
-    //NSLog(@"datas=%@", elements);
+    //NSLog(@"datas=%d", datas.count);
 }
 
 #pragma mark - Public
