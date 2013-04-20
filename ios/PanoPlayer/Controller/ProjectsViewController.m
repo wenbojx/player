@@ -41,6 +41,7 @@
     projectList = [[NSMutableArray alloc] init];
     
     NSString *mid = [self getUserInfo];
+    NSLog(@"mid=%@", mid);
     NSString *ProjectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pu/id/%@", mid];
     NSString *responseData = [self getJsonFromUrl:ProjectListUrl];
     

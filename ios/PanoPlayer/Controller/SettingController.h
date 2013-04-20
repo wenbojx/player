@@ -15,6 +15,7 @@
 }
 
 @property(assign, nonatomic) IBOutlet UITextField *usernameField;
+@property(assign,nonatomic) IBOutlet UILabel *setSuccess;
 
 -(IBAction)saveDatas:(id)sender;
 - (IBAction) ProjectIdDoneEditing:(id)sender;

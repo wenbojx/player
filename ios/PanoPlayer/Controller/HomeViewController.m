@@ -49,6 +49,22 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProjectPlayerNotificationHandler:) name:@"projectId" object:nil];
     
+    rightItemBar = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+    self.navigationItem.rightBarButtonItem = rightItemBar;
+    
+}
+
+-(void)setPageInfo{
+    if (curentPage == 1) {
+        rightItemBar.title = [NSString stringWithFormat:@"下一页 %d/%d", curentPage, totalPage];
+        nextPage = curentPage+1;
+    }
+    else{
+        rightItemBar.title = [NSString stringWithFormat:@"上一页 %d/%d", curentPage, totalPage];
+        nextPage = curentPage-1;
+    }
+    
+    rightItemBar.action = @selector(NextPage);
 }
 
 - (void)ProjectPlayerNotificationHandler:(NSNotification*)notification
@@ -69,6 +85,7 @@
     
 }
 -(void)displayMocaic{
+    [self setPageInfo];
     //NSLog(@"panoList=%d", panoList.count);
     mosaicView.datasource = [PanoListMosaicDatasource sharedInstance:panoList];
     [mosaicView refresh];
@@ -85,6 +102,7 @@
     panoList = [[NSMutableArray alloc] init];
     [self getPageList];
     [self displayMocaic];
+    //[self.view addSubview: topView];
 }
 -(void)scrollFoot{
     curentPage = curentPage+1;
@@ -96,6 +114,12 @@
     [self getPageList];
     [self displayMocaic];
     //[mosaicView setScrollHead];
+}
+-(void)NextPage{
+    curentPage = nextPage;
+    panoList = [[NSMutableArray alloc] init];
+    [self getPageList];
+    [self displayMocaic];
 }
 
 -(void)setItemTitle:(NSString *)title{

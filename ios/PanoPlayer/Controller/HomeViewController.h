@@ -29,14 +29,18 @@
     int curentPage;
     int totalPage;
     int totalNum;
+    int nextPage;
     //int panoId;
+    //UILabel *topView;
+    UIBarButtonItem *rightItemBar;
 
 }
 
-
+//@property(assign, nonatomic)IBOutlet UILabel *topView;
 @property(retain, nonatomic) NSMutableArray *panoList;
 @property(retain, nonatomic) NSArray *pagePanos;
 @property(assign, nonatomic) int totalNum;
+
 
 @property(retain, nonatomic) NSString *projectListUrl;
 

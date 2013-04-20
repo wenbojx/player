@@ -15,6 +15,7 @@
 
 @implementation SettingController
 @synthesize usernameField;
+@synthesize setSuccess;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,13 +55,14 @@
 - (void) getWrong:(NSString*)str{
     NSString *msg = [NSString stringWithFormat:@"%@", str];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
     [alert show];
     [alert release];
 }
 
--(NSString *)getUserInfo:(NSString *)username{
+-(NSString *)getUserInfo:(NSString *)usernames{
     
-    NSString *projectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/user/u/%@", username];
+    NSString *projectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/user/u/%@", usernames];
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:projectListUrl]];
     
@@ -85,7 +87,7 @@
         return;
     }
     NSString *responseStr = [self getUserInfo:username];
-    NSLog(responseStr);
+    //NSLog(responseStr);
     if(responseStr == nil && [responseStr isEqualToString:@""]){
         [self getWrong:@"请输入用户名"];
         return;
@@ -114,8 +116,20 @@
 
     [data writeToFile:filename atomically:YES];
     //NSLog(@"data=%@", data);
-    [self getWrong:@"数据保存成功"];
     
+    setSuccess.hidden = NO;
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(setSuccessJump) userInfo:nil repeats:NO];
+    //[timer invalidate];
+}
+
+-(void)setSuccessJump{
+    //NSLog(@"aaaa");
+    ProjectsViewController *projectView = [[ProjectsViewController alloc] init];
+    projectView.navigationItem.hidesBackButton = YES;
+    
+    projectView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:projectView animated:YES];
 }
 
 - (IBAction) ProjectIdDoneEditing:(id)sender{
