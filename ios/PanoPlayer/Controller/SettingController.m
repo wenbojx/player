@@ -14,7 +14,7 @@
 @end
 
 @implementation SettingController
-@synthesize usernameField;
+@synthesize usernameField, configCache, datasCache, playerRotate, playerRotateLable;
 @synthesize setSuccess;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,25 +31,33 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    NSString *userName;
+    NSDictionary *userInfo = [self getUserInfo];
+    username = nil;
+    if (userInfo != nil) {
+        username = [userInfo objectForKey:@"userName"];
+        //mid = [userInfo objectForKey:@"mid"];
+        usernameField.text = username;
+        configCache.text = [userInfo objectForKey:@"configCacheValue"];
+        datasCache.text = [userInfo objectForKey:@"datasCacheValue"];
+        playerRotate.value = [[userInfo objectForKey:@"playerRotateValue"] intValue];
+        playerRotateLable.text = [userInfo objectForKey:@"playerRotateValue"];
+    }
+    
+}
+-(NSDictionary *)getUserInfo{
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString *path=[paths objectAtIndex:0];
     NSString *filename=[path stringByAppendingPathComponent:@"userInfo.plist"];
     
     //读文件
     NSDictionary* userInfo = [NSDictionary dictionaryWithContentsOfFile:filename];
-    //NSLog(@"dic is:%@",userInfo);
-    if(userInfo == nil)
-    {
+    if(userInfo == nil){
         //1. 创建一个plist文件
         NSFileManager* fm = [NSFileManager defaultManager];
         [fm createFileAtPath:filename contents:nil attributes:nil];
     }
-    else
-    {
-        userName = [userInfo objectForKey:@"userName"];
-        usernameField.text = userName;
-    }
+    
+    return userInfo;
 }
 
 - (void) getWrong:(NSString*)str{
@@ -81,29 +89,59 @@
 }
 
 -(IBAction)saveDatas:(id)sender{
-    username = usernameField.text;
-    if (username == nil || [username isEqualToString:@""]) {
-        [self getWrong:@"请输入用户名"];
-        return;
+    NSDictionary *userInfo = [self getUserInfo];
+    mid = [userInfo objectForKey:@"mid"];
+    username = [userInfo objectForKey:@"userName"];
+    
+    NSString *usernameIn = usernameField.text;
+    //NSLog(@"in=%@, u=%@", usernameIn, username);
+    if ([usernameIn isEqualToString:username]) {
     }
-    NSString *responseStr = [self getUserInfo:username];
-    //NSLog(responseStr);
-    if(responseStr == nil && [responseStr isEqualToString:@""]){
-        [self getWrong:@"请输入用户名"];
-        return;
+    else{
+        if (usernameIn == nil || [usernameIn isEqualToString:@""]) {
+            [self getWrong:@"请输入用户名"];
+            return;
+        }
+        NSString *responseStr = [self getUserInfo:usernameIn];
+        //NSLog(responseStr);
+        if(responseStr == nil && [responseStr isEqualToString:@""]){
+            [self getWrong:@"帐号信息错误"];
+            return;
+        }
+        NSDictionary *resultsDictionary = [responseStr objectFromJSONString];
+        NSString *state = [resultsDictionary objectForKey:@"state"];
+        if ([state isEqualToString:@"0"]) {
+            [self getWrong:@"帐号不存在"];
+            return;
+        }
+        NSString *midGet = [resultsDictionary objectForKey:@"m_id"];
+        if(midGet == nil || [midGet isEqualToString:@""] || [midGet isEqualToString:@"0"]){
+            [self getWrong:@"帐号信息错误"];
+            return;
+        }
+        else{
+            mid = midGet;
+            username = usernameIn;
+            //NSLog(@"mid=%@", midGet);
+        }
     }
-    NSDictionary *resultsDictionary = [responseStr objectFromJSONString];
-    NSString *state = [resultsDictionary objectForKey:@"state"];
-    if ([state isEqualToString:@"0"]) {
-        [self getWrong:@"帐号不存在"];
-        return;
+
+    //NSLog(@"in=%@, u=%@, mid=%@", usernameIn, username, mid);
+    
+    NSString *configCacheValue = configCache.text;
+    if ([configCacheValue isEqualToString:@""]) {
+        configCacheValue = @"90";
     }
-    NSString *mid = [resultsDictionary objectForKey:@"m_id"];
-    if(mid == nil || [mid isEqualToString:@""] || [mid isEqualToString:@"0"]){
-        [self getWrong:@"帐号信息错误"];
-        return;
+    NSString *datasCacheValue = datasCache.text;
+    if([datasCacheValue isEqualToString:@""]){
+        datasCacheValue = @"360";
     }
-    NSString *userName = [resultsDictionary objectForKey:@"userName"];
+    NSInteger rotateValue = playerRotate.value;
+    if (rotateValue == 0) {
+        rotateValue = 150;
+    }
+    NSString *playerRotateValue = [[NSString alloc] initWithFormat:@"%d",rotateValue];
+    
     
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString *path=[paths    objectAtIndex:0];
@@ -111,8 +149,15 @@
     
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
     //添加一项内容
-    [data setObject:mid forKey:@"mid"];
-    [data setObject:userName forKey:@"userName"];
+    if (username!=nil && mid!=nil) {
+        [data setObject:mid forKey:@"mid"];
+        [data setObject:username forKey:@"userName"];
+    }
+    
+    [data setObject:configCacheValue forKey:@"configCacheValue"];
+    [data setObject:datasCacheValue forKey:@"datasCacheValue"];
+    [data setObject:playerRotateValue forKey:@"playerRotateValue"];
+    
 
     [data writeToFile:filename atomically:YES];
     //NSLog(@"data=%@", data);

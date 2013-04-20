@@ -60,7 +60,24 @@
     
 }
 
-
+-(NSString *) getUserInfo{
+    NSString *mid = @"1";
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSString *filename=[path stringByAppendingPathComponent:@"userInfo.plist"];
+    
+    //读文件
+    NSDictionary* userInfo = [NSDictionary dictionaryWithContentsOfFile:filename];
+    //NSLog(@"dic is:%@",userInfo);
+    
+    if(userInfo != nil){
+        NSString *mmid = [userInfo objectForKey:@"mid"];
+        if(mmid!=nil && ![mmid isEqualToString:@""]){
+            mid = mmid;
+        }
+    }
+    return mid;
+}
 
 
 //返回UITableView共几行
@@ -180,21 +197,6 @@
     return responseData;
 }
 
-
--(NSString *) getUserInfo{
-    NSString *mid = @"1";
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *path=[paths objectAtIndex:0];
-    NSString *filename=[path stringByAppendingPathComponent:@"userInfo.plist"];
-    
-    //读文件
-    NSDictionary* userInfo = [NSDictionary dictionaryWithContentsOfFile:filename];
-    //NSLog(@"dic is:%@",userInfo);
-    if(userInfo != nil){
-        mid = [userInfo objectForKey:@"mid"];
-    }
-    return mid;
-}
 
 //-(void)
 
