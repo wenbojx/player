@@ -11,8 +11,10 @@
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
 #import "JSONKit.h"
+#import "ConfigDataSource.h"
 
 @interface InfoFrameController : UIView {
+    ConfigDataSource *configDatas;
     //UIImage *UIimage;
     id ViewBoxDelegate;
     

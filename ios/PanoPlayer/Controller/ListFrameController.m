@@ -41,6 +41,7 @@
     CGSize result = frame.size;
     width = result.width-35;
     
+    configDatas = [[ConfigDataSource alloc] init];
     //panoId = [[self getProjectId] intValue];
     //projectId = 1001;
     panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", projectId];
@@ -199,7 +200,12 @@
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
     [cache setShouldRespectCacheControlHeaders:NO];
     //[]
-    [request setSecondsToCache:60*60*24*30*10]; //30
+    //configDatas = [[ConfigDataSource alloc] init];
+    
+    int cacheDay = [configDatas getConfigCache];
+    int days = 60*60*24*cacheDay;
+    
+    [request setSecondsToCache:days]; //30
     
     [request startSynchronous];
     

@@ -11,9 +11,12 @@
 #import "MosaicView.h"
 #import "MosaicViewDelegateProtocol.h"
 #import "PanoListMosaicDatasource.h"
+#import "ConfigDataSource.h"
+
 
 @interface HomeViewController : UIViewController <MosaicViewDelegateProtocol>{
     
+    ConfigDataSource *configDatas;
     __weak IBOutlet MosaicView *mosaicView;
     //MosaicView *mosaicView;
     PanoListMosaicDatasource *datasSource;

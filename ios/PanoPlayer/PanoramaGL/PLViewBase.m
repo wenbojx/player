@@ -67,7 +67,6 @@
 
 @synthesize touchStatus;
 
-@synthesize isPointerVisible;
 
 #pragma mark -
 #pragma mark init methods 

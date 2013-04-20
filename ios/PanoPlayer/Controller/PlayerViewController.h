@@ -14,8 +14,11 @@
 #import "InfoFrameController.h"
 #import "MapFrameController.h"
 #import "AVFoundation/AVFoundation.h"
+#import "ConfigDataSource.h"
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
+    
+    ConfigDataSource *configDatas;
     PLView *plView;
     PLCubicPanorama *cubicPanorama;
     NSString *curentPanoID;

@@ -40,8 +40,10 @@
     
     projectList = [[NSMutableArray alloc] init];
     
-    NSString *mid = [self getUserInfo];
-    NSLog(@"mid=%@", mid);
+    configDatas = [[ConfigDataSource alloc] init];
+    int cmid = [configDatas getMid];
+    //int cmid = [ConfigDataSource getMid];
+    NSString *mid = [NSString stringWithFormat:@"%d", cmid];
     NSString *ProjectListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pu/id/%@", mid];
     NSString *responseData = [self getJsonFromUrl:ProjectListUrl];
     
@@ -58,25 +60,6 @@
         }
     }
     
-}
-
--(NSString *) getUserInfo{
-    NSString *mid = @"1";
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *path=[paths objectAtIndex:0];
-    NSString *filename=[path stringByAppendingPathComponent:@"userInfo.plist"];
-    
-    //读文件
-    NSDictionary* userInfo = [NSDictionary dictionaryWithContentsOfFile:filename];
-    //NSLog(@"dic is:%@",userInfo);
-    
-    if(userInfo != nil){
-        NSString *mmid = [userInfo objectForKey:@"mid"];
-        if(mmid!=nil && ![mmid isEqualToString:@""]){
-            mid = mmid;
-        }
-    }
-    return mid;
 }
 
 
@@ -115,7 +98,7 @@
 	NSUInteger row = [indexPath row];
 	NSMutableDictionary * project = [projectList objectAtIndex:row];
     NSString *path = [project objectForKey:@"thumbImage"];
-    NSLog(@"path=%@", path);
+    //NSLog(@"path=%@", path);
     //[cell.thumbImage setImage:[UIImage imageNamed:[pano objectForKey:@"thumbImage"]]];
     [cell.thumbImage setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"loading.gif"]];
     //NSLog(@"bbbb=%@", [pano objectForKey:@"thumbImage"]);
@@ -179,8 +162,10 @@
     
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
     [cache setShouldRespectCacheControlHeaders:NO];
-    //[]
-    [request setSecondsToCache:60*60*24*30*10]; //30
+    int cacheDay = [configDatas getConfigCache];
+    int days = 60*60*24*cacheDay;
+    //NSLog(@"day=%d", days);
+    [request setSecondsToCache:days];
     
     [request startSynchronous];
     

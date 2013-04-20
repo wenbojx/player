@@ -87,6 +87,7 @@
     
     //self.view.autoresizesSubviews;
     self.alertOnce = false;
+    configDatas = [[ConfigDataSource alloc] init];
     
     [logo setText:@"www.yiluhao.com"];
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
@@ -189,7 +190,6 @@
 }
 
 -(void)startDownload:(NSString *)panoId{
-    //panoId = @"10129";
     curentPanoID = panoId;
     hotspots = [[NSMutableArray alloc] init];
     if(panoId != nil){
@@ -251,6 +251,8 @@
                 [self addHotspot:hotspotId linkSceneId:link_scene_id tilt:tilt pan:pan transform:transform type:type filePath:filePath];
             }
             
+            int cacheDay = [configDatas getDatasCache];
+            int days = 60*60*24*cacheDay;
             
             ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
             
@@ -268,7 +270,8 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_f]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_f" forKey:@"face"]];
@@ -293,7 +296,8 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_r]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_r" forKey:@"face"]];
@@ -324,7 +328,9 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_b]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
+            
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_b" forKey:@"face"]];
@@ -349,7 +355,9 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_l]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
+            
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_l" forKey:@"face"]];
@@ -374,7 +382,8 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_u]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_u" forKey:@"face"]];
@@ -398,7 +407,8 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_d]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_d" forKey:@"face"]];
@@ -444,7 +454,9 @@
 -(void)displayPano{
     
     //NSObject<PLIPanorama> *panorama = nil;
+    
     cubicPanorama = [PLCubicPanorama panorama];
+    //[cubicPanorama setRotateSensitivity:50];
     
     CGImageRef cgFaceSF = CGImageRetain(faceSF.CGImage);
     //[faceSF release], faceSF = nil;
@@ -502,12 +514,21 @@
 
     currentCamera.pitchRange = PLRangeMake(atvmin, atvmax);
     currentCamera.yawRange = PLRangeMake(athmin, athmax);
-    //[currentCamera setInitialLookAtWithPitch:vlookat yaw:hlookat];
+    
+    int rotateValue = [configDatas getPlayerRotate];
+    currentCamera.rotateSensitivity = rotateValue;
+    Boolean sensorial = [configDatas getPlayeRsensoria];
     
     [plView setPanorama:cubicPanorama];
     
+    if (sensorial) {
+        [plView startSensorialRotation];
+        //NSLog(@"Sensorial");
+    }
+    [plView startAnimation];
+
     [currentCamera lookAtWithPitch:vlookat yaw:hlookat];
-    NSLog(@"vlookat=%d, hlookat=%d, atvmax=%d, atvmin=%d, athmax=%d, athmin=%d",vlookat, hlookat, atvmax,atvmin, athmax, athmin);
+    //NSLog(@"vlookat=%d, hlookat=%d, atvmax=%d, atvmin=%d, athmax=%d, athmin=%d",vlookat, hlookat, atvmax,atvmin, athmax, athmin);
     
     [plView hideProgressBar];
     
@@ -527,19 +548,7 @@
     [plView startAnimation];
     aniTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(setAnimation) userInfo:nil repeats:YES];
 }
-/*
-- (IBAction)rightItemClick:(id)sender {
-    if (isAnimation) {
-        [rightItemBar setImage:[UIImage imageNamed:@"repeat.png"]];
-        [self stopAnimation];
-    }
-    else{
-        
-        [rightItemBar setImage:[UIImage imageNamed:@"pause.png"]];
-        [self startAnimation];
-    }
-}
- */
+
 
 - (void)setAnimation
 {
@@ -594,8 +603,10 @@
     [request setDownloadCache:cache];
     
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-    //[request setDownloadProgressDelegate:imageProgressIndicator];
-    [request setSecondsToCache:60*60*24*30*10]; //300
+    
+    int cacheDay = [configDatas getDatasCache];
+    int days = 60*60*24*cacheDay;
+    [request setSecondsToCache:days]; //300
 
     //MapFrameController *a = [MapFrameController alloc];
     
@@ -663,7 +674,10 @@
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
     [cache setShouldRespectCacheControlHeaders:NO];
     //[]
-    [request setSecondsToCache:60*60*24*30*10]; //30
+    int cacheDay = [configDatas getConfigCache];
+    int days = 60*60*24*cacheDay;
+    
+    [request setSecondsToCache:days]; //30
     
     [request startSynchronous];
     

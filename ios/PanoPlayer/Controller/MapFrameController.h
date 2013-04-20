@@ -10,9 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MTImageMapView.h"
 #import "JSONKit.h"
+#import "ConfigDataSource.h"
 
 @interface MapFrameController : UIView <MTImageMapDelegate>{
 
+    ConfigDataSource *configDatas;
     id ViewBoxDelegate;
     UIButton *closeBt;
     int width;

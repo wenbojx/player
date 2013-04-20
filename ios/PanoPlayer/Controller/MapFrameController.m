@@ -43,7 +43,7 @@
         width = result.width-35;
  
     }
-    
+    configDatas = [[ConfigDataSource alloc] init];
     layoutWidh = frame.size.width-20;
     layoutHeight = frame.size.height-30;
     
@@ -148,8 +148,10 @@
     
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
     [cache setShouldRespectCacheControlHeaders:NO];
-    //[]
-    [request setSecondsToCache:60*60*24*30*10]; //30
+    
+    int cacheDay = [configDatas getConfigCache];
+    int days = 60*60*24*cacheDay;
+    [request setSecondsToCache:days]; //30
     
     [request startSynchronous];
     
@@ -186,7 +188,10 @@
     
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
     //[request setDownloadProgressDelegate:imageProgressIndicator];
-    [request setSecondsToCache:60*60*24*30*10]; //30
+    int cacheDay = [configDatas getDatasCache];
+    int days = 60*60*24*cacheDay;
+    
+    [request setSecondsToCache:days]; //30
     
     [request setUserInfo:[NSDictionary dictionaryWithObject:coordsData forKey:@"coords"]];
     

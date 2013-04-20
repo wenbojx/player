@@ -28,6 +28,7 @@
 #import "UIImageView+WebCache.h"
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
+#import "ConfigDataSource.h"
 
 
 @interface ProjectsViewController : UIViewController {
@@ -41,6 +42,7 @@
      */
     IBOutlet UIButton *reflashButton;
     NSMutableArray *projectList;
+    ConfigDataSource *configDatas;
 
 }
 

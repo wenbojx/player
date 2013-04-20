@@ -13,6 +13,7 @@
 @interface SettingController : UIViewController{
     NSString *username;
     NSString *mid;
+    IBOutlet UISwitch *playeRsensorial;
 }
 
 @property(assign, nonatomic) IBOutlet UITextField *usernameField;
@@ -21,6 +22,7 @@
 @property(assign, nonatomic) IBOutlet UITextField *datasCache;
 @property(assign, nonatomic) IBOutlet UISlider *playerRotate;
 @property(assign, nonatomic) IBOutlet UILabel *playerRotateLable;
+@property(assign, nonatomic) IBOutlet UISwitch *playeRsensorial;
 
 -(IBAction)saveDatas:(id)sender;
 - (IBAction) ProjectIdDoneEditing:(id)sender;

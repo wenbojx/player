@@ -19,6 +19,7 @@
 		153145B1171BF9CF0047E1CB /* btMusic.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A8171BF9CF0047E1CB /* btMusic.png */; };
 		153145B2171BF9CF0047E1CB /* btRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A9171BF9CF0047E1CB /* btRound.png */; };
 		153145B3171BF9CF0047E1CB /* btRound.png in Resources */ = {isa = PBXBuildFile; fileRef = 153145A9171BF9CF0047E1CB /* btRound.png */; };
+		1535C17B1722A2B400B06FF5 /* ConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1535C17A1722A2B400B06FF5 /* ConfigDataSource.m */; };
 		1536363D171EB13400D2069F /* dataList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1536363C171EB13400D2069F /* dataList.plist */; };
 		1536364D171ECF7600D2069F /* ProjectTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1536364C171ECF7500D2069F /* ProjectTableCell.xib */; };
 		15363650171ED14000D2069F /* ProjectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536364F171ED14000D2069F /* ProjectTableCell.m */; };
@@ -309,6 +310,8 @@
 		153145A7171BF9CF0047E1CB /* btMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btMap.png; path = img/btMap.png; sourceTree = "<group>"; };
 		153145A8171BF9CF0047E1CB /* btMusic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btMusic.png; path = img/btMusic.png; sourceTree = "<group>"; };
 		153145A9171BF9CF0047E1CB /* btRound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btRound.png; path = img/btRound.png; sourceTree = "<group>"; };
+		1535C1791722A2B400B06FF5 /* ConfigDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigDataSource.h; path = model/ConfigDataSource.h; sourceTree = "<group>"; };
+		1535C17A1722A2B400B06FF5 /* ConfigDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfigDataSource.m; path = model/ConfigDataSource.m; sourceTree = "<group>"; };
 		1536363C171EB13400D2069F /* dataList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dataList.plist; sourceTree = "<group>"; };
 		1536364C171ECF7500D2069F /* ProjectTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectTableCell.xib; sourceTree = "<group>"; };
 		1536364E171ED13F00D2069F /* ProjectTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectTableCell.h; path = Controller/ProjectTableCell.h; sourceTree = "<group>"; };
@@ -711,6 +714,8 @@
 			children = (
 				15456569171FF23F00D81905 /* PanoListMosaicDatasource.h */,
 				1545656A171FF23F00D81905 /* PanoListMosaicDatasource.m */,
+				1535C1791722A2B400B06FF5 /* ConfigDataSource.h */,
+				1535C17A1722A2B400B06FF5 /* ConfigDataSource.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1516,6 +1521,7 @@
 				15456566171FF1CF00D81905 /* MosaicDataView.m in Sources */,
 				15456567171FF1CF00D81905 /* MosaicView.m in Sources */,
 				1545656B171FF23F00D81905 /* PanoListMosaicDatasource.m in Sources */,
+				1535C17B1722A2B400B06FF5 /* ConfigDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

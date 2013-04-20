@@ -13,10 +13,11 @@
 #import "UIImageView+WebCache.h"
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
-
+#import "ConfigDataSource.h"
 
 @interface ListFrameController : UIView <UITableViewDataSource,UITableViewDelegate>{
     
+    ConfigDataSource *configDatas;
     id ViewBoxDelegate;
     
     //UIImage *UIimage;

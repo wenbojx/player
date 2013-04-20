@@ -16,6 +16,8 @@
 @implementation SettingController
 @synthesize usernameField, configCache, datasCache, playerRotate, playerRotateLable;
 @synthesize setSuccess;
+@synthesize playeRsensorial;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,9 +43,22 @@
         datasCache.text = [userInfo objectForKey:@"datasCacheValue"];
         playerRotate.value = [[userInfo objectForKey:@"playerRotateValue"] intValue];
         playerRotateLable.text = [userInfo objectForKey:@"playerRotateValue"];
+        Boolean rsensorial= [[userInfo objectForKey:@"playeRsensorialValue"] boolValue];
+        [playeRsensorial setOn:rsensorial];
     }
     
+    [playerRotate addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    //滑块拖动后的事件
+    [playerRotate addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventTouchUpInside];
 }
+
+-(void)sliderValueChanged:(id)sender{
+    int rotateValue = playerRotate.value;
+    playerRotateLable.text = [NSString stringWithFormat:@"%d",rotateValue];
+    //NSLog(@"adfsadfs");
+}
+
 -(NSDictionary *)getUserInfo{
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString *path=[paths objectAtIndex:0];
@@ -142,6 +157,11 @@
     }
     NSString *playerRotateValue = [[NSString alloc] initWithFormat:@"%d",rotateValue];
     
+    Boolean rsensorialValue = playeRsensorial.on;
+    NSString *playeRsensorialValue = @"0";
+    if (rsensorialValue) {
+        playeRsensorialValue = @"1";
+    }
     
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString *path=[paths    objectAtIndex:0];
@@ -154,10 +174,11 @@
         [data setObject:username forKey:@"userName"];
     }
     
+    //NSLog(@"rsensor%@", playeRsensorialValue);
     [data setObject:configCacheValue forKey:@"configCacheValue"];
     [data setObject:datasCacheValue forKey:@"datasCacheValue"];
     [data setObject:playerRotateValue forKey:@"playerRotateValue"];
-    
+    [data setObject:playeRsensorialValue forKey:@"playeRsensorialValue"];
 
     [data writeToFile:filename atomically:YES];
     //NSLog(@"data=%@", data);

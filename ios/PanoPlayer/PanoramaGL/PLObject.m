@@ -46,7 +46,7 @@
 	isXAxisEnabled = isYAxisEnabled = isZAxisEnabled = YES;
 	isPitchEnabled = isYawEnabled = isRollEnabled = YES;
 	
-	rotateSensitivity = kDefaultRotateSensitivity;	
+	rotateSensitivity = kDefaultRotateSensitivity;
 	isReverseRotation = NO;
 	
 	isYZAxisInverseRotation = YES;
@@ -54,7 +54,7 @@
 	position = PLPositionMake(0.0f, 0.0f, 0.0f);
 	
 	defaultAlpha = kObjectDefaultAlpha;
-	
+	//NSLog(@"bbbb");
 	[self reset];
 }
 
