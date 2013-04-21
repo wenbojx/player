@@ -33,7 +33,16 @@
 	UIBarButtonItem *rightItemBar = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(settingConfig:)];
     self.navigationItem.rightBarButtonItem = rightItemBar;
         //NSLog(@"responseData=%@", responseData);
+    tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    [tableView setAutoresizesSubviews:YES];
+    [tableView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    
     [self getProjectList];
+    if (projectList.count>0) {
+        [self.view addSubview:tableView];
+    }
 }
 
 -(void)getProjectList{
@@ -151,6 +160,7 @@
     
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     //NSString *path = [cachePath stringByAppendingPathComponent:@"Caches"];
+    //NSLog(@"%@", cachePath);
     
     [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
     
@@ -216,12 +226,13 @@
 }
 
 -(IBAction)onClickButton:(id)sender{
-    
-    [self.view removeFromSuperview];
-    ProjectsViewController *projectView = [[ProjectsViewController alloc] init];
-    projectView.title = @"首页";
-    [self.navigationController pushViewController:projectView animated:(YES)];
-    
+
+    [self getProjectList];
+    if (projectList.count>0) {
+        [self.view addSubview:tableView];
+        [tableView reloadData];
+    }
+
 }
 
 -(IBAction)settingConfig:(id)sender{

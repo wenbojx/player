@@ -17,6 +17,7 @@
 @synthesize usernameField, configCache, datasCache, playerRotate, playerRotateLable;
 @synthesize setSuccess;
 @synthesize playeRsensorial;
+@synthesize clearFinish, clearIng;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,20 +33,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    configDatas = [[ConfigDataSource alloc] init];
     
-    NSDictionary *userInfo = [self getUserInfo];
-    username = nil;
-    if (userInfo != nil) {
-        username = [userInfo objectForKey:@"userName"];
-        //mid = [userInfo objectForKey:@"mid"];
-        usernameField.text = username;
-        configCache.text = [userInfo objectForKey:@"configCacheValue"];
-        datasCache.text = [userInfo objectForKey:@"datasCacheValue"];
-        playerRotate.value = [[userInfo objectForKey:@"playerRotateValue"] intValue];
-        playerRotateLable.text = [userInfo objectForKey:@"playerRotateValue"];
-        Boolean rsensorial= [[userInfo objectForKey:@"playeRsensorialValue"] boolValue];
-        [playeRsensorial setOn:rsensorial];
-    }
+    username = [configDatas getUsername];
+    //mid = [userInfo objectForKey:@"mid"];
+    usernameField.text = username;
+    configCache.text = [NSString stringWithFormat:@"%d", [configDatas getConfigCache]];
+    datasCache.text = [NSString stringWithFormat:@"%d",[configDatas getDatasCache]];
+    playerRotate.value = [configDatas getPlayerRotate];
+    playerRotateLable.text = [NSString stringWithFormat:@"%d",[configDatas getPlayerRotate]];;
+    Boolean rsensorial= [configDatas getPlayeRsensoria];
+    [playeRsensorial setOn:rsensorial];
     
     [playerRotate addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -98,15 +96,14 @@
     else {
         [self getWrong:@"获取数据失败,请检查您的网络设置"];
     }
-    //NSLog(@"response%@", responseData);
     
     return responseData;
 }
 
 -(IBAction)saveDatas:(id)sender{
-    NSDictionary *userInfo = [self getUserInfo];
-    mid = [userInfo objectForKey:@"mid"];
-    username = [userInfo objectForKey:@"userName"];
+    
+    mid = [NSString stringWithFormat:@"%d",[configDatas getMid]];
+    username = [configDatas getUsername];
     
     NSString *usernameIn = usernameField.text;
     //NSLog(@"in=%@, u=%@", usernameIn, username);
@@ -115,29 +112,25 @@
     else{
         if (usernameIn == nil || [usernameIn isEqualToString:@""]) {
             [self getWrong:@"请输入用户名"];
-            return;
-        }
-        NSString *responseStr = [self getUserInfo:usernameIn];
-        //NSLog(responseStr);
-        if(responseStr == nil && [responseStr isEqualToString:@""]){
-            [self getWrong:@"帐号信息错误"];
-            return;
-        }
-        NSDictionary *resultsDictionary = [responseStr objectFromJSONString];
-        NSString *state = [resultsDictionary objectForKey:@"state"];
-        if ([state isEqualToString:@"0"]) {
-            [self getWrong:@"帐号不存在"];
-            return;
-        }
-        NSString *midGet = [resultsDictionary objectForKey:@"m_id"];
-        if(midGet == nil || [midGet isEqualToString:@""] || [midGet isEqualToString:@"0"]){
-            [self getWrong:@"帐号信息错误"];
-            return;
+            //return;
         }
         else{
-            mid = midGet;
-            username = usernameIn;
-            //NSLog(@"mid=%@", midGet);
+            NSString *responseStr = [self getUserInfo:usernameIn];
+            if(responseStr == nil && [responseStr isEqualToString:@""]){
+                [self getWrong:@"帐号信息错误"];
+            }
+            else{
+                NSDictionary *resultsDictionary = [responseStr objectFromJSONString];
+                NSString *state = [resultsDictionary objectForKey:@"state"];
+                NSString *midGet = [resultsDictionary objectForKey:@"m_id"];
+                if ([state isEqualToString:@"0"] || midGet == nil || [midGet isEqualToString:@""] || [midGet isEqualToString:@"0"]) {
+                    [self getWrong:@"帐号不存在"];
+                }
+                else{
+                    mid = midGet;
+                    username = usernameIn;
+                }
+            }
         }
     }
 
@@ -181,16 +174,17 @@
     [data setObject:playeRsensorialValue forKey:@"playeRsensorialValue"];
 
     [data writeToFile:filename atomically:YES];
-    //NSLog(@"data=%@", data);
+    NSLog(@"data=%@", data);
     
     setSuccess.hidden = NO;
+    [self delayJump];
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(setSuccessJump) userInfo:nil repeats:NO];
     //[timer invalidate];
 }
-
+-(void)delayJump{
+    timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(setSuccessJump) userInfo:nil repeats:NO];
+}
 -(void)setSuccessJump{
-    //NSLog(@"aaaa");
     ProjectsViewController *projectView = [[ProjectsViewController alloc] init];
     projectView.navigationItem.hidesBackButton = YES;
     
@@ -198,6 +192,20 @@
     [self.navigationController pushViewController:projectView animated:YES];
 }
 
+-(IBAction)clearCache:(id)sender{
+    clearIng.hidden = NO;
+    [clearIng startAnimating];
+    clearCache = [[ClearCache alloc] init];
+    [clearCache cleanConfigCache];
+    [clearIng stopAnimating];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(delayClear) userInfo:nil repeats:NO];
+}
+-(void)delayClear{
+    clearIng.hidden = YES;
+    clearFinish.hidden = NO;
+    timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(delayJump) userInfo:nil repeats:NO];
+}
 - (IBAction) ProjectIdDoneEditing:(id)sender{
     [sender resignFirstResponder];
 }

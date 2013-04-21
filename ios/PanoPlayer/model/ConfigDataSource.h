@@ -13,6 +13,7 @@
 }
 
 -(int)getMid;
+-(NSString *)getUsername;
 -(int)getConfigCache;
 -(int)getDatasCache;
 -(int)getPlayerRotate;

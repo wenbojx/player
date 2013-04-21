@@ -45,27 +45,28 @@
         NSDictionary *resultsDictionary = [responseData objectFromJSONString];
         NSDictionary *pano = [resultsDictionary objectForKey:@"pano"];
         NSString *contentTmp = [pano objectForKey:@"info"];
-        if (contentTmp != nil) {
+        if (contentTmp != nil && ![contentTmp isEqualToString:@""]) {
+            NSLog(@"tmp=%@", contentTmp);
             content = contentTmp;
         }
     }
     
     content = [style stringByAppendingFormat:@"%@", content];
     
-    int width = frame.size.width-10;
-    int height = frame.size.height-30;
+    int widths = frame.size.width-10;
+    int heights = frame.size.height-30;
     
-    iWebView = [[UIWebView alloc] initWithFrame:CGRectMake(5, 20, width, height)];
+    iWebView = [[UIWebView alloc] initWithFrame:CGRectMake(5, 20, widths, heights)];
     iWebView.opaque = NO;
     iWebView.dataDetectorTypes = UIDataDetectorTypeNone;
     [iWebView setBackgroundColor:[UIColor clearColor]];
 
     
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(5, 20, width, height)];
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(5, 20, width, heights)];
     [header setBackgroundColor:[UIColor clearColor]];
     
     //NSString *htmlString = [content stringByAppendingFormat:@"%@", textview.text];
-    
+    NSLog(@"content=%@", content);
     [iWebView loadHTMLString:content baseURL:nil];
     
     [self addSubview:iWebView];

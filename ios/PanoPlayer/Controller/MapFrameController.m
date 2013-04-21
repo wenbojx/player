@@ -105,11 +105,13 @@
         coordsData = [resultsDictionary objectForKey:@"coords"];
         //NSLog(@"na%@", coordsData);
         NSString *mapUrl = [resultsDictionary objectForKey:@"map"];
-        
-        if(coordsData && mapUrl){
+        //NSLog(@"map=%@", mapUrl);
+        if( ![mapUrl isEqualToString:@"nomap"]){
             [self downLoadImage:mapUrl];
         }
-        
+        else{
+            [self getWrong:@"暂无地图信息"];
+        }
         flag = true;
     }
     if(!flag){
@@ -217,7 +219,7 @@
 		[self displayMap:img coords:coords];
 	}
     else{
-        [self getWrong:@"下载地图失败,请检查您的网络设置"];
+        [self getWrong:@"下载地图失败"];
     }
     [self hideProgress];
 }
@@ -228,7 +230,7 @@
 - ( void )requestFailed:( ASIHTTPRequest *)request
 {
     if ([[request error] domain] != NetworkRequestErrorDomain || [[request error] code] != ASIRequestCancelledErrorType) {
-        [self getWrong:@"下载地图出错，请检查您的网络设置"];
+        [self getWrong:@"下载地图失败"];
     }
     [self hideProgress];
 }

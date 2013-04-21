@@ -31,7 +31,7 @@
 #import "ConfigDataSource.h"
 
 
-@interface ProjectsViewController : UIViewController {
+@interface ProjectsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate> {
     /*
     UINavigationController *navLoginController;
     UINavigationController *navHomeController;
@@ -43,6 +43,7 @@
     IBOutlet UIButton *reflashButton;
     NSMutableArray *projectList;
     ConfigDataSource *configDatas;
+    UITableView *tableView;
 
 }
 

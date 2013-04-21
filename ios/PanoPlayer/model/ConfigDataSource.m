@@ -38,8 +38,21 @@
             mid = 1;
         }
     }
-    NSLog(@"mid=%d", mid);
+    //NSLog(@"mid=%d", mid);
     return mid;
+}
+-(NSString *)getUsername{
+    NSDictionary *userInfo = [self getUserInfo];
+    NSString *username = @"yiluhao";
+    if (userInfo != nil) {
+        username = [userInfo objectForKey:@"userName"];
+        if (username == 0 || username ==nil || [username isEqualToString:@""]) {
+            username = @"yiluhao";
+        }
+    }
+    
+    //NSLog(@"username=%@", username);
+    return username;
 }
 -(int)getConfigCache{
     NSDictionary *userInfo = [self getUserInfo];
@@ -51,7 +64,7 @@
         }
     }
 
-    NSLog(@"configCache=%d", configCache);
+    //NSLog(@"configCache=%d", configCache);
     return configCache;
 }
 -(int)getDatasCache{
@@ -63,7 +76,7 @@
             dataCache = 360;
         }
     }
-    NSLog(@"dataCache=%d", dataCache);
+    //NSLog(@"dataCache=%d", dataCache);
     return dataCache;
 }
 -(int)getPlayerRotate{
@@ -75,7 +88,7 @@
             playerRotate = 150;
         }
     }
-    NSLog(@"playerRotate=%d", playerRotate);
+    //NSLog(@"playerRotate=%d", playerRotate);
     return playerRotate;
 }
 -(Boolean)getPlayeRsensoria{
@@ -84,7 +97,7 @@
     if (userInfo != nil) {
         playeRsensorial = [[userInfo objectForKey:@"playeRsensorialValue"] boolValue];
     }
-    NSLog(@"playeRsensorial=%d", playeRsensorial);
+    //NSLog(@"playeRsensorial=%d", playeRsensorial);
     return playeRsensorial;
 }
 
