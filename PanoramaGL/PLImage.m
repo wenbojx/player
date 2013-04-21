@@ -70,12 +70,6 @@
 	return self;
 }
 
--(id)initWithUIImage:(UIImage *)image{
-    if(self = [super init])
-		[self createWithUIImage:image];
-	return self;
-}
-
 -(id)initWithBuffer:(NSData *)buffer
 {
 	if(self = [super init])
@@ -107,9 +101,7 @@
 {
 	return [[[PLImage alloc] initWithPath:path] autorelease];
 }
-+(id)imageWithUIImage:(UIImage *)image{
-    return [[[PLImage alloc] initWithUIImage:image] autorelease];
-}
+
 +(id)imageWithBuffer:(NSData *)buffer
 {
 	return [[[PLImage alloc] initWithBuffer:buffer] autorelease];
@@ -122,15 +114,6 @@
 {
 	UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
 	if(!image)
-		[NSException raise:@"createWithPath: Path not found" format:@"createWithPath: Path not found"];
-	cgImage = CGImageRetain(image.CGImage);
-	width = CGImageGetWidth(cgImage);
-	height = CGImageGetHeight(cgImage);
-	[image release];
-}
-
--(void)createWithUIImage:(UIImage *)image{
-    if(!image)
 		[NSException raise:@"createWithPath: Path not found" format:@"createWithPath: Path not found"];
 	cgImage = CGImageRetain(image.CGImage);
 	width = CGImageGetWidth(cgImage);

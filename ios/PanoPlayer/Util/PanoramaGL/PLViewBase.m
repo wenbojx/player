@@ -67,6 +67,7 @@
 
 @synthesize touchStatus;
 
+@synthesize isPointerVisible;
 
 #pragma mark -
 #pragma mark init methods 
@@ -103,7 +104,7 @@
 	animationFrameInterval = kDefaultAnimationFrameInterval;
 	isDisplayLinkSupported = YES;
 	
-	isAccelerometerEnabled = NO;
+	isAccelerometerEnabled = YES;
 	isAccelerometerLeftRightEnabled = YES;
 	isAccelerometerUpDownEnabled = NO;
 	accelerometerSensitivity = kDefaultAccelerometerSensitivity;
@@ -359,8 +360,8 @@
     {
         PLCamera *camera = scene.currentCamera;
 		[camera rotateWithStartPoint:startPoint endPoint:endPoint];
-        /*if(delegate && [delegate respondsToSelector:@selector(view:didRotateCamera:rotation:)])
-            [delegate view:self didRotateCamera:camera rotation:[camera getAbsoluteRotation]];*/
+        if(delegate && [delegate respondsToSelector:@selector(view:didRotateCamera:rotation:)])
+            [delegate view:self didRotateCamera:camera rotation:[camera getAbsoluteRotation]];
     }
     if(renderer)
         [renderer render];

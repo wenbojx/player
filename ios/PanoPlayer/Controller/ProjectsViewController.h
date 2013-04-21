@@ -44,11 +44,12 @@
     NSMutableArray *projectList;
     ConfigDataSource *configDatas;
     UITableView *tableView;
-
+    Boolean reflashDatas;
 }
 
 @property(retain, nonatomic) NSMutableArray *projectList;
 @property(retain, nonatomic) IBOutlet UIButton *reflashButton;
+
 
 
 - (void)addProject:(NSString *)projectId thumbImage:(NSString *)thumbImage projectTitle:(NSString *)projectTitle photoTime:(NSString *)photoTime;

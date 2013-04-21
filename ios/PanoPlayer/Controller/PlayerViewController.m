@@ -40,6 +40,7 @@
 @synthesize imageView;
 @synthesize closeBt;
 @synthesize aboveView;
+@synthesize btRround, btInfo, btList, btMap, btMusic;
 //@synthesize rightItemBar;
 
 @synthesize imageProgressIndicator;
@@ -75,8 +76,7 @@
     
     //self.navigationItem.title = @"sdfsdfsdf";
     //[self.navigationItem setTitle:@"asdfs"];
-    plView = (PLView *)self.view;
-    plView.delegate = self;
+    
     finishDownLoad = false;
     faceSB = [[UIImage alloc] init];
     faceSD = [[UIImage alloc] init];
@@ -267,6 +267,7 @@
             self.panoTitle = [pano objectForKey:@"title"];
             
             NSString *s_f = [pano objectForKey:@"s_f"];
+            NSLog(@"URL=%@", s_f);
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_f]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
@@ -453,7 +454,8 @@
 
 -(void)displayPano{
     
-    //NSObject<PLIPanorama> *panorama = nil;
+    plView = (PLView *)self.view;
+    plView.delegate = self;
     
     cubicPanorama = [PLCubicPanorama panorama];
     //[cubicPanorama setRotateSensitivity:50];
@@ -510,6 +512,7 @@
         
     }
     
+    
     PLCamera *currentCamera = [cubicPanorama currentCamera];
 
     currentCamera.pitchRange = PLRangeMake(atvmin, atvmax);
@@ -517,17 +520,17 @@
     
     int rotateValue = [configDatas getPlayerRotate];
     currentCamera.rotateSensitivity = rotateValue;
+    
     Boolean sensorial = [configDatas getPlayeRsensoria];
     
     [plView setPanorama:cubicPanorama];
-    
     if (sensorial) {
         [plView startSensorialRotation];
         //NSLog(@"Sensorial");
     }
-    [plView startAnimation];
-
     [currentCamera lookAtWithPitch:vlookat yaw:hlookat];
+    [plView startAnimation];
+    
     //NSLog(@"vlookat=%d, hlookat=%d, atvmax=%d, atvmin=%d, athmax=%d, athmin=%d",vlookat, hlookat, atvmax,atvmin, athmax, athmin);
     
     [plView hideProgressBar];
@@ -852,6 +855,7 @@
 {
     [super dealloc];
     [musicPlayer release];
+    [plView release], plView = nil;
 }
 
 

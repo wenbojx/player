@@ -39,18 +39,14 @@
 
 }
 
-//@property(assign, nonatomic)IBOutlet UILabel *topView;
 @property(retain, nonatomic) NSMutableArray *panoList;
 @property(retain, nonatomic) NSArray *pagePanos;
 @property(assign, nonatomic) int totalNum;
-
-
 @property(retain, nonatomic) NSString *projectListUrl;
 
 
-- (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle width:(NSString *)width height:(NSString *)height size:(NSString *)size photoTime:(NSString *)photoTime;
+//- (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle width:(NSString *)width height:(NSString *)height size:(NSString *)size photoTime:(NSString *)photoTime;
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)getJsonFromUrl:(NSString *)url;
 
 

@@ -174,7 +174,7 @@
     [data setObject:playeRsensorialValue forKey:@"playeRsensorialValue"];
 
     [data writeToFile:filename atomically:YES];
-    NSLog(@"data=%@", data);
+    //NSLog(@"data=%@", data);
     
     setSuccess.hidden = NO;
     [self delayJump];
@@ -182,7 +182,7 @@
     //[timer invalidate];
 }
 -(void)delayJump{
-    timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(setSuccessJump) userInfo:nil repeats:NO];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(setSuccessJump) userInfo:nil repeats:NO];
 }
 -(void)setSuccessJump{
     ProjectsViewController *projectView = [[ProjectsViewController alloc] init];
@@ -197,14 +197,15 @@
     [clearIng startAnimating];
     clearCache = [[ClearCache alloc] init];
     [clearCache cleanConfigCache];
-    [clearIng stopAnimating];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(delayClear) userInfo:nil repeats:NO];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(delayClear) userInfo:nil repeats:NO];
 }
 -(void)delayClear{
+    [clearIng stopAnimating];
     clearIng.hidden = YES;
     clearFinish.hidden = NO;
-    timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(delayJump) userInfo:nil repeats:NO];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(delayJump) userInfo:nil repeats:NO];
 }
 - (IBAction) ProjectIdDoneEditing:(id)sender{
     [sender resignFirstResponder];

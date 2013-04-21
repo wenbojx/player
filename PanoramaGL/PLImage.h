@@ -49,7 +49,6 @@
 -(id)initWithSize:(CGSize)size;
 -(id)initWithDimensions:(NSUInteger)width :(NSUInteger)height;
 -(id)initWithPath:(NSString *)path;
--(id)initWithUIImage:(UIImage *)image;
 -(id)initWithBuffer:(NSData *)buffer;
 
 +(id)imageWithSizeZero;
@@ -57,7 +56,6 @@
 +(id)imageWithSize:(CGSize)size;
 +(id)imageWithDimensions:(NSUInteger)width :(NSUInteger)height;
 +(id)imageWithPath:(NSString *)path;
-+(id)imageWithUIImage:(UIImage *)image;
 +(id)imageWithBuffer:(NSData *)buffer;
 
 #pragma mark -

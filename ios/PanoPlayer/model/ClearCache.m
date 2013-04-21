@@ -43,7 +43,7 @@
             [self deleteFile:subPath];
         }
         else{
-            NSLog(@"file=%@", subPath);
+            //NSLog(@"file=%@", subPath);
             [fileManager removeItemAtPath:subPath error:NULL];
         }
         //isDir = NO;

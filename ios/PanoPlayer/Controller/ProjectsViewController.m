@@ -32,12 +32,19 @@
     
 	UIBarButtonItem *rightItemBar = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(settingConfig:)];
     self.navigationItem.rightBarButtonItem = rightItemBar;
+    
+    UIBarButtonItem *leftItemBar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onClickButton:) ];
+    self.navigationItem.leftBarButtonItem = leftItemBar;
+    
+    self.title = @"全景视界";
         //NSLog(@"responseData=%@", responseData);
     tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     [tableView setAutoresizesSubviews:YES];
     [tableView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     tableView.delegate = self;
     tableView.dataSource = self;
+    
+    reflashDatas = false;
     
     [self getProjectList];
     if (projectList.count>0) {
@@ -86,14 +93,14 @@
 }
 
 //该方法在UITableView显示一行时自动被调用
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableViews cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.reflashButton.hidden = YES;
 	//必须和在ChatViewCell.xib中的设置一致（也可以不一致，但UITableViewCell的重用机制将无效）
 	static NSString * cellIdentifier = @"CellIdentifier";
 	
 	//该方法第一次调用时返回nil(因为程序刚开始运行时并没有可以重用的UITableViewCell)
-	ProjectTableCell * cell = (ProjectTableCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+	ProjectTableCell * cell = (ProjectTableCell *)[tableViews dequeueReusableCellWithIdentifier:cellIdentifier];
 	if (cell == nil)
 	{
 		//加载ChatViewCell.xib
@@ -159,19 +166,20 @@
     
     
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //NSString *path = [cachePath stringByAppendingPathComponent:@"Caches"];
-    //NSLog(@"%@", cachePath);
     
     [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
     
-    
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     
-    
     [request setDownloadCache:cache];
-    
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-    [cache setShouldRespectCacheControlHeaders:NO];
+    //
+    if (reflashDatas) {
+        [cache setShouldRespectCacheControlHeaders:YES];
+    }
+    else{
+        [cache setShouldRespectCacheControlHeaders:NO];
+    }
     int cacheDay = [configDatas getConfigCache];
     int days = 60*60*24*cacheDay;
     //NSLog(@"day=%d", days);
@@ -226,7 +234,9 @@
 }
 
 -(IBAction)onClickButton:(id)sender{
-
+    [tableView removeFromSuperview];
+    reflashDatas = true;
+    
     [self getProjectList];
     if (projectList.count>0) {
         [self.view addSubview:tableView];

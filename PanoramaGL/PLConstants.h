@@ -70,7 +70,7 @@
 #pragma mark -
 #pragma mark rotation consts
 
-#define kDefaultRotateSensitivity				150.0f
+#define kDefaultRotateSensitivity				110.0f
 #define kDefaultAnimationTimerInterval			1.0f/30.0f
 #define kDefaultAnimationTimerIntervalByFrame	1.0f/30.f
 #define kDefaultAnimationFrameInterval			1
