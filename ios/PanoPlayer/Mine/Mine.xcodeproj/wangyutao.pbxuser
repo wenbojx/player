@@ -1,0 +1,215 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* MineAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {932, 680}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 443}";
+		};
+	};
+	1D3623250D0F684500981E51 /* MineAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {2244, 1424}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{1634, 1063}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* Mine */ = {
+		activeExec = 0;
+		executables = (
+			42AF555E152ED7FC000D1D5F /* Mine */,
+		);
+	};
+	28D7ACF60DDB3853001CB0EB /* MineViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {932, 676}}";
+			sepNavSelRange = "{235, 23}";
+			sepNavVisRange = "{0, 361}";
+		};
+	};
+	28D7ACF70DDB3853001CB0EB /* MineViewController.mm */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{334, 241}\";\n            s = 0;\n        },\n                {\n            r = \"{612, 239}\";\n            s = 0;\n        },\n                {\n            r = \"{1184, 155}\";\n            s = 0;\n        },\n                {\n            r = \"{1365, 83}\";\n            s = 0;\n        },\n                {\n            r = \"{1469, 22}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 1499}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {932, 676}}";
+			sepNavSelRange = "{253, 0}";
+			sepNavVisRange = "{0, 764}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 42AF555E152ED7FC000D1D5F /* Mine */;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* Mine */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* Mine */,
+		);
+		codeSenseManager = 42AF556E152ED7FF000D1D5F /* Code sense */;
+		executables = (
+			42AF555E152ED7FC000D1D5F /* Mine */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					754,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 355392745;
+			PBXWorkspaceStateSaveDate = 355392745;
+		};
+		perUserProjectItems = {
+			42AF55CC152EDCAF000D1D5F /* PBXTextBookmark */ = 42AF55CC152EDCAF000D1D5F /* PBXTextBookmark */;
+			42AF55CE152EDCAF000D1D5F /* PBXTextBookmark */ = 42AF55CE152EDCAF000D1D5F /* PBXTextBookmark */;
+			42AF55CF152EDCAF000D1D5F /* PBXTextBookmark */ = 42AF55CF152EDCAF000D1D5F /* PBXTextBookmark */;
+			42AF55EC152EDCF4000D1D5F /* PBXTextBookmark */ = 42AF55EC152EDCF4000D1D5F /* PBXTextBookmark */;
+			42AF55F2152EDD05000D1D5F /* PBXTextBookmark */ = 42AF55F2152EDD05000D1D5F /* PBXTextBookmark */;
+			42AF55F3152EDD05000D1D5F /* PBXTextBookmark */ = 42AF55F3152EDD05000D1D5F /* PBXTextBookmark */;
+			42AF55F4152EDD05000D1D5F /* PBXTextBookmark */ = 42AF55F4152EDD05000D1D5F /* PBXTextBookmark */;
+		};
+		sourceControlManager = 42AF556D152ED7FF000D1D5F /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	42AF555E152ED7FC000D1D5F /* Mine */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Mine;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	42AF556D152ED7FF000D1D5F /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	42AF556E152ED7FF000D1D5F /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	42AF5580152ED823000D1D5F /* ActivityView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {932, 1168}}";
+			sepNavSelRange = "{707, 0}";
+			sepNavVisRange = "{0, 706}";
+		};
+	};
+	42AF5581152ED823000D1D5F /* ActivityView.mm */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{470, 201}\";\n            s = 0;\n        },\n                {\n            r = \"{718, 599}\";\n            s = 0;\n        },\n                {\n            r = \"{1343, 774}\";\n            s = 0;\n        },\n                {\n            r = \"{2186, 30}\";\n            s = 0;\n        },\n                {\n            r = \"{2239, 1453}\";\n            s = 0;\n        },\n                {\n            r = \"{3730, 150}\";\n            s = 0;\n        },\n                {\n            r = \"{3904, 29}\";\n            s = 0;\n        },\n                {\n            r = \"{3959, 323}\";\n            s = 0;\n        },\n                {\n            r = \"{4307, 117}\";\n            s = 0;\n        },\n                {\n            r = \"{4450, 117}\";\n            s = 0;\n        },\n                {\n            r = \"{4597, 1524}\";\n            s = 0;\n        },\n                {\n            r = \"{6195, 249}\";\n            s = 0;\n        },\n                {\n            r = \"{6520, 206}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 6734}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {932, 1168}}";
+			sepNavSelRange = "{546, 0}";
+			sepNavVisRange = "{0, 638}";
+		};
+	};
+	42AF55CC152EDCAF000D1D5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 42AF5581152ED823000D1D5F /* ActivityView.mm */;
+		name = "ActivityView.mm: 101";
+		rLen = 0;
+		rLoc = 2117;
+		rType = 0;
+		vrLen = 2238;
+		vrLoc = 0;
+	};
+	42AF55CE152EDCAF000D1D5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* MineAppDelegate.h */;
+		name = "MineAppDelegate.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 443;
+		vrLoc = 0;
+	};
+	42AF55CF152EDCAF000D1D5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* MineAppDelegate.m */;
+		name = "MineAppDelegate.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1063;
+		vrLoc = 1634;
+	};
+	42AF55EC152EDCF4000D1D5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 42AF5580152ED823000D1D5F /* ActivityView.h */;
+		name = "ActivityView.h: 44";
+		rLen = 0;
+		rLoc = 707;
+		rType = 0;
+		vrLen = 920;
+		vrLoc = 314;
+	};
+	42AF55F2152EDD05000D1D5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* MineViewController.h */;
+		name = "MineViewController.h: 15";
+		rLen = 23;
+		rLoc = 235;
+		rType = 0;
+		vrLen = 361;
+		vrLoc = 0;
+	};
+	42AF55F3152EDD05000D1D5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* MineViewController.mm */;
+		name = "MineViewController.mm: 15";
+		rLen = 0;
+		rLoc = 253;
+		rType = 0;
+		vrLen = 1499;
+		vrLoc = 0;
+	};
+	42AF55F4152EDD05000D1D5F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 42AF5580152ED823000D1D5F /* ActivityView.h */;
+		name = "ActivityView.h: 44";
+		rLen = 0;
+		rLoc = 707;
+		rType = 0;
+		vrLen = 706;
+		vrLoc = 0;
+	};
+}

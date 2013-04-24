@@ -7,25 +7,52 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSONKit.h"
+#import "MosaicView.h"
+#import "MosaicViewDelegateProtocol.h"
+#import "PanoListMosaicDatasource.h"
+#import "ConfigDataSource.h"
 
 
-@interface HomeViewController : UIViewController{
+@interface HomeViewController : UIViewController <MosaicViewDelegateProtocol>{
+    
+    ConfigDataSource *configDatas;
+    __weak IBOutlet MosaicView *mosaicView;
+    //MosaicView *mosaicView;
+    PanoListMosaicDatasource *datasSource;
+    
+    UIImageView *snapshotBeforeRotation;
+    UIImageView *snapshotAfterRotation;
     NSMutableArray *panoList;
-    NSString *panoListUrl;
-    int panoId;
-    IBOutlet UIButton *reflashButton;
+    NSArray *pagePanos;
+    
+    NSString *projectListUrl;
+    NSString *currentProjectId;
+    int pageSize;
+    int curentPage;
+    int totalPage;
+    int totalNum;
+    int nextPage;
+    //int panoId;
+    //UILabel *topView;
+    UIBarButtonItem *rightItemBar;
+
 }
 
 @property(retain, nonatomic) NSMutableArray *panoList;
-@property(retain, nonatomic) NSString *panoListUrl;
-@property(retain, nonatomic) IBOutlet UIButton *reflashButton;
+@property(retain, nonatomic) NSArray *pagePanos;
+@property(assign, nonatomic) int totalNum;
+@property(retain, nonatomic) NSString *projectListUrl;
 
 
-- (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle photoTime:(NSString *)photoTime;
+//- (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle width:(NSString *)width height:(NSString *)height size:(NSString *)size photoTime:(NSString *)photoTime;
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)getJsonFromUrl:(NSString *)url;
--(IBAction)onClickButton:(id)sender;
 
 
 @end
+
+
+
+
+

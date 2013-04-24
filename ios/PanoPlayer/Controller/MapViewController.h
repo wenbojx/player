@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSONKit.h"
 #import "MTImageMapView.h"
 
 @interface MapViewController : UIViewController <MTImageMapDelegate>{

@@ -40,10 +40,15 @@
 @synthesize imageView;
 @synthesize closeBt;
 @synthesize aboveView;
-@synthesize rightItemBar;
+@synthesize btRround, btInfo, btList, btMap, btMusic;
+//@synthesize rightItemBar;
 
 @synthesize imageProgressIndicator;
 @synthesize logo;
+@synthesize listFrame;
+@synthesize infoFrame;
+@synthesize mapFrame;
+@synthesize boxList, boxInfo, boxMap;
 
 -(void)didReceiveMemoryWarning
 {
@@ -63,14 +68,15 @@
     animationWaitTime = 4000;
     animationMoveTime = 10;
 
+    /*
     rightItemBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"repeat.png"] style:NO target:self action:@selector(rightItemClick:)];
 
     self.navigationItem.rightBarButtonItem = rightItemBar;
+     */
     
     //self.navigationItem.title = @"sdfsdfsdf";
     //[self.navigationItem setTitle:@"asdfs"];
-    plView = (PLView *)self.view;
-    plView.delegate = self;
+    
     finishDownLoad = false;
     faceSB = [[UIImage alloc] init];
     faceSD = [[UIImage alloc] init];
@@ -81,48 +87,23 @@
     
     //self.view.autoresizesSubviews;
     self.alertOnce = false;
+    configDatas = [[ConfigDataSource alloc] init];
     
-    level = [self getProjectLevel];
-    if ([level isEqualToString:@"0"]) {
-        [logo setText:@"www.yiluhao.com"];
-    }
-    else if ([level isEqualToString:@"1"]) {
-        [logo setText:@"标准版测试，升级后此信息不显示"];
-    }
-    
+    [logo setText:@"www.yiluhao.com"];
     loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panoPlayerNotificationHandler:) name:@"panoId" object:nil];
 }
 
--(NSString *)getProjectLevel{
-    
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath1 = [paths objectAtIndex:0];
-    
-    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"project_list.plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-    
-    NSString *level = [data objectForKey:@"level"];
-    NSLog(@"level%@", level);
-    if (level == nil) {
-        //[self showLogin];
-        level = @"0";
-    }
-    return level;
-}
 
 - (void)panoPlayerNotificationHandler:(NSNotification*)notification
 {
     NSString *panoId = [[notification userInfo] objectForKey:@"panoId"];
-    /*[NSThread detachNewThreadSelect:@selector(startPlayer)
-     toTarget:self
-     withObject:nil];
-     */
-    
+    curentProjectId = [[notification userInfo] objectForKey:@"projectId"];
+    //NSLog(@"projectId=%@", curentProjectId);
     [self startThread:panoId];
-    
+    NSLog(@"panoId=%@", panoId);
     //[self.navigationItem setTitle:@"asdfs"];
     
 }
@@ -209,10 +190,10 @@
 }
 
 -(void)startDownload:(NSString *)panoId{
-    
+    curentPanoID = panoId;
     hotspots = [[NSMutableArray alloc] init];
     if(panoId != nil){
-        NSString *panoInfoUrl = [NSString stringWithFormat:@"http://beta1.yiluhao.com/ajax/m/pv/id/%@", panoId];
+        NSString *panoInfoUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pv/id/%@", panoId];
         
         NSString *responseData = [self getPanoInfoFromUrl:panoInfoUrl];
         if(responseData ==nil){
@@ -222,8 +203,35 @@
         }
         else{
             NSDictionary *resultsDictionary = [responseData objectFromJSONString];
+            NSDictionary *camera = [resultsDictionary objectForKey:@"camera"];
+            vlookat = 0-[[camera objectForKey:@"vlookat"] intValue];
+            hlookat = 0-[[camera objectForKey:@"hlookat"] intValue];
+            if ([camera objectForKey:@"athmax"]!=nil) {
+                athmin = 0-[[camera objectForKey:@"athmax"] intValue];
+            }
+            else{
+                athmin = -180;
+            }
+            if ([camera objectForKey:@"athmin"]!=nil) {
+                athmax = 0-[[camera objectForKey:@"athmin"] intValue];
+            }
+            else{
+                athmax = 180;
+            }
+            if ([camera objectForKey:@"atvmax"]!=nil) {
+                atvmax = [[camera objectForKey:@"atvmax"] intValue];
+            }
+            else{
+                atvmax = 90;
+            }
+            if ([camera objectForKey:@"atvmin"]!=nil) {
+                atvmin = [[camera objectForKey:@"atvmin"] intValue];
+            }
+            else{
+                atvmin = -90;
+            }
+            
             NSArray *hotspotDct = [resultsDictionary objectForKey:@"hotspots"];
-            //NSLog(@"res=%@", [ret objectForKey:@"panos"]);
             for(int i=0; i<hotspotDct.count; i++){
                 NSDictionary  *tmp = [hotspotDct objectAtIndex:i];
                 
@@ -241,10 +249,10 @@
                 }
                 
                 [self addHotspot:hotspotId linkSceneId:link_scene_id tilt:tilt pan:pan transform:transform type:type filePath:filePath];
-                //NSLog(@"id=%@", hotspotId);
-                //NSLog(@"link_scene_id=%@", link_scene_id);
             }
             
+            int cacheDay = [configDatas getDatasCache];
+            int days = 60*60*24*cacheDay;
             
             ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
             
@@ -255,15 +263,16 @@
             ASIHTTPRequest *request;
             
             NSDictionary *pano = [resultsDictionary objectForKey:@"pano"];
+            //NSLog(@"pano=%@", pano);
             self.panoTitle = [pano objectForKey:@"title"];
             
-            //NSLog(@"aaaa%@", panoTitle);
-            
             NSString *s_f = [pano objectForKey:@"s_f"];
+            NSLog(@"URL=%@", s_f);
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_f]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_f" forKey:@"face"]];
@@ -288,7 +297,8 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_r]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_r" forKey:@"face"]];
@@ -308,12 +318,20 @@
                 NSLog(@"cached3");
             }
             
+            NSString *musicUrl = [resultsDictionary objectForKey:@"music"];
+            //NSLog(@"music=%@", musicUrl);
+            if (musicUrl != nil) {
+                [self downloadMusic:musicUrl];
+            }
+            
             [self changeLoadState:3];
             NSString *s_b = [pano objectForKey:@"s_b"];
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_b]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
+            
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_b" forKey:@"face"]];
@@ -338,7 +356,9 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_l]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
+            
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_l" forKey:@"face"]];
@@ -363,7 +383,8 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_u]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_u" forKey:@"face"]];
@@ -387,7 +408,8 @@
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_d]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
-            [request setSecondsToCache:60*60*24*30*10]; //30
+            
+            [request setSecondsToCache:days]; //30
             [imageProgressIndicator setProgress:0];
             [request setDownloadProgressDelegate:imageProgressIndicator];
             [request setUserInfo:[NSDictionary dictionaryWithObject:@"s_d" forKey:@"face"]];
@@ -432,8 +454,11 @@
 
 -(void)displayPano{
     
-    //NSObject<PLIPanorama> *panorama = nil;
+    plView = (PLView *)self.view;
+    plView.delegate = self;
+    
     cubicPanorama = [PLCubicPanorama panorama];
+    //[cubicPanorama setRotateSensitivity:50];
     
     CGImageRef cgFaceSF = CGImageRetain(faceSF.CGImage);
     //[faceSF release], faceSF = nil;
@@ -486,12 +511,29 @@
         [cubicPanorama addHotspot:hotspot];
         
     }
-    //[self.view reloadInputViews];
+    
+    
+    PLCamera *currentCamera = [cubicPanorama currentCamera];
+
+    currentCamera.pitchRange = PLRangeMake(atvmin, atvmax);
+    currentCamera.yawRange = PLRangeMake(athmin, athmax);
+    
+    int rotateValue = [configDatas getPlayerRotate];
+    currentCamera.rotateSensitivity = rotateValue;
+    
+    Boolean sensorial = [configDatas getPlayeRsensoria];
     
     [plView setPanorama:cubicPanorama];
+    if (sensorial) {
+        [plView startSensorialRotation];
+        //NSLog(@"Sensorial");
+    }
+    [currentCamera lookAtWithPitch:vlookat yaw:hlookat];
+    [plView startAnimation];
+    
+    //NSLog(@"vlookat=%d, hlookat=%d, atvmax=%d, atvmin=%d, athmax=%d, athmin=%d",vlookat, hlookat, atvmax,atvmin, athmax, athmin);
+    
     [plView hideProgressBar];
-    //[imageProgressIndicator removeFromSuperview];
-    //[loading removeFromSuperview];
     
     imageProgressIndicator.hidden = YES;
     loading.hidden = YES;
@@ -509,17 +551,7 @@
     [plView startAnimation];
     aniTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(setAnimation) userInfo:nil repeats:YES];
 }
-- (IBAction)rightItemClick:(id)sender {
-    if (isAnimation) {
-        [rightItemBar setImage:[UIImage imageNamed:@"repeat.png"]];
-        [self stopAnimation];
-    }
-    else{
-        
-        [rightItemBar setImage:[UIImage imageNamed:@"pause.png"]];
-        [self startAnimation];
-    }
-}
+
 
 - (void)setAnimation
 {
@@ -556,6 +588,73 @@
     }
     self.alertOnce = true;
 }
+-(void) downloadMusic:(NSString *)url{
+    
+    if(url == nil){
+        return;
+    }
+    //NSLog(@"%@", @"DOWNLOAD MUSIC");
+    ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+    
+    [cache setShouldRespectCacheControlHeaders:NO] ;
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [request setDownloadCache:cache];
+    
+    [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
+    
+    int cacheDay = [configDatas getDatasCache];
+    int days = 60*60*24*cacheDay;
+    [request setSecondsToCache:days]; //300
+
+    //MapFrameController *a = [MapFrameController alloc];
+    
+    [request setDelegate : self ];
+    Boolean cached = [cache isCachedDataCurrentForRequest:request];
+    if(cached){
+        NSLog(@"music cached");
+    }
+    
+    [request startAsynchronous];
+}
+
+- ( void )requestFinished:( ASIHTTPRequest *)request{
+    
+    NSData *music = [[NSData alloc] initWithData:[request responseData]];
+	if (music!=nil) {
+        NSError *error;
+        //NSLog(@"ccc%@", @"sdf");
+        musicPlayer = [[AVAudioPlayer alloc] initWithData:music error:&error];
+        [self playMusic];
+	}
+    else{
+        
+    }
+}
+- ( void )requestFailed:( ASIHTTPRequest *)request{
+
+}
+-(void)playMusic{
+    //[musicPlayer play];
+}
+-(IBAction)playSoundPressed:(id)pressed{
+    if (musicPlayer) {
+        if ([musicPlayer isPlaying]) {
+            [musicPlayer pause];
+            NSLog(@"播放暂停");
+        }
+        else{
+            [musicPlayer play];
+            NSLog(@"开始播放");
+        }
+    }
+}
+
+
 
 -(NSString *)getPanoInfoFromUrl:(NSString *)url{
     if(url == nil){
@@ -578,7 +677,10 @@
     [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
     [cache setShouldRespectCacheControlHeaders:NO];
     //[]
-    [request setSecondsToCache:60*60*24*30*10]; //30
+    int cacheDay = [configDatas getConfigCache];
+    int days = 60*60*24*cacheDay;
+    
+    [request setSecondsToCache:days]; //30
     
     [request startSynchronous];
     
@@ -653,6 +755,91 @@
     
 }
 
+-(void)closeBox:(NSString *) boxName{
+    if([boxName isEqualToString:@"list"]){
+        self.boxList = NO;
+    }
+    else if ([boxName isEqualToString:@"info"]){
+        self.boxInfo = NO;
+    }
+    else if ([boxName isEqualToString:@"map"]){
+        self.boxMap = NO;
+    }
+}
+- (IBAction)btListClick:(id)sender{
+    if(boxList){
+        return;
+    }
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    int height = result.height-115;
+    int width = result.width-20;
+    //NSLog(@"adfsdf%d", height);
+    int x = 10;
+    int y = 10;
+    
+    listFrame = [ListFrameController alloc];
+    [listFrame setProjectId:[curentProjectId intValue]];
+    [listFrame initWithFrame:CGRectMake(x, y, width, height)];
+    listFrame.ViewBoxDelegate = self;
+    [self.view addSubview:listFrame];
+    boxList = YES;
+}
+
+- (IBAction)btInfoClick:(id)sender{
+    if(boxInfo){
+        return;
+    }
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    int height = result.height-115;
+    int width = result.width-20;
+    //NSLog(@"adfsdf%d", height);
+    int x = 10;
+    int y = 10;
+    
+    infoFrame = [InfoFrameController alloc];
+    infoFrame.panoId = [curentPanoID intValue];
+    [infoFrame initWithFrame:CGRectMake(x, y, width, height)];
+    infoFrame.ViewBoxDelegate = self;
+    [self.view addSubview:infoFrame];
+    boxInfo = YES;
+}
+- (IBAction)btMapClick:(id)sender{
+    if(boxMap){
+        return;
+    }
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    int height = result.height-115;
+    int width = result.width-20;
+    //NSLog(@"adfsdf%d", height);
+    int x = 10;
+    int y = 10;
+    
+    mapFrame = [MapFrameController alloc];
+    [mapFrame setPanoId:curentPanoID];
+    [mapFrame setProjectId:[curentProjectId intValue]];
+    [mapFrame initWithFrame:CGRectMake(x, y, width, height)];
+    mapFrame.ViewBoxDelegate = self;
+    [self.view addSubview:mapFrame];
+    boxMap = YES;
+}
+
+
+- (IBAction)btRoundClick:(id)sender{
+    if (isAnimation) {
+        //[rightItemBar setImage:[UIImage imageNamed:@"repeat.png"]];
+        [self stopAnimation];
+    }
+    else{
+        //[rightItemBar setImage:[UIImage imageNamed:@"pause.png"]];
+        [self startAnimation];
+    }
+
+}
+- (IBAction)btMusicClick:(id)sender{
+    //下载音乐
+    
+}
+
 
 
 - (void)viewDidUnload
@@ -667,6 +854,8 @@
 -(void)dealloc
 {
     [super dealloc];
+    [musicPlayer release];
+    [plView release], plView = nil;
 }
 
 
