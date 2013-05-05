@@ -29,6 +29,7 @@
 	if(!progressBar)
 	{
 		progressBar = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        //progressBar.color = [UIColor blackColor];
 		CGSize size = self.bounds.size;
 		progressBar.frame = CGRectMake(0, 0, 50, 50);
 		progressBar.center = CGPointMake(size.width / 2.0f, size.height / 2.0f);

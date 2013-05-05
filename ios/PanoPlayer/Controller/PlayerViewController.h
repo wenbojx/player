@@ -15,6 +15,7 @@
 #import "MapFrameController.h"
 #import "AVFoundation/AVFoundation.h"
 #import "ConfigDataSource.h"
+#import "Tools.h"
 
 @interface PlayerViewController : UIViewController <PLViewDelegate>{
     
@@ -23,6 +24,7 @@
     PLCubicPanorama *cubicPanorama;
     NSString *curentPanoID;
     NSString *curentProjectId;
+    NSString *fileCachePath;
     
     NSMutableArray *hotspots;
     //PLCubicPanorama *cubicPanorama;
@@ -33,8 +35,8 @@
     UIImage *faceSD;
     UIImage *faceSU;
     //UIProgressView *imageProgressIndicator;
-    UIProgressView *imageProgressIndicator;
-    UILabel *loading;
+    IBOutlet UIProgressView *imageProgressIndicator;
+    //UILabel *loading;
     BOOL failed;
     //PLCubicPanorama *cubicPanorama;
     Boolean finishDownLoad;
@@ -56,7 +58,7 @@
     IBOutlet UIButton *btRround;//自动旋转
     
     IBOutlet UIButton * btMusic;//播放音乐
-    IBOutlet UIButton * playPause;//播放暂停
+    UIButton * playPause;//播放暂停
     //定义一个声音的播放器
     AVAudioPlayer *musicPlayer;
     
@@ -91,7 +93,7 @@
 @property(retain, nonatomic)UIImage *faceSB;
 @property(retain, nonatomic)UIImage *faceSD;
 @property(retain, nonatomic)UIImage *faceSU;
-@property(retain, nonatomic)UILabel *loading;
+//@property(retain, nonatomic)UILabel *loading;
 @property(retain, nonatomic)NSString *panoTitle;
 @property(assign, nonatomic)Boolean alertOnce;
 //@property(assign,nonatomic)UIBarButtonItem *rightItemBar;

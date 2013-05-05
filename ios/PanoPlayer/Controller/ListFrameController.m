@@ -45,6 +45,7 @@
     //panoId = [[self getProjectId] intValue];
     //projectId = 1001;
     panoListUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pl/id/%d", projectId];
+    //NSLog(@"url=%@", panoListUrl);
     [self getPanoInfo];
     [self addSubview:tableView];
     [self setCloseButton];
@@ -103,7 +104,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	//和ChatViewCell.xib中的设置一致，这样才会完全重合
-	return 85.0;
+	return 109.0;
 }
 
 //该方法在UITableView显示一行时自动被调用
@@ -140,15 +141,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *panoInfo = [panoList objectAtIndex:indexPath.row];
-    NSString *panoId = [panoInfo objectForKey:@"panoId"];
+    NSString *curentPanoId = [panoInfo objectForKey:@"panoId"];
     
     PlayerViewController *playerView = [[PlayerViewController alloc] init];
     
-    NSDictionary *dic=[[NSDictionary alloc] initWithObjectsAndKeys:panoId,@"panoId", nil];
+    NSMutableDictionary * pano = [[NSMutableDictionary alloc] init];
+    
+    [pano setValue:curentPanoId forKey:@"panoId"];
+    [pano setValue:[NSString stringWithFormat:@"%d",projectId] forKey:@"projectId"];
     
     //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:dic];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"panoId" object:nil userInfo:pano];
+
+    
     [self removeFromSuperview];
+    [ViewBoxDelegate closeBox:@"list"];
     self.hidden = YES;
     [playerView release];
     

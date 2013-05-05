@@ -206,11 +206,13 @@
     _maxElementsY = -1;
     
     NSInteger scrollHeight = 0;
+    totalScrollHeight = 0;
     
     scrollView.frame = [self bounds];
+    //scrollView.pagingEnabled = YES;
     
     for (UIView *subView in scrollView.subviews){
-        [subView removeFromSuperview];
+        //[subView removeFromSuperview];
     }
     
     // Initial setup for the view
@@ -252,7 +254,66 @@
     
     //  Setup content size
     CGSize contentSize = CGSizeMake(scrollView.frame.size.width,scrollHeight);
-    scrollView.contentSize = contentSize;    
+    scrollView.contentSize = contentSize;
+    totalScrollHeight = scrollHeight;
+    //[scrollView setContentOffset:CGPointMake(scrollView.frame.size.width,scrollHeight) animated:NO];
+    //NSLog(@"y=@%d", scrollHeight);
+}
+
+- (void)AppendLayoutWithMosaicElements:(NSArray *)mosaicElements{
+    //NSInteger yOffset = 0;
+    _maxElementsX = -1;
+    _maxElementsY = -1;
+    
+    //NSInteger scrollHeight = 0;
+    
+    scrollView.frame = [self bounds];
+    
+    NSInteger scrollHeight = totalScrollHeight;
+    
+    NSInteger yOffset = totalScrollHeight;
+    //NSLog(@"y=@%d", yOffset);
+    // Initial setup for the view
+    NSUInteger maxElementsX = [self maxElementsX];
+    NSUInteger maxElementsY = [self maxElementsY];
+    elements = [[TwoDimentionalArray alloc] initWithColumns:maxElementsX andRows:maxElementsY];
+    
+    CGPoint modulePoint = CGPointZero;
+    
+    MosaicDataView *lastModuleView = nil;
+    
+    //  Set modules in scrollView
+    for (MosaicData *aModule in mosaicElements){
+        CGSize aSize = [self sizeForModuleSize:aModule.size];
+        NSArray *coordArray = [self coordArrayForCGSize:aSize];
+        
+        if (coordArray){
+            NSInteger xIndex = [coordArray[0] integerValue];
+            NSInteger yIndex = [coordArray[1] integerValue];
+            
+            modulePoint = CGPointMake(xIndex, yIndex);
+            
+            [self setModule:aModule withCGSize:aSize withCoord:modulePoint];
+            
+            CGRect mosaicModuleRect = CGRectMake(xIndex * [self moduleSizeInPoints],
+                                                 yIndex * [self moduleSizeInPoints] + yOffset,
+                                                 aSize.width * [self moduleSizeInPoints],
+                                                 aSize.height * [self moduleSizeInPoints]);
+            
+            lastModuleView = [[MosaicDataView alloc] initWithFrame:mosaicModuleRect];
+            lastModuleView.module = aModule;
+            lastModuleView.mosaicView = self;
+            
+            [scrollView addSubview:lastModuleView];
+            
+            scrollHeight = MAX(scrollHeight, lastModuleView.frame.origin.y + lastModuleView.frame.size.height);
+        }
+    }
+    CGSize contentSize = CGSizeMake(scrollView.frame.size.width,scrollHeight);
+    scrollView.contentSize = contentSize;
+    [scrollView setContentOffset:CGPointMake(scrollView.frame.size.width,totalScrollHeight) animated:NO];
+    totalScrollHeight = scrollHeight;
+    
 }
 
 #pragma mark - Public
@@ -274,6 +335,12 @@
     [self setup];
     NSArray *mosaicElements = [self.datasource mosaicElements];
     [self setupLayoutWithMosaicElements:mosaicElements];
+}
+
+- (void)append{
+    //[self setup];
+    NSArray *mosaicElements = [self.datasource mosaicElements];
+    [self AppendLayoutWithMosaicElements:mosaicElements];
 }
 
 - (void)layoutSubviews{

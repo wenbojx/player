@@ -12,6 +12,8 @@
 #import "MosaicViewDelegateProtocol.h"
 #import "PanoListMosaicDatasource.h"
 #import "ConfigDataSource.h"
+#import "Tools.h"
+#import "DownLoad.h"
 
 
 @interface HomeViewController : UIViewController <MosaicViewDelegateProtocol>{
@@ -33,6 +35,7 @@
     int totalPage;
     int totalNum;
     int nextPage;
+    Boolean isDownLoading;
     //int panoId;
     //UILabel *topView;
     UIBarButtonItem *rightItemBar;

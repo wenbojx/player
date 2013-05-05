@@ -15,6 +15,7 @@
 @implementation InfoFrameController
 @synthesize closeBt;
 @synthesize panoId;
+@synthesize curentProjectId;
 @synthesize ViewBoxDelegate;
 
 - (id)initWithFrame:(CGRect)frame {
@@ -46,7 +47,7 @@
         NSDictionary *pano = [resultsDictionary objectForKey:@"pano"];
         NSString *contentTmp = [pano objectForKey:@"info"];
         if (contentTmp != nil && ![contentTmp isEqualToString:@""]) {
-            NSLog(@"tmp=%@", contentTmp);
+            //NSLog(@"tmp=%@", contentTmp);
             content = contentTmp;
         }
     }
@@ -66,7 +67,7 @@
     [header setBackgroundColor:[UIColor clearColor]];
     
     //NSString *htmlString = [content stringByAppendingFormat:@"%@", textview.text];
-    NSLog(@"content=%@", content);
+    //NSLog(@"content=%@", content);
     [iWebView loadHTMLString:content baseURL:nil];
     
     [self addSubview:iWebView];
@@ -78,6 +79,7 @@
 -(void) setPanoId:(int)pid{
     panoId = pid;
 }
+
 
 -(void) setCloseButton{
     closeBt = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -118,10 +120,10 @@
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
     
     
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //NSString *path = [cachePath stringByAppendingPathComponent:@"Caches"];
+    Tools *tools = [[Tools alloc] init];
+    NSString *fileCachePath = [tools getPanoFileCachePath:curentProjectId];
     
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+    [cache setStoragePath:fileCachePath];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
