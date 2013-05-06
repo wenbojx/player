@@ -27,15 +27,34 @@
     return self;
 }
 -(void) startDownLoad{
-
+    [self performSelectorOnMainThread:@selector(updateRightItemString:) withObject:@"下载中..." waitUntilDone:NO];
     [NSThread detachNewThreadSelector:@selector(DownloadThread:) toTarget:self withObject:nil];
 }
 
 -(void)updateRightItem:(NSMutableDictionary *)datas{
     if (!hasExitPage) {
-        [updateDelegate updateRightItem:datas];
+        if (datas == nil) {
+            return;
+        }
+        NSString *projectId = [datas objectForKey:@"projectId"];
+        if (![projectId isEqualToString:currentProjectId]) {
+            return;
+        }
+        float totalSize = [[datas objectForKey:@"totalSize"] floatValue];
+        totalSize = totalSize/(1024*1024);
+        //NSLog(@"finishSize=%.1f", ctotalSize);
+        
+        float finishSize = [[datas objectForKey:@"finishSize"] floatValue];
+        //NSLog(@"finishSize=%d", finishSize);
+        finishSize = finishSize/(1024*1024);
+        
+        NSString *title = [NSString stringWithFormat:@"%.1fm/%.1fm", finishSize, totalSize];
+        [updateDelegate updateRightItemTitle:title];
     }
     return;
+}
+-(void)updateRightItemString:(NSString *)title{
+    [updateDelegate updateRightItemTitle:title];
 }
 
 -(void) DownloadThread:(id)sender{
@@ -153,13 +172,18 @@
             [updateData setValue:projectId forKey:@"projectId"];
             
             [self performSelectorOnMainThread:@selector(updateRightItem:) withObject:updateData waitUntilDone:NO];
-            
+        }
+        else{
+            //NSLog(@"111");
+            //[self getWrong:@"下载出错，请检查您的网络"];
+            return ;
         }
     }
     [self ChangeProjectDownConfig:projectId gstate:nil gfinishSize:nil delete:true];
     NSString *panoConfigFilePath = [self filePanoPath:projectId];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:panoConfigFilePath error:NULL];
+    [self performSelectorOnMainThread:@selector(updateRightItemString:) withObject:@"下载完成" waitUntilDone:NO];
     
     NSLog(@"download finish");
 }
@@ -278,10 +302,11 @@
     [alert release];
 }
 -(void)AddProjectDownList:(NSString *)pid size:(NSString *)size{
-    if (pid == nil) {
+    size = [NSString stringWithFormat:@"%@", size];
+    if (pid == nil || [size isEqualToString:@""]) {
         return;
     }
-    NSLog(@"size=%@", size);
+    //NSLog(@"size=%@", size);
     NSString *filePath = [self fileProjectPath];
     NSMutableArray *projectInfo = [[NSMutableArray alloc] init];
     NSMutableArray *downloadInfo = [self GetProjectDownList];
@@ -292,7 +317,7 @@
     }
     
     if (downloadInfo == nil) {
-        [self getWrong:@"获取数据失败，请检查您的网络"];
+        //[self getWrong:@"获取数据失败，请检查您的网络"];
         return;
     }
     //NSLog(@"downloadInfo=%@",downloadInfo);
@@ -321,6 +346,9 @@
             }
         }
     
+    if (size == nil || [size isEqualToString:@""]) {
+        return;
+    }
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
     // 1未开始， 2下载中 3下载完4暂停
     [data setObject:pid forKey:@"pid"];
