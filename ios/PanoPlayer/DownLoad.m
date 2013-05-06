@@ -113,14 +113,17 @@
     NSMutableArray *panoMap = [configFile getPanoMap:pid];
     NSDictionary  *tmp = [panoMap objectAtIndex:0];
     NSString *mapUrl = [tmp objectForKey:@"mapUrl"];
+    int j=1;
     if (![mapUrl isEqualToString:@"nomap"] && ![mapUrl isEqualToString:@""]) {
         NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+        [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
         [data setObject:mapUrl forKey:@"map"];
         //0未下载1下载中2下载完
         [data setObject:@"0" forKey:@"state"];
         [downloadFiles addObject:data];
+        j++;
     }
-
+    
     //NSLog(@"panoMap=%@", panoMap);
     for (int i=0; i<panoList.count; i++) {
         NSDictionary  *tmp = [panoList objectAtIndex:i];
@@ -134,6 +137,8 @@
         if (musicUrl != nil && ![musicUrl isEqualToString:@""]) {
             [data setObject:musicUrl forKey:@"music"];
             [data setObject:@"0" forKey:@"state"];
+            [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
+            j++;
             [downloadFiles addObject:data];
         }
         NSDictionary  *faceTmp = [panoInfo objectAtIndex:2];
@@ -142,39 +147,51 @@
         NSString *s_f = [faceTmp objectForKey:@"s_f"];
         [data setObject:s_f forKey:@"s_f"];
         [data setObject:@"0" forKey:@"state"];
+        [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
+        j++;
         [downloadFiles addObject:data];
         
         data = [[NSMutableDictionary alloc] init];
         NSString *s_l = [faceTmp objectForKey:@"s_l"];
         [data setObject:s_l forKey:@"s_l"];
         [data setObject:@"0" forKey:@"state"];
+        [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
+        j++;
         [downloadFiles addObject:data];
         
         data = [[NSMutableDictionary alloc] init];
         NSString *s_r = [faceTmp objectForKey:@"s_r"];
         [data setObject:s_r forKey:@"s_r"];
         [data setObject:@"0" forKey:@"state"];
+        [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
+        j++;
         [downloadFiles addObject:data];
         
         data = [[NSMutableDictionary alloc] init];
         NSString *s_b = [faceTmp objectForKey:@"s_b"];
         [data setObject:s_b forKey:@"s_b"];
         [data setObject:@"0" forKey:@"state"];
+        [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
+        j++;
         [downloadFiles addObject:data];
         
         data = [[NSMutableDictionary alloc] init];
         NSString *s_u = [faceTmp objectForKey:@"s_u"];
         [data setObject:s_u forKey:@"s_u"];
         [data setObject:@"0" forKey:@"state"];
+        [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
+        j++;
         [downloadFiles addObject:data];
         
         data = [[NSMutableDictionary alloc] init];
         NSString *s_d = [faceTmp objectForKey:@"s_d"];
         [data setObject:s_d forKey:@"s_d"];
         [data setObject:@"0" forKey:@"state"];
+        [data setObject:[NSString stringWithFormat:@"%d", j] forKey:@"id"];
+        j++;
         [downloadFiles addObject:data];
     }
-    //NSLog(@"panoInfo=%@", downloadFiles);
+    NSLog(@"panoInfo=%@", downloadFiles);
     return downloadFiles;
 }
 
