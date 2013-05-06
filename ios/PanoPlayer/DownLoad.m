@@ -150,7 +150,7 @@
             continue;
         }
         NSString *url = [value objectForKey:@"url"];
-        if (url == nil || [url isEqualToString:@""]) {
+        if (url == nil || [url isEqualToString:@""] ||[url isEqualToString:@"nomap"]) {
             continue;
         }
         NSString *size = [value objectForKey:@"size"];
@@ -176,7 +176,7 @@
         else{
             //NSLog(@"111");
             //[self getWrong:@"下载出错，请检查您的网络"];
-            return ;
+            //return ;
         }
     }
     [self ChangeProjectDownConfig:projectId gstate:nil gfinishSize:nil delete:true];
@@ -189,6 +189,7 @@
 }
 
 -(Boolean)GetFile:(NSString *)url projectId:(NSString *)projectId{
+    //NSLog(@"url=%@", url);
     if(url == nil || [url isEqualToString:@""]){
         return false;
     }
