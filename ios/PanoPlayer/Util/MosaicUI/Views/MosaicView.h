@@ -21,6 +21,7 @@
     
     NSInteger _maxElementsX;
     NSInteger _maxElementsY;
+    NSInteger totalScrollHeight;
 }
 
 
@@ -32,5 +33,6 @@
 
 -(void)setScrollHead;
 -(void) refresh;
+-(void) append;
 
 @end

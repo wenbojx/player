@@ -12,6 +12,7 @@
 #import "ASIDownloadCache.h"
 #import "JSONKit.h"
 #import "ConfigDataSource.h"
+#import "Tools.h"
 
 @interface InfoFrameController : UIView {
     ConfigDataSource *configDatas;
@@ -24,10 +25,12 @@
     UIWebView *iWebView;
     int panoId;
     NSString *panoListUrl;
+    NSString *curentProjectId;
 }
 
 @property(nonatomic, assign) id ViewBoxDelegate;
 @property(assign, nonatomic) int panoId;
+@property(assign, nonatomic) NSString *curentProjectId;;
 @property(retain, nonatomic)UIButton *closeBt;
 
 -(void) setCloseButton;

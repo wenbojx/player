@@ -11,6 +11,7 @@
 #import "MTImageMapView.h"
 #import "JSONKit.h"
 #import "ConfigDataSource.h"
+#import "Tools.h"
 
 @interface MapFrameController : UIView <MTImageMapDelegate>{
 
@@ -26,6 +27,7 @@
     NSString *panoId;
     int layoutWidh;
     int layoutHeight;
+    NSString *fileCachePath;
 }
 
 @property(nonatomic, assign) id ViewBoxDelegate;

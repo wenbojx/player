@@ -44,27 +44,42 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    pageSize = 20;
+    pageSize = 12;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
+        pageSize = 16;
+    }
+    
     curentPage = 1;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ProjectPlayerNotificationHandler:) name:@"projectId" object:nil];
     
-    rightItemBar = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
-    self.navigationItem.rightBarButtonItem = rightItemBar;
+    isDownLoading = false;
+    [self DownLoadProject];
     
 }
 
--(void)setPageInfo{
-    if (curentPage == 1) {
-        rightItemBar.title = [NSString stringWithFormat:@"下一页 %d/%d", curentPage, totalPage];
-        nextPage = curentPage+1;
+-(void)DownLoadProject{
+    if (isDownLoading) {
+        rightItemBar = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        self.navigationItem.rightBarButtonItem = rightItemBar;
+        rightItemBar.title = [NSString stringWithFormat:@"下载"];
     }
     else{
-        rightItemBar.title = [NSString stringWithFormat:@"上一页 %d/%d", curentPage, totalPage];
-        nextPage = curentPage-1;
+        rightItemBar = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+        self.navigationItem.rightBarButtonItem = rightItemBar;
+        rightItemBar.title = [NSString stringWithFormat:@"下载"];
+        rightItemBar.action = @selector(StartDownLoad);
     }
     
-    rightItemBar.action = @selector(NextPage);
+}
+
+-(void) StartDownLoad{
+    if (isDownLoading) {
+        return;
+    }
+    isDownLoading = true;
+    DownLoad *download = [[DownLoad alloc] init];
+    [download downLoadProjectFile:currentProjectId];
 }
 
 - (void)ProjectPlayerNotificationHandler:(NSNotification*)notification
@@ -85,23 +100,30 @@
     
 }
 -(void)displayMocaic{
-    [self setPageInfo];
+    //[self setPageInfo];
     //NSLog(@"panoList=%d", panoList.count);
     mosaicView.datasource = [PanoListMosaicDatasource sharedInstance:panoList];
     [mosaicView refresh];
+    //mosaicView.
+}
+-(void)AppendMocaic{
+    //[self setPageInfo];
+    //NSLog(@"panoList=%d", panoList.count);
+    mosaicView.datasource = [PanoListMosaicDatasource sharedInstance:panoList];
+    [mosaicView append];
     //mosaicView.
 }
 
 -(void)scrollHead{
     //return;
     //NSLog(@"head");
-    curentPage = curentPage-1;
-    if (curentPage<1) {
-        curentPage = 1;
-    }
-    panoList = [[NSMutableArray alloc] init];
-    [self getPageList];
-    [self displayMocaic];
+    //curentPage = curentPage-1;
+    //if (curentPage<1) {
+    ///    curentPage = 1;
+    //}
+    //panoList = [[NSMutableArray alloc] init];
+    //[self getPageList];
+    //[self AppendMocaic];
     //[self.view addSubview: topView];
 }
 -(void)scrollFoot{
@@ -110,16 +132,11 @@
         curentPage = totalPage;
         return;
     }
+    //NSLog(@"aaaaaa");
     panoList = [[NSMutableArray alloc] init];
     [self getPageList];
-    [self displayMocaic];
+    [self AppendMocaic];
     //[mosaicView setScrollHead];
-}
--(void)NextPage{
-    curentPage = nextPage;
-    panoList = [[NSMutableArray alloc] init];
-    [self getPageList];
-    [self displayMocaic];
 }
 
 -(void)setItemTitle:(NSString *)title{
@@ -148,6 +165,7 @@
     if (to>self.totalNum) {
         to = self.totalNum;
     }
+    //from = 0;
     for(int i=from; i<to; i++){
         
         NSDictionary  *tmp = [self.pagePanos objectAtIndex:i];
@@ -196,19 +214,17 @@
         [self getWrong:@"参数错误"];
         return @"";
     }
+    
     NSString *responseData = [[NSString alloc] init];
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
     
     
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //NSString *path = [cachePath stringByAppendingPathComponent:@"Caches"];
+    Tools *tools = [[Tools alloc] init];
+    NSString *fileCachePath = [tools getPanoFileCachePath:currentProjectId];
     
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
-    
-    
+    [cache setStoragePath:fileCachePath];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-    
     
     [request setDownloadCache:cache];
     
@@ -221,7 +237,7 @@
     int days = 60*60*24*cacheDay;
     
     [request setSecondsToCache:days]; //30
-    NSLog(@"%d", days);
+    //NSLog(@"%d", days);
     
     [request startSynchronous];
     

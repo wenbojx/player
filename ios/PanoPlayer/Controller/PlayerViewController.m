@@ -34,7 +34,7 @@
 @synthesize faceSB;
 @synthesize faceSD;
 @synthesize faceSU;
-@synthesize loading;
+//@synthesize loading;
 @synthesize panoTitle;
 @synthesize alertOnce;
 @synthesize imageView;
@@ -68,6 +68,7 @@
     animationWaitTime = 4000;
     animationMoveTime = 10;
 
+    
     /*
     rightItemBar = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"repeat.png"] style:NO target:self action:@selector(rightItemClick:)];
 
@@ -76,6 +77,9 @@
     
     //self.navigationItem.title = @"sdfsdfsdf";
     //[self.navigationItem setTitle:@"asdfs"];
+    
+    plView = (PLView *)self.view;
+    plView.delegate = self;
     
     finishDownLoad = false;
     faceSB = [[UIImage alloc] init];
@@ -90,9 +94,8 @@
     configDatas = [[ConfigDataSource alloc] init];
     
     [logo setText:@"www.yiluhao.com"];
-    loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-    imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
-
+    //loading = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(panoPlayerNotificationHandler:) name:@"panoId" object:nil];
 }
 
@@ -101,6 +104,10 @@
 {
     NSString *panoId = [[notification userInfo] objectForKey:@"panoId"];
     curentProjectId = [[notification userInfo] objectForKey:@"projectId"];
+    
+    Tools *tools = [[Tools alloc] init];
+    fileCachePath = [tools getPanoFileCachePath:curentProjectId];
+    
     //NSLog(@"projectId=%@", curentProjectId);
     [self startThread:panoId];
     NSLog(@"panoId=%@", panoId);
@@ -111,6 +118,7 @@
     finishDownLoad = false;
     [self drawWaiting];
     [plView showProgressBar];
+    
     [NSThread detachNewThreadSelector:@selector(startDownload:) toTarget:self withObject:panoId];
     [self checkThread];
 }
@@ -129,28 +137,34 @@
 }
 
 -(void)drawWaiting{
-    loading.hidden = NO;
-    imageProgressIndicator.hidden = NO;
-    loading.backgroundColor = [UIColor clearColor];
-    loading.font = [UIFont fontWithName:@"Arial" size:12];
-    loading.textAlignment = UITextAlignmentCenter;
+    //loading.hidden = NO;
+    //imageProgressIndicator.hidden = NO;
+    //loading.backgroundColor = [UIColor clearColor];
+    //loading.font = [UIFont fontWithName:@"Arial" size:12];
+    //loading.textAlignment = UITextAlignmentCenter;
     //loading.font
-    [self.view addSubview:loading];
+    //[self.view addSubview:loading];
     [self changeLoadState:1];
     
-    CGSize result = [[UIScreen mainScreen] bounds].size;
-    int height = result.height;
-    int width = result.width;
-    int progressWdith = width/2;
-    int x = (width - 150)/2;
-    int y = (height/2)-100;
-    //NSLog(@"X-Y=%d-%d", x, y);
-    [loading setFrame:CGRectMake(x,y,150,20)];
-    [self.view addSubview:imageProgressIndicator];
-    y = y+20;
-    x = (width - progressWdith)/2;
-    [imageProgressIndicator setFrame:CGRectMake(x,y,progressWdith,30)];
     
+    //CGSize result = [[UIScreen mainScreen] bounds].size;
+    //int height = result.height;
+    //int width = result.width;
+    //int progressWdith = width/2;
+    //int x = (width - 150)/2;
+    //int y = (height/2)-100;
+     
+    //NSLog(@"X-Y=%d-%d", x, y);
+    //[loading setFrame:CGRectMake(x,y,150,20)];
+    //
+    //y = y+20;
+   // x = (width - progressWdith)/2;
+    imageProgressIndicator = [[[UIProgressView alloc] initWithFrame:CGRectZero] autorelease];
+    [self.view addSubview:imageProgressIndicator];
+    //[imageProgressIndicator setFrame:CGRectMake(x,y,progressWdith,30)];
+    CGSize size = self.view.bounds.size;
+    imageProgressIndicator.frame = CGRectMake(0, 0, 150, 30);
+    imageProgressIndicator.center = CGPointMake(size.width / 2.0f, (size.height / 2.0f)+20);
     
     
     
@@ -186,7 +200,7 @@
         default:
             break;
     }
-    loading.text = msg;
+    //loading.text = msg;
 }
 
 -(void)startDownload:(NSString *)panoId{
@@ -256,8 +270,7 @@
             
             ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
             
-            NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+            [cache setStoragePath:fileCachePath];
             
             //UIImage *img;
             ASIHTTPRequest *request;
@@ -267,7 +280,7 @@
             self.panoTitle = [pano objectForKey:@"title"];
             
             NSString *s_f = [pano objectForKey:@"s_f"];
-            NSLog(@"URL=%@", s_f);
+            //NSLog(@"URL=%@", s_f);
             request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:s_f]];
             [request setDownloadCache:cache];
             [request setCacheStoragePolicy:ASIAskServerIfModifiedWhenStaleCachePolicy];
@@ -453,10 +466,7 @@
 
 
 -(void)displayPano{
-    
-    plView = (PLView *)self.view;
-    plView.delegate = self;
-    
+
     cubicPanorama = [PLCubicPanorama panorama];
     //[cubicPanorama setRotateSensitivity:50];
     
@@ -536,7 +546,7 @@
     [plView hideProgressBar];
     
     imageProgressIndicator.hidden = YES;
-    loading.hidden = YES;
+    //loading.hidden = YES;
     [self.navigationItem setTitle:panoTitle];
 }
 
@@ -584,7 +594,7 @@
         [alert show];
         [alert release];
         self.imageProgressIndicator.hidden = YES;
-        self.loading.hidden = YES;
+        //self.loading.hidden = YES;
     }
     self.alertOnce = true;
 }
@@ -595,9 +605,8 @@
     }
     //NSLog(@"%@", @"DOWNLOAD MUSIC");
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
-    
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+
+    [cache setStoragePath:fileCachePath];
     
     [cache setShouldRespectCacheControlHeaders:NO] ;
     
@@ -629,7 +638,7 @@
         NSError *error;
         //NSLog(@"ccc%@", @"sdf");
         musicPlayer = [[AVAudioPlayer alloc] initWithData:music error:&error];
-        [self playMusic];
+        //[self playMusic];
 	}
     else{
         
@@ -639,17 +648,19 @@
 
 }
 -(void)playMusic{
-    //[musicPlayer play];
+    [musicPlayer play];
 }
 -(IBAction)playSoundPressed:(id)pressed{
     if (musicPlayer) {
         if ([musicPlayer isPlaying]) {
-            [musicPlayer pause];
             NSLog(@"播放暂停");
+            [musicPlayer pause];
+            
         }
         else{
-            [musicPlayer play];
             NSLog(@"开始播放");
+            [musicPlayer play];
+            
         }
     }
 }
@@ -665,8 +676,7 @@
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
     
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+    [cache setStoragePath:fileCachePath];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -798,6 +808,7 @@
     
     infoFrame = [InfoFrameController alloc];
     infoFrame.panoId = [curentPanoID intValue];
+    infoFrame.curentProjectId = curentProjectId;
     [infoFrame initWithFrame:CGRectMake(x, y, width, height)];
     infoFrame.ViewBoxDelegate = self;
     [self.view addSubview:infoFrame];

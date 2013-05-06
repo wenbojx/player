@@ -52,6 +52,11 @@
     [self showWaiting];
     
     [self addSubview:viewScrollStub];
+    
+    Tools *tools = [[Tools alloc] init];
+    NSString *curentProjectId = [NSString stringWithFormat:@"%d", projectId];
+    fileCachePath = [tools getPanoFileCachePath:curentProjectId];
+    
     [self loadMap];
 
     [self setCloseButton];
@@ -95,7 +100,7 @@
 
     responseData = [[NSString alloc] init];
     NSString *panoInfoUrl = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pm/id/%d", projectId];
-    NSLog(@"panoInfoUrl=%@", panoInfoUrl);
+    //NSLog(@"panoInfoUrl=%@", panoInfoUrl);
     responseData = [self getPanoMapFromUrl:panoInfoUrl];
     //}
     Boolean flag = false;
@@ -139,8 +144,9 @@
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
     
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+    
+    
+    [cache setStoragePath:fileCachePath];
     
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -179,8 +185,7 @@
     
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];
     
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [cache setStoragePath:[cachePath stringByAppendingPathComponent:@"Caches"]];
+    [cache setStoragePath:fileCachePath];
     
     [cache setShouldRespectCacheControlHeaders:NO] ;
     
