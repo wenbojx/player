@@ -78,8 +78,33 @@
         return;
     }
     isDownLoading = true;
-    DownLoad *download = [[DownLoad alloc] init];
-    [download downLoadProjectFile:currentProjectId];
+    
+    download = [[DownLoad alloc] init];
+    download.updateDelegate = self;
+    download.currentProjectId = currentProjectId;
+    [download startDownLoad];
+    
+}
+
+-(void)updateRightItem:(NSMutableDictionary *)datas{
+    if (datas == nil) {
+        return;
+    }
+    NSString *projectId = [datas objectForKey:@"projectId"];
+    if (![projectId isEqualToString:currentProjectId]) {
+        return;
+    }
+    float totalSize = [[datas objectForKey:@"totalSize"] floatValue];
+    totalSize = totalSize/(1024*1024);
+    //NSLog(@"finishSize=%.1f", ctotalSize);
+    
+    float finishSize = [[datas objectForKey:@"finishSize"] floatValue];
+    //NSLog(@"finishSize=%d", finishSize);
+    finishSize = finishSize/(1024*1024);
+    
+    NSString *title = [NSString stringWithFormat:@"%.1fm/%.1fm", finishSize, totalSize];
+    
+    rightItemBar.title = title;
 }
 
 - (void)ProjectPlayerNotificationHandler:(NSNotification*)notification
@@ -317,6 +342,9 @@ static UIImageView *captureSnapshotOfView(UIView *targetView){
 
 
 - (void)dealloc {
+    NSLog(@"livePage");
+    download.hasExitPage = true;
+    download.stopDown = true;
     [mosaicView removeFromSuperview];
     [self.view removeFromSuperview];
     [super dealloc];

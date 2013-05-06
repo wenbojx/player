@@ -39,6 +39,7 @@
     //int panoId;
     //UILabel *topView;
     UIBarButtonItem *rightItemBar;
+    DownLoad *download;
 
 }
 
@@ -51,7 +52,7 @@
 //- (void)addPano:(NSString *)panoId thumbImage:(NSString *)thumbImage panotitle:(NSString *)panoTitle width:(NSString *)width height:(NSString *)height size:(NSString *)size photoTime:(NSString *)photoTime;
 
 - (NSString *)getJsonFromUrl:(NSString *)url;
-
+-(void)updateRightItem:(NSMutableDictionary *)datas;
 
 @end
 

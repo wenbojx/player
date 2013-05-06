@@ -14,5 +14,5 @@
 
 //获取存储路径
 -(NSString *)getPanoFileCachePath:(NSString *)pid;
-
+-(NSArray *)ArraySort:(NSArray *)datas;
 @end

@@ -19,6 +19,19 @@
     }
     return self;
 }
+-(NSDictionary *)getProjectFiles:(NSString *)pid{
+    NSDictionary *fileList = [[NSDictionary alloc] init];
+    if(pid==nil){
+        return fileList;
+    }
+    NSString *url = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pd/id/%@", pid];
+    NSString *responseData = [self getJsonFromUrl:url pid:pid];
+    
+    if(responseData !=nil){
+        fileList = [responseData objectFromJSONString];
+    }
+    return fileList;
+}
 
 -(NSMutableArray *)getProjectConfig:(NSString *)pid{
     NSMutableArray *panoList = [[NSMutableArray alloc] init];
@@ -59,13 +72,14 @@
     return panoList;
 }
 
--(NSMutableArray *)getPanoConfig:(NSString *)pid{
+//pid = panoId
+-(NSMutableArray *)getPanoConfig:(NSString *)pid projectId:(NSString *)projectId{
     NSMutableArray *panoInfo = [[NSMutableArray alloc] init];
     if(pid==nil){
         return panoInfo;
     }
     NSString *url = [NSString stringWithFormat:@"http://mb.yiluhao.com/ajax/m/pv/id/%@", pid];;
-    NSString *responseData = [self getJsonFromUrl:url pid:pid];
+    NSString *responseData = [self getJsonFromUrl:url pid:projectId];
     if(responseData !=nil){
         
         NSDictionary *resultsDictionary = [responseData objectFromJSONString];
@@ -174,6 +188,7 @@
     return panoInfo;
 }
 
+//pid=projectId;
 -(NSMutableArray *)getPanoMap:(NSString *)pid{
     NSMutableArray *panoMap = [[NSMutableArray alloc] init];
     if(pid==nil){

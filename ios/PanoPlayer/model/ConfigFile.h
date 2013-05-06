@@ -16,7 +16,7 @@
 }
 
 -(NSMutableArray *)getProjectConfig:(NSString *)pid;
--(NSMutableArray *)getPanoConfig:(NSString *)pid;
+-(NSMutableArray *)getPanoConfig:(NSString *)pid projectId:(NSString *)projectId;
 -(NSMutableArray *)getPanoMap:(NSString *)pid;
-
+-(NSDictionary *)getProjectFiles:(NSString *)pid;
 @end
