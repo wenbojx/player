@@ -141,7 +141,7 @@
             //[pool release];
             return;
         }
-        NSLog(@"key=%@", key);
+        //NSLog(@"key=%@", key);
         
         if (getFileFlag) {
             //改变下载项目的size
