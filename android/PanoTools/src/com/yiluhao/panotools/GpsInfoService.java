@@ -1,6 +1,5 @@
 package com.yiluhao.panotools;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 
 
@@ -12,8 +11,10 @@ import android.text.format.Time;
 import android.util.Log;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 
 import android.location.Criteria;
 import android.location.Location;  
@@ -25,10 +26,13 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import com.yiluhao.panotools.SaveDatas;
+import com.yiluhao.panotools.MainActivity.MyReceiver;
 
 //public class GpsInfoService extends Service{
 public class GpsInfoService extends Service implements SensorEventListener {
 
+	MyReceiver receiver;
+	
     Location location;  
     LocationManager lm;  
     LocationListener locationListener;  
@@ -38,11 +42,11 @@ public class GpsInfoService extends Service implements SensorEventListener {
     double altitude = 0; //海拔
     float degree = 0; //角度
     float speed = 0; //速度
-    
+    String serviceState = "";
     
     public float currentDegree = 0f;
     
-    Intent intent = new Intent();
+    //Intent intent = new Intent();
     boolean isStop=false;
     SaveDatas saveDatasObj = null;
     String fileName = "geo.txt";
@@ -57,16 +61,42 @@ public class GpsInfoService extends Service implements SensorEventListener {
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
-        System.out.println("Service onCreate");
-        initGeo(GpsInfoService.this);
-        sendDatas();
-    }
 
+    }
+    @Override
+    public void onStart(Intent intent, int startId){
+    	
+    }
     //onStartCommand与onStart类似，多了一个参数而已
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
+    	
+    	System.out.println("Service onCreate");
+    	
+    	receiver=new MyReceiver();
+        //定义一个IntentFilter的对象，来过滤掉一些intent
+        IntentFilter filter = new IntentFilter();
+        //只接收发送到action为"android.intent.action.MAIN"的intent
+        //"android.intent.action.MAIN"是在MainFest中定义的
+        filter.addAction("com.yiluhao.panotools.GpsInfoService");
+        //启动广播接收器
+        GpsInfoService.this.registerReceiver(receiver, filter);
+        
+        initGeo(GpsInfoService.this);
+        sendDatas();
+    	
         return super.onStartCommand(intent, flags, startId);
+    }
+    
+    public class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            serviceState = bundle.getString("state");
+            //Log.v("serviceState", serviceState);
+        }       
     }
     
     @Override
@@ -75,6 +105,7 @@ public class GpsInfoService extends Service implements SensorEventListener {
         super.onDestroy();
         System.out.println("Service onDestroy");
         isStop = true;
+        this.unregisterReceiver(receiver);
         removeLocation();
     }
     
@@ -83,33 +114,40 @@ public class GpsInfoService extends Service implements SensorEventListener {
 			public void run(){
 				int id=1;
 				Time time = new Time("GMT+8");
+				String content = "";
+
 				while(!isStop){
-			        
-			        SimpleDateFormat formatter = new SimpleDateFormat ("yyyy/MM/dd/ HH:mm:ss");   
+					if( serviceState.equals("pause")){
+						continue;
+					}
+			        SimpleDateFormat formatter = new SimpleDateFormat ("yyyy/MM/dd/ HH:mm:ss"); 
+			        SimpleDateFormat formatterFile = new SimpleDateFormat ("yyyy-MM-dd-HH-mm-ss");
 			        long timeInt = System.currentTimeMillis();
 			        Date curDate = new Date(timeInt);//获取当前时间       
-			        String timeValue = formatter.format(curDate);     
+			        String timeValue = formatter.format(curDate);   
+			        
 
 			        String altitudeStr = String.format("%.2f", altitude);
 			        
 			        String degreeStr = String.format("%.2f", degree);
 			        
-			        Log.v("altitude", altitudeStr+"");
-			        
-			        String content = id+"|";
 			        content += latitude+"|";
 			        content += longitude+"|";
 			        content += altitudeStr+"|";
 			        content += degreeStr+"|";
-			        content += timeInt+";";
+			        content += timeValue+";";
 			        saveDatasObj = new SaveDatas();
 			        if(	id ==1 ){
-			        	fileName = timeInt+".geo";
+				        	fileName = formatterFile.format(curDate);
+				        	fileName = fileName+".geo";
 			        }
-			        saveDatasObj.SaveStringToSD(fileName, content);
+			        if(id >= 7){
+			        	saveDatasObj.SaveStringToSD(fileName, content);
+			        	content = "";
+			        	id = 2;
+			        }
 			        
 					Intent intent=new Intent();
-					intent.putExtra("id", id);
 					intent.putExtra("latitude", latitude);
 					intent.putExtra("longitude", longitude);
 					intent.putExtra("altitude", altitudeStr);
@@ -128,6 +166,7 @@ public class GpsInfoService extends Service implements SensorEventListener {
 						e.printStackTrace();
 					}
 				}
+				
 			}
 		}.start();
     }
@@ -207,8 +246,7 @@ public class GpsInfoService extends Service implements SensorEventListener {
 
         };
         lm.requestLocationUpdates(provider, 500, 0, locationListener);
-        
-        
+
     }  
     
  // 更新位置信息 展示到tv中  
@@ -219,7 +257,7 @@ public class GpsInfoService extends Service implements SensorEventListener {
         	altitude = location.getAltitude();
         	//degree = location.getBearing();
         	speed = location.getSpeed();
-        	//Log.v("latitude", latitude+"");
+        	Log.v("speed", speed+"speed");
             //如果已经获取到location信息 则在这里注销location的监听  
             //gps会在一定时间内自动关闭  
             //this.lm.removeUpdates(locationListener);  

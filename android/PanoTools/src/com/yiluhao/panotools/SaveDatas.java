@@ -34,7 +34,7 @@ public class SaveDatas {
 		dirFile = new File(path);
 		
 		if (!dirFile.exists()) {
-			Log.v("bbb", path);
+			//Log.v("bbb", path);
 			dirFile.mkdir();
 		}
 	}
@@ -50,11 +50,12 @@ public class SaveDatas {
         try {  
         	AutoMakeDir();
     		String file = GetFilePath(fileName);
-    		Log.v("file=", file);
+    		//Log.v("file=", file);
     		
     		File dirFile = new File(file);
             out = new BufferedWriter(new OutputStreamWriter(  
                     new FileOutputStream(file, true)));  
+            //Log.v("saveDatas", string);
             out.write(string);  
         } catch (Exception e) {  
             e.printStackTrace();  
