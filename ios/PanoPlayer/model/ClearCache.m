@@ -27,7 +27,7 @@
     
 }
 -(void)deleteFile:(NSString *)path{
-    NSLog(@"path=%@", path);
+    //NSLog(@"path=%@", path);
     NSArray *contents = [fileManager contentsOfDirectoryAtPath:path error:NULL];
     //NSLog(@"contents%@", contents);
     NSEnumerator *e = [contents objectEnumerator];
@@ -46,13 +46,6 @@
             //NSLog(@"file=%@", subPath);
             [fileManager removeItemAtPath:subPath error:NULL];
         }
-        //isDir = NO;
-        /*
-         if ([[filename pathExtension] isEqualToString:extension]) {
-         
-         [fileManager removeItemAtPath:[documentsDirectory stringByAppendingPathComponent:filename] error:NULL];
-         }
-         */
     }
 
 }

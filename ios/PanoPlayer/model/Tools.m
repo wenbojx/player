@@ -18,6 +18,25 @@
     return self;
 }
 
+//数字排序
+-(NSArray *)ArraySort:(NSArray *)datas{
+    if (datas == nil) {
+        return  nil;
+    }
+    NSComparator finderSort = ^(id string1,id string2){
+        
+        if ([string1 integerValue] > [string2 integerValue]) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }else if ([string1 integerValue] < [string2 integerValue]){
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        else
+            return (NSComparisonResult)NSOrderedSame;
+    };
+    return [datas sortedArrayUsingComparator:finderSort];
+}
+
+
 -(NSString *)getPanoFileCachePath:(NSString *)pid{
     
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];

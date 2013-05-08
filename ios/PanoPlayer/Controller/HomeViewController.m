@@ -78,8 +78,16 @@
         return;
     }
     isDownLoading = true;
-    DownLoad *download = [[DownLoad alloc] init];
-    [download downLoadProjectFile:currentProjectId];
+    
+    download = [[DownLoad alloc] init];
+    download.updateDelegate = self;
+    download.currentProjectId = currentProjectId;
+    [download startDownLoad];
+    
+}
+
+-(void)updateRightItemTitle:(NSString *)title{
+    rightItemBar.title = title;
 }
 
 - (void)ProjectPlayerNotificationHandler:(NSNotification*)notification
@@ -317,6 +325,9 @@ static UIImageView *captureSnapshotOfView(UIView *targetView){
 
 
 - (void)dealloc {
+    NSLog(@"livePage");
+    download.hasExitPage = true;
+    download.stopDown = true;
     [mosaicView removeFromSuperview];
     [self.view removeFromSuperview];
     [super dealloc];

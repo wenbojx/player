@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ProjectsViewController.h"
+#import "DownLoad.h"
 
 @implementation AppDelegate
 
@@ -36,7 +37,8 @@
     //[self.window addSubview:tabBarController.view];
     _window.rootViewController = navHomeController;
     [self.window makeKeyAndVisible];
-
+    DownLoad *download = [[DownLoad alloc] init];
+    [download restetProjectState];
 
     //NSString *projectID = [self getProjectId];
     //NSLog(@"project_id==%@", projectID);
