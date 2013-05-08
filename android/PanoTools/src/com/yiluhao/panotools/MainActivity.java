@@ -34,6 +34,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     boolean pauseItemOn = false;
     boolean stopItemOn = false;
     boolean mapItemOn = false;
+    String serviceState = "";
     //private String savePath = "";
     
     private  ImageButton serviceStart = null;
@@ -101,6 +102,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 			servicePause.setImageResource(R.drawable.pause);
 			serviceStop.setImageResource(R.drawable.stop);
 			pauseItemOn = false;
+			startItemOn = true;
+			stopItemOn = false;
 			recordingBt.setVisibility(View.VISIBLE);
 		}
 		else if(item.equals("pause")){
@@ -108,6 +111,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 			servicePause.setImageResource(R.drawable.pause_on);
 			serviceStop.setImageResource(R.drawable.stop);
 			pauseItemOn = true;
+			startItemOn = false;
+			stopItemOn = false;
 			recordingBt.setImageResource(R.drawable.icon_yerrow);
 		}
 		else if(item.equals("stop")){
@@ -115,6 +120,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 			servicePause.setImageResource(R.drawable.pause);
 			serviceStop.setImageResource(R.drawable.stop_on);
 			pauseItemOn = false;
+			startItemOn = false;
+			stopItemOn = true;
 			recordingBt.setVisibility(View.GONE);
 		}
 		else if(item.equals("map")){
@@ -155,6 +162,9 @@ public class MainActivity extends Activity implements SensorEventListener {
     {
 		@Override
 		public void onClick(View v) {
+			if(stopItemOn){
+				return ;
+			}
 			/*
             //跳转到service用startService，以前跳转到activity用的是startactivity
             intent.setClass(MainActivity.this, GpsInfoService.class);
@@ -221,12 +231,17 @@ public class MainActivity extends Activity implements SensorEventListener {
             latitude = bundle.getDouble("latitude");
             altitude = bundle.getString("altitude");
             time = bundle.getString("time");
+            serviceState = bundle.getString("state");
             
+            if(serviceState.equals("start") && !startItemOn){
+            	changeItemIcon("start");
+            	
+            }
             if( longitude == 0 ){
             	tipMsg.setText("正在定位...");
             }
             else{
-            	tipMsg.setText("敬请关注http://www.yiluhao.com");
+            	tipMsg.setText("敬请关注 http://www.yiluhao.com");
             }
             
             longitudeValue.setText(longitude+"");

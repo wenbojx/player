@@ -55,7 +55,7 @@ public class SaveDatas {
     		File dirFile = new File(file);
             out = new BufferedWriter(new OutputStreamWriter(  
                     new FileOutputStream(file, true)));  
-            //Log.v("saveDatas", string);
+            Log.v("saveDatas", string);
             out.write(string);  
         } catch (Exception e) {  
             e.printStackTrace();  

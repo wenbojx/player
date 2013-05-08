@@ -42,7 +42,7 @@ public class GpsInfoService extends Service implements SensorEventListener {
     double altitude = 0; //海拔
     float degree = 0; //角度
     float speed = 0; //速度
-    String serviceState = "";
+    String serviceState = "start";
     
     public float currentDegree = 0f;
     
@@ -131,11 +131,14 @@ public class GpsInfoService extends Service implements SensorEventListener {
 			        
 			        String degreeStr = String.format("%.2f", degree);
 			        
-			        content += latitude+"|";
-			        content += longitude+"|";
-			        content += altitudeStr+"|";
-			        content += degreeStr+"|";
-			        content += timeValue+";";
+			        if( longitude != 0 && latitude!=0){
+			        	content += latitude+"|";
+				        content += longitude+"|";
+				        content += altitudeStr+"|";
+				        content += degreeStr+"|";
+				        content += timeValue+";";
+		            }
+			        
 			        saveDatasObj = new SaveDatas();
 			        if(	id ==1 ){
 				        	fileName = formatterFile.format(curDate);
@@ -148,6 +151,7 @@ public class GpsInfoService extends Service implements SensorEventListener {
 			        }
 			        
 					Intent intent=new Intent();
+					intent.putExtra("state", serviceState);
 					intent.putExtra("latitude", latitude);
 					intent.putExtra("longitude", longitude);
 					intent.putExtra("altitude", altitudeStr);
