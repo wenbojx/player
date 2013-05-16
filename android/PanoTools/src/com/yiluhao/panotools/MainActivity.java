@@ -1,7 +1,27 @@
 package com.yiluhao.panotools;
 
-import android.os.Bundle;
+import java.text.SimpleDateFormat;
 
+import java.util.Date;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+
+
+import android.support.v4.app.FragmentActivity;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,34 +29,45 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import com.yiluhao.panotools.MapActivity;
+
+@SuppressLint("SetJavaScriptEnabled")
 public class MainActivity extends Activity implements SensorEventListener {
 	MyReceiver receiver;
 	
 	double longitude = 0;
     double latitude = 0;
     String altitude = "";
+    String speed = "0.0";
     float degree = 0f;
     String time = "";
     int id = 0;
-    boolean startItemOn = false;
+    boolean startItemOn = false; //å¼€å§‹æŒ‰é’®ç‚¹å‡»æƒ…å†µ
     boolean pauseItemOn = false;
     boolean stopItemOn = false;
     boolean mapItemOn = false;
+    boolean isWaitPosition = true;//ç­‰å¾…å®šä½
     String serviceState = "";
     //private String savePath = "";
     
+    private RelativeLayout infoView = null;
     private  ImageButton serviceStart = null;
     private  ImageButton serviceStop = null;
     private ImageButton servicePause = null;
@@ -48,16 +79,33 @@ public class MainActivity extends Activity implements SensorEventListener {
     private TextView degreeValue= null;
     private TextView altitudeValue= null;
     private TextView timeValue = null;
+    private TextView speedValue = null;
     
     private TextView tipMsg = null;
     
     private ImageView imageCompass;
 	private float currentDegree = 0f;
+	private boolean getWrongOnce = false;
+	private String[] locations = new String[1000];
+	private int lastPolyKey = 0; //æœ€åŽä¸€ä¸ªçº¿æ¡ç‚¹çš„ä½ç½®
+	private double currentLongitude = 0; //å½“å‰ç»´åº¦
+	private double currentLatitude = 0; //å½“å‰ç»åº¦
+	private double startLat = 0;
+	private double startLng = 0;
+	private int maxcount = 0;
+	private boolean firstClickMap = true;
+	private boolean isStartPosition = true;
+	private Marker lastmMarker; //åœ°å›¾æ ‡ç‚¹
+	private boolean isStartMarker = true;
+	private String fileName = "";
+	//private double startLat = 0;
+	//private double startLng = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.main);
 		
 		serviceStart = (ImageButton)findViewById(R.id.bannerStart);
 		serviceStart.setOnClickListener(new StartOnClickListener());
@@ -80,19 +128,23 @@ public class MainActivity extends Activity implements SensorEventListener {
 		altitudeValue = (TextView)findViewById(R.id.altitude);
 		degreeValue = (TextView)findViewById(R.id.degree);
 		timeValue = (TextView)findViewById(R.id.time);
+		speedValue = (TextView)findViewById(R.id.speed);
 		tipMsg = (TextView)findViewById(R.id.tipMsg);
 		
 		receiver=new MyReceiver();
-        //¶¨ÒåÒ»¸öIntentFilterµÄ¶ÔÏó£¬À´¹ýÂËµôÒ»Ð©intent
+        //å®šä¹‰ä¸€ä¸ªIntentFilterçš„å¯¹è±¡ï¼Œæ¥è¿‡æ»¤æŽ‰ä¸€äº›intent
         IntentFilter filter = new IntentFilter();
-        //Ö»½ÓÊÕ·¢ËÍµ½actionÎª"android.intent.action.MAIN"µÄintent
-        //"android.intent.action.MAIN"ÊÇÔÚMainFestÖÐ¶¨ÒåµÄ
+        //åªæŽ¥æ”¶å‘é€åˆ°actionä¸º"android.intent.action.MAIN"çš„intent
+        //"android.intent.action.MAIN"æ˜¯åœ¨MainFestä¸­å®šä¹‰çš„
         filter.addAction("android.intent.action.MAIN");
-        //Æô¶¯¹ã²¥½ÓÊÕÆ÷
+        //å¯åŠ¨å¹¿æ’­æŽ¥æ”¶å™¨
         MainActivity.this.registerReceiver(receiver, filter);
         
         initSensor(MainActivity.this);
+        infoView = (RelativeLayout) findViewById(R.id.infoView);
         
+        updateDate();
+
 	}
 	
 	
@@ -104,6 +156,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 			pauseItemOn = false;
 			startItemOn = true;
 			stopItemOn = false;
+			getWrongOnce = false;
 			recordingBt.setVisibility(View.VISIBLE);
 		}
 		else if(item.equals("pause")){
@@ -123,15 +176,26 @@ public class MainActivity extends Activity implements SensorEventListener {
 			startItemOn = false;
 			stopItemOn = true;
 			recordingBt.setVisibility(View.GONE);
+			
+			longitudeValue.setText(R.string.longitudeValNull);
+			latitudeValue.setText(R.string.latitudeValNull);
+			altitudeValue.setText(R.string.altitudeValNull);
+			degreeValue.setText(R.string.degreeValNull);
+			speedValue.setText(R.string.degreeValNull);
+			tipMsg.setText(R.string.tipMsgNotStart);
 		}
 		else if(item.equals("map")){
 			if(mapItemOn){
 				serviceMap.setImageResource(R.drawable.map);
 				mapItemOn = false;
+				//mapLayoutView.setVisibility(View.GONE);
+				//infoView.setVisibility(View.VISIBLE);
 			}
 			else{
 				serviceMap.setImageResource(R.drawable.map_on);
 				mapItemOn = true;
+				//mapLayoutView.setVisibility(View.VISIBLE);
+				//infoView.setVisibility(View.GONE);
 			}
 		}
 		
@@ -144,15 +208,15 @@ public class MainActivity extends Activity implements SensorEventListener {
 			if(!pauseItemOn){
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-	            //Ìø×ªµ½serviceÓÃstartService£¬ÒÔÇ°Ìø×ªµ½activityÓÃµÄÊÇstartactivity
+	            //è·³è½¬åˆ°serviceç”¨startServiceï¼Œä»¥å‰è·³è½¬åˆ°activityç”¨çš„æ˜¯startactivity
 	            intent.setClass(MainActivity.this, GpsInfoService.class);
-	            //Æô¶¯service
+	            //å¯åŠ¨service
 	            startService(intent);
 			}
 			else{
 				Intent intent=new Intent();
 				intent.putExtra("state", "start");
-				intent.setAction("com.yiluhao.panotools.GpsInfoService");//actionÓë½ÓÊÕÆ÷ÏàÍ¬
+				intent.setAction("com.yiluhao.panotools.GpsInfoService");//actionä¸ŽæŽ¥æ”¶å™¨ç›¸åŒ
 				sendBroadcast(intent);
 			}
             changeItemIcon("start");
@@ -165,31 +229,44 @@ public class MainActivity extends Activity implements SensorEventListener {
 			if(stopItemOn){
 				return ;
 			}
-			/*
-            //Ìø×ªµ½serviceÓÃstartService£¬ÒÔÇ°Ìø×ªµ½activityÓÃµÄÊÇstartactivity
-            intent.setClass(MainActivity.this, GpsInfoService.class);
-            //Æô¶¯service
-            stopService(intent);
-            */
+
 			Intent intent=new Intent();
 			intent.putExtra("state", "pause");
-			intent.setAction("com.yiluhao.panotools.GpsInfoService");//actionÓë½ÓÊÕÆ÷ÏàÍ¬
+			intent.setAction("com.yiluhao.panotools.GpsInfoService");//actionä¸ŽæŽ¥æ”¶å™¨ç›¸åŒ
 			sendBroadcast(intent);
 			
             changeItemIcon("pause");
 		}       
     }
+	private void startMapActivity() {
+		Intent intent = new Intent(this, MapActivity.class);
+
+		Bundle bundle = new Bundle();
+		bundle.putString("currentLat", currentLatitude+"");
+		bundle.putString("currentLng", currentLongitude+"");
+		bundle.putString("fileName", fileName+"");
+		intent.putExtras(bundle);
+
+		startActivity(intent);
+	}
 	private class MapOnClickListener implements OnClickListener
     {
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-            //Ìø×ªµ½serviceÓÃstartService£¬ÒÔÇ°Ìø×ªµ½activityÓÃµÄÊÇstartactivity
-            intent.setClass(MainActivity.this, GpsInfoService.class);
-            //Æô¶¯service
-            //startService(intent);
+			startMapActivity();
+			/*
+			if(firstClickMap){
+				setupWebView();
+				firstClickMap = false;
+				markMap(startLat, startLng, 1);
+			}
+			else{
+				drawMapLine();
+				markMap(currentLatitude, currentLongitude, 3);
+			}
+			*/
             changeItemIcon("map");
+            
 		}       
     }
     private class EndOnClickListener implements OnClickListener
@@ -198,7 +275,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             // TODO Auto-generated method stub
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, GpsInfoService.class);
-            //½áÊøservice
+            //ç»“æŸservice
             stopService(intent);
             //savePath = "";
             changeItemIcon("stop");
@@ -221,6 +298,38 @@ public class MainActivity extends Activity implements SensorEventListener {
 		
 	}
 
+	/**
+	 * é”™è¯¯æç¤º
+	 */
+	private void getWrong(String msg){
+		Toast.makeText(this, msg, Toast.LENGTH_LONG)
+		.show();
+	}
+	private void addPloy(double lat, double lng){
+		Log.v("lat-lng=", lat+"-"+lng);
+		if(maxcount>1000){
+			maxcount = 0;
+		}
+		String latlng = lat+","+lng;
+		locations[maxcount] = latlng;
+		maxcount++;
+		
+	}
+	private String[] getPloys(){
+		int num = maxcount-1;
+		if(num<1){
+			return new String[1];
+		}
+		String[] currentLocations = new String[num];
+			for(int i=lastPolyKey; i<(maxcount-1); i++){
+				Log.v("i=", i+"="+locations[i]);
+				currentLocations[i] = locations[i];
+				lastPolyKey = i;
+			}
+
+		return currentLocations;
+	}
+	
 	public class MyReceiver extends BroadcastReceiver {
 
         @Override
@@ -230,39 +339,98 @@ public class MainActivity extends Activity implements SensorEventListener {
             longitude = bundle.getDouble("longitude");
             latitude = bundle.getDouble("latitude");
             altitude = bundle.getString("altitude");
+            speed = bundle.getString("speed");
             time = bundle.getString("time");
             serviceState = bundle.getString("state");
+            fileName = bundle.getString("file");
             
+            int isDrawLine = bundle.getInt("isDrawLine");
+            
+            if(isDrawLine == 1 && latitude!=0){
+            	addPloy(latitude, longitude);
+            }
+            //gpså…³é—­æ—¶æ˜¾ç¤º
+            if(serviceState.equals("Disabled")){
+            	tipMsg.setText(R.string.gpsDisabled);
+            	if(!getWrongOnce){
+            		getWrong(getResources().getString(R.string.gpsDisabled));
+            		getWrongOnce = true;
+            	}
+            	changeItemIcon("stop");
+            	return ;
+            }
             if(serviceState.equals("start") && !startItemOn){
             	changeItemIcon("start");
-            	
             }
             if( longitude == 0 ){
-            	tipMsg.setText("ÕýÔÚ¶¨Î»...");
+            	tipMsg.setText(R.string.tipMsgWait);
+            	recordingBt.setImageResource(R.drawable.icon_yerrow);
             }
             else{
-            	tipMsg.setText("¾´Çë¹Ø×¢ http://www.yiluhao.com");
+            	tipMsg.setText(R.string.tipMsgAbout);
+            	isWaitPosition = false;
             }
             
+            currentLongitude = longitude; //å½“å‰ç»´åº¦
+        	currentLatitude = latitude; //å½“å‰ç»åº¦
+        	
+            speedValue.setText(speed+getResources().getString(R.string.speedValAdd));
             longitudeValue.setText(longitude+"");
             latitudeValue.setText(latitude+"");
-            altitudeValue.setText(altitude+"");
+            altitudeValue.setText(altitude+getResources().getString(R.string.altitudeValAdd));
             degreeValue.setText(degreeStr);
             timeValue.setText(time+"");
-            id++;
-            if( id%2==0 ){
-            	recordingBt.setImageResource(R.drawable.icon_gray);
-            }
-            else{
-            	recordingBt.setImageResource(R.drawable.icon_green);
+            if(!isWaitPosition){
+	            id++;
+	            if( id%2==0 ){
+	            	recordingBt.setImageResource(R.drawable.icon_gray);
+	            }
+	            else{
+	            	recordingBt.setImageResource(R.drawable.icon_green);
+	            }
             }
             if(pauseItemOn){
             	recordingBt.setImageResource(R.drawable.icon_yerrow);
             }
-            
            // rotateAnimation(degree);
         }       
     }
+	
+	public void updateDate(){
+		final Handler handler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				timeValue.setText((String) msg.obj);
+			}
+		};
+    	new Thread(){//æ–°å»ºçº¿ç¨‹ï¼Œæ¯éš”1ç§’å‘é€ä¸€æ¬¡å¹¿æ’­ï¼ŒåŒæ—¶æŠŠiæ”¾è¿›intentä¼ å‡º
+			@SuppressLint("SimpleDateFormat")
+			public void run(){
+				Time time = new Time("GMT+8");
+				while(!startItemOn){
+			        SimpleDateFormat formatter = new SimpleDateFormat ("HH:mm:ss"); 
+			        long timeInt = System.currentTimeMillis();
+			        Date curDate = new Date(timeInt);//èŽ·å–å½“å‰æ—¶é—´       
+			        String currentTime = formatter.format(curDate);  
+			        
+			        Message msg = handler.obtainMessage(0, currentTime);
+					handler.sendMessage(msg);
+					
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		}.start();
+		
+    }
+
+	
+	
 	@Override
 	protected void onDestroy() {
 		this.unregisterReceiver(receiver);

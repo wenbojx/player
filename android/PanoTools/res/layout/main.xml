@@ -1,0 +1,225 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".MainActivity" >
+<RelativeLayout
+    		android:id="@+id/infoView"  
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/bg" >
+    <TextView
+        android:id="@+id/timeLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="时间: "
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/timeLable"
+        android:text=""
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/latitudeLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:text="经度: "
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/latitudeLable"
+        android:text="@string/latitudeValNull"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/longitudeLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/latitudeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:text="维度: "
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/latitudeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/longitudeLable"
+        android:text="@string/longitudeValNull"
+        android:textSize="16dp" />
+    
+    <TextView
+        android:id="@+id/speedLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/longitudeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:text="速度: "
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/longitudeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/altitudeLable"
+        android:text="@string/altitudeValNull"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/altitudeLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speedLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:text="海拔: "
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speedLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/altitudeLable"
+        android:text="@string/altitudeValNull"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/degreeLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/altitudeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:text="角度: "
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/degree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/altitudeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/degreeLable"
+        android:text="@string/degreeValNull"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/tipMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/degreeLable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/tipMsgNotStart" />
+    
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="95dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg" >
+
+            <ImageButton
+                android:id="@+id/bannerStart"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:layout_toLeftOf="@+id/bannerPause"
+                android:background="#00ffffff"
+                android:src="@drawable/start" />
+
+            <ImageButton
+                android:id="@+id/bannerPause"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:layout_toLeftOf="@+id/bannerCenter"
+                android:background="#00ffffff"
+                android:src="@drawable/pause" />
+
+            <ImageButton
+                android:id="@+id/bannerStop"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:layout_toRightOf="@+id/bannerCenter"
+                android:background="#00ffffff"
+                android:src="@drawable/stop" />
+
+            <ImageButton
+                android:id="@+id/bannerMap"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:layout_toRightOf="@+id/bannerStop"
+                android:background="#00ffffff"
+                android:src="@drawable/map" />
+
+            <ImageButton
+                android:id="@+id/bannerCenter"
+                android:layout_width="1px"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:background="#00ffffff"
+                android:src="@drawable/center" />
+
+            <ImageView
+                android:id="@+id/imageCompass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-20dp"
+                android:layout_above="@+id/bannerStop"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/compass" />
+
+            <ImageButton
+                android:id="@+id/recording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bannerStart"
+                android:layout_alignRight="@+id/imageCompass"
+                android:layout_marginBottom="6dp"
+                android:layout_marginRight="140dp"
+                android:background="#00ffffff"
+                android:src="@drawable/icon_green"
+                android:visibility="invisible" />
+        </RelativeLayout>
+</RelativeLayout>
