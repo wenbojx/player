@@ -1,7 +1,9 @@
 package com.yiluhao.panotools;
 
-import java.math.BigDecimal;
+
 import java.text.SimpleDateFormat;
+
+
 
 
 import java.util.Date;
@@ -12,8 +14,10 @@ import android.text.format.Time;
 import android.util.Log;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 
 import android.location.Criteria;
 import android.location.Location;  
@@ -24,28 +28,39 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import com.yiluhao.panotools.SaveDatas;
+import com.yiluhao.panotools.FileDatas;
 
 //public class GpsInfoService extends Service{
 public class GpsInfoService extends Service implements SensorEventListener {
 
+	private static double EARTH_RADIUS = 6378137.0;   
+	MyReceiver receiver;
+	
     Location location;  
     LocationManager lm;  
     LocationListener locationListener;  
     
-    double longitude = 0; //Î¬¶È
-    double latitude = 0; //¾­¶È
-    double altitude = 0; //º£°Î
-    float degree = 0; //½Ç¶È
-    float speed = 0; //ËÙ¶È
-    
+    double longitude = 0; //ç»´åº¦
+    double latitude = 0; //ç»åº¦
+    double altitude = 0; //æµ·æ‹”
+    float degree = 0; //è§’åº¦
+    float GPSdegree = 0; //è§’åº¦
+    float speed = 0; //é€Ÿåº¦
+    String serviceState = "start";
     
     public float currentDegree = 0f;
     
-    Intent intent = new Intent();
+    //Intent intent = new Intent();
     boolean isStop=false;
-    SaveDatas saveDatasObj = null;
+    FileDatas fileDatasObj = null;
+    //FileDatas fileDatasGuiObj = null;
+    
     String fileName = "geo.txt";
+    int secend = 0; //æ—¶é—´
+    double lastlongitude = 0; //å‰å‡ ç§’çš„ç»´åº¦
+    double lastlatitude = 0; //å‰å‡ ç§’çš„ç»åº¦
+    String speedStr = "0.0";
+    int guijiTime = 1;
     
     @Override
     public IBinder onBind(Intent arg0) {
@@ -57,16 +72,42 @@ public class GpsInfoService extends Service implements SensorEventListener {
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
-        System.out.println("Service onCreate");
-        initGeo(GpsInfoService.this);
-        sendDatas();
-    }
 
-    //onStartCommandÓëonStartÀàËÆ£¬¶àÁËÒ»¸ö²ÎÊı¶øÒÑ
+    }
+    @Override
+    public void onStart(Intent intent, int startId){
+    	
+    }
+    //onStartCommandä¸onStartç±»ä¼¼ï¼Œå¤šäº†ä¸€ä¸ªå‚æ•°è€Œå·²
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
+    	
+    	System.out.println("Service onCreate");
+    	
+    	receiver=new MyReceiver();
+        //å®šä¹‰ä¸€ä¸ªIntentFilterçš„å¯¹è±¡ï¼Œæ¥è¿‡æ»¤æ‰ä¸€äº›intent
+        IntentFilter filter = new IntentFilter();
+        //åªæ¥æ”¶å‘é€åˆ°actionä¸º"android.intent.action.MAIN"çš„intent
+        //"android.intent.action.MAIN"æ˜¯åœ¨MainFestä¸­å®šä¹‰çš„
+        filter.addAction("com.yiluhao.panotools.GpsInfoService");
+        //å¯åŠ¨å¹¿æ’­æ¥æ”¶å™¨
+        GpsInfoService.this.registerReceiver(receiver, filter);
+        
+        initGeo(GpsInfoService.this);
+        sendDatas();
+    	
         return super.onStartCommand(intent, flags, startId);
+    }
+    
+    public class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            serviceState = bundle.getString("state");
+            //Log.v("serviceState", serviceState);
+        }       
     }
     
     @Override
@@ -75,50 +116,105 @@ public class GpsInfoService extends Service implements SensorEventListener {
         super.onDestroy();
         System.out.println("Service onDestroy");
         isStop = true;
+        this.unregisterReceiver(receiver);
+        
         removeLocation();
     }
     
     public void sendDatas(){
-    	new Thread(){//ĞÂ½¨Ïß³Ì£¬Ã¿¸ô1Ãë·¢ËÍÒ»´Î¹ã²¥£¬Í¬Ê±°Ñi·Å½øintent´«³ö
+    	new Thread(){//æ–°å»ºçº¿ç¨‹ï¼Œæ¯éš”1ç§’å‘é€ä¸€æ¬¡å¹¿æ’­ï¼ŒåŒæ—¶æŠŠiæ”¾è¿›intentä¼ å‡º
 			public void run(){
 				int id=1;
 				Time time = new Time("GMT+8");
+				String content = "";
+				
 				while(!isStop){
-			        
-			        SimpleDateFormat formatter = new SimpleDateFormat ("yyyy/MM/dd/ HH:mm:ss");   
+					if( serviceState.equals("pause")){
+						continue;
+					}
+			        SimpleDateFormat formatter = new SimpleDateFormat ("HH:mm:ss"); 
+			        SimpleDateFormat formatterFile = new SimpleDateFormat ("yyyy-MM-dd-HH-mm-ss");
 			        long timeInt = System.currentTimeMillis();
-			        Date curDate = new Date(timeInt);//»ñÈ¡µ±Ç°Ê±¼ä       
-			        String timeValue = formatter.format(curDate);     
+			        Date curDate = new Date(timeInt);//è·å–å½“å‰æ—¶é—´       
+			        String timeValue = formatter.format(curDate);   
 
-			        String altitudeStr = String.format("%.2f", altitude);
-			        
-			        String degreeStr = String.format("%.2f", degree);
-			        
-			        Log.v("altitude", altitudeStr+"");
-			        
-			        String content = id+"|";
-			        content += latitude+"|";
-			        content += longitude+"|";
-			        content += altitudeStr+"|";
-			        content += degreeStr+"|";
-			        content += timeInt+";";
-			        saveDatasObj = new SaveDatas();
-			        if(	id ==1 ){
-			        	fileName = timeInt+".geo";
+			        if(secend == 0){
+			        	lastlongitude = longitude; //å‰å‡ ç§’çš„ç»´åº¦
+			            lastlatitude = latitude; //å‰å‡ ç§’çš„ç»åº¦
 			        }
-			        saveDatasObj.SaveStringToSD(fileName, content);
+			        String recodeSpeedStr = "";
+			        double distence = 0;
+			        //int isDrawLine = distence>=0.1 ? 1:0;
+			        int isDrawLine = 0;
+			        //æ¯15ç§’è®¡ç®—ä¸€æ¬¡é€Ÿåº¦
+			        if(secend >= 10){
+			        	
+			        	distence = GetDistance(lastlatitude, lastlongitude, latitude, longitude);
+			        	isDrawLine = 1;
+			        	//Log.v("distence", distence+"---");
+			        	if(distence == 0){
+			        		speedStr = "";
+			        		recodeSpeedStr = "";
+			        	}
+			        	else{
+			        		speed = ((float)distence)/(float)secend;
+				        	speedStr = String.format("%.1f", speed);
+				        	//Log.v("speed", speedStr);
+				        	recodeSpeedStr = speedStr;
+			        	}
+			        	secend = 0;
+			        }
+			        else{
+			        	secend++;
+			        	recodeSpeedStr = "";
+			        }
+			        String altitudeStr = String.format("%.1f", altitude);
+			        String degreeStr = String.format("%.1f", degree);
 			        
+			        
+			        if( longitude != 0 && latitude!=0){
+			        	content += timeValue+"|";
+			        	content += latitude+"|";
+				        content += longitude+"|";
+				        content += recodeSpeedStr+"|";
+				        content += altitudeStr+"|";
+				        content += degreeStr+";";
+		            }
+			        
+			        fileDatasObj = new FileDatas();
+			        if(	id ==1 ){
+				        	fileName = formatterFile.format(curDate);
+				        	fileName = fileName+".geo";
+			        }
+			        if(id >= 7){
+			        	fileDatasObj.SaveStringToSD(fileName, content);
+			        	content = "";
+			        	id = 2;
+			        }
+			        
+			        /*
+			        Log.v("distence", distence+"");
+			        if(isDrawLine == 1){
+			        	Log.v("distence", distence+"");
+			        }
+			        */
+			        
+			        if(speedStr == ""){
+			        	speedStr = "0.0";
+			        }
 					Intent intent=new Intent();
-					intent.putExtra("id", id);
+					intent.putExtra("state", serviceState);
 					intent.putExtra("latitude", latitude);
 					intent.putExtra("longitude", longitude);
 					intent.putExtra("altitude", altitudeStr);
 					intent.putExtra("degree", degreeStr);
-					intent.putExtra("speed", speed);
+					intent.putExtra("speed", speedStr);
 					intent.putExtra("time", timeValue);
+					intent.putExtra("file", fileName);
 					
 					id++;
-					intent.setAction("android.intent.action.MAIN");//actionÓë½ÓÊÕÆ÷ÏàÍ¬
+					
+					intent.setAction("android.intent.action.MAIN");//actionä¸æ¥æ”¶å™¨ç›¸åŒ
 					sendBroadcast(intent);
 					//Log.v("degree", degree+"");
 					try {
@@ -128,8 +224,47 @@ public class GpsInfoService extends Service implements SensorEventListener {
 						e.printStackTrace();
 					}
 				}
+				
 			}
 		}.start();
+    }
+    /*
+    //æ¯éš”nç§’è®°å½•ä¸€æ¬¡è½¨è¿¹ä¿¡æ¯
+    private void recodeGuiJi(String fileName, double lat, double lng){
+    	if(lat==0 || lng==0){
+    		return ;
+    	}
+    	String guijiFile = "guiji-"+fileName+"g";
+    	//åç§’è®°å½•ä¸€æ¬¡è½¨è¿¹
+    	if(guijiTime>=10){
+    		String content = lat+"|"+lng
+    		FileDatasObj.SaveStringToSD(fileName, content);
+    	}
+    	guijiTime++;
+    }
+    */
+    
+    private static double rad(double d)
+    {
+       return d * Math.PI / 180.0;
+    }
+    //è®¡ç®—ä¸¤ç‚¹è·ç¦»
+    public static double GetDistance(double lat1, double lng1, double lat2, double lng2)
+    {
+    	if(lat1 ==0 || lat2==0){
+    		return 0;
+    	}
+       double radLat1 = rad(lat1);
+       double radLat2 = rad(lat2);
+       double a = radLat1 - radLat2;
+       double b = rad(lng1) - rad(lng2);
+
+       double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
+        Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+       s = s * EARTH_RADIUS;
+       s = (double)Math.round(s * 10000) / 10000;
+      // Log.v("ssss", s+"-----");
+       return s;
     }
     
     public void removeLocation(){
@@ -161,17 +296,26 @@ public class GpsInfoService extends Service implements SensorEventListener {
 		}
 	}
   
-  //»ñÈ¡location¶ÔÏó  
+	private boolean isGpsEnabled(){
+		return lm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER );
+	}
+  //è·å–locationå¯¹è±¡  
     private void initLocation(Context mContext){  
     	//LocationManager locationManager;
         String serviceName = Context.LOCATION_SERVICE;
         lm = (LocationManager)getSystemService(serviceName);
         
+        if( !isGpsEnabled() ){
+        	serviceState = "Disabled";
+        	return ;
+        }
+        serviceState = "Enabled";
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(true);
         //criteria.setBearingRequired(true);
         criteria.setSpeedRequired(true);
+        //criteria.setBearingRequired(true);//æ–¹å‘ä¿¡æ¯
         criteria.setCostAllowed(true);
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         String provider = lm.getBestProvider(criteria, true);
@@ -183,48 +327,49 @@ public class GpsInfoService extends Service implements SensorEventListener {
 			public void onLocationChanged(Location location) {
 				// TODO Auto-generated method stub
 				updateLocation(location);
-                Log.v("gps=", "LocationChanged");
+                //Log.v("gps=", "LocationChanged");
 			}
 
 			@Override
 			public void onProviderDisabled(String provider) {
 				// TODO Auto-generated method stub
-				Log.v("gps=", "Disabled");
+				//Log.v("gps=", "Disabled");
+				serviceState = "Disabled";
 			}
 
 			@Override
 			public void onProviderEnabled(String provider) {
 				// TODO Auto-generated method stub
-				Log.v("gps=", "Enabled");
+				//Log.v("gps=", "Enabled");
+				serviceState = "Enabled";
 			}
 
 			@Override
 			public void onStatusChanged(String provider, int status,
 					Bundle extras) {
 				// TODO Auto-generated method stub
-				Log.v("gps=", "StatusChanged");
+				//Log.v("gps=", "StatusChanged");
 			}
 
         };
         lm.requestLocationUpdates(provider, 500, 0, locationListener);
-        
-        
+
     }  
     
- // ¸üĞÂÎ»ÖÃĞÅÏ¢ Õ¹Ê¾µ½tvÖĞ  
+ // æ›´æ–°ä½ç½®ä¿¡æ¯ å±•ç¤ºåˆ°tvä¸­  
     private void updateLocation(Location location) {  
         if (location != null) {  
         	longitude = location.getLongitude();
         	latitude = location.getLatitude();
         	altitude = location.getAltitude();
-        	//degree = location.getBearing();
+        	//GPSdegree = location.getBearing();
         	speed = location.getSpeed();
-        	//Log.v("latitude", latitude+"");
-            //Èç¹ûÒÑ¾­»ñÈ¡µ½locationĞÅÏ¢ ÔòÔÚÕâÀï×¢ÏúlocationµÄ¼àÌı  
-            //gps»áÔÚÒ»¶¨Ê±¼äÄÚ×Ô¶¯¹Ø±Õ  
+        	//Log.v("speed", speed+"speed");
+            //å¦‚æœå·²ç»è·å–åˆ°locationä¿¡æ¯ åˆ™åœ¨è¿™é‡Œæ³¨é”€locationçš„ç›‘å¬  
+            //gpsä¼šåœ¨ä¸€å®šæ—¶é—´å†…è‡ªåŠ¨å…³é—­  
             //this.lm.removeUpdates(locationListener);  
         } else {  
-        	Log.v("yao", "²»ÄÜ¶¨Î»");
+        	//Log.v("yao", "ä¸èƒ½å®šä½");
         }  
     }
 

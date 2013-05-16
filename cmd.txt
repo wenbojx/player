@@ -1,0 +1,4 @@
+
+
+c:\Program Files\Java\jre6\bin>keytool -list -v -keystore "C:\mydatas\panogl\pla
+yer/yiluhao.keystore" -storepass wenbojx0513 -keypass android

@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PanoTools</string>
+    <string name="app_name">相机助手</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="longitudeValNull">*</string>
+    <string name="degreeValNull">*</string>
+    <string name="latitudeValNull">*</string>
+    <string name="altitudeValNull">*</string>
+    <string name="tipMsgNotStart">开始记录前，请校准您的相机时间</string>
+    <string name="tipMsgWait">正在定位...</string>
+    <string name="tipMsgAbout">敬请关注 http://www.yiluhao.com</string>
+    <string name="altitudeValAdd"> 米</string>
+    <string name="speedValAdd"> 米/秒</string>
+    <string name="gpsDisabled">您的GPS已关闭，请打开您的GPS</string>
+    <string name="title_activity_map">地图</string>
 
 </resources>
