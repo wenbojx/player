@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "GpsDatas.h"
 
-@interface yiluhaoAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
+@interface yiluhaoAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>{
+    GpsDatas *gpsDatas;
+    double lastLat;
+    double lastLng;
+    int speedTime;
+    float currentSpeed;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

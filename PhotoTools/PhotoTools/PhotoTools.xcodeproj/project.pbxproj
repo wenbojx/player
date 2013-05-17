@@ -11,6 +11,8 @@
 		154546F41744C055006EC637 /* MapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154546F31744C055006EC637 /* MapController.m */; };
 		154546F61744C069006EC637 /* Map.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154546F51744C069006EC637 /* Map.xib */; };
 		154546F81744C3E6006EC637 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154546F71744C3E6006EC637 /* MapKit.framework */; };
+		154AFF2E1745B5F800D160FA /* GpsDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 154AFF2D1745B5F800D160FA /* GpsDatas.m */; };
+		154AFF311745D00900D160FA /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 154AFF301745D00900D160FA /* Tools.m */; };
 		15E0D5141744744D00FC5F6C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E0D5131744744D00FC5F6C /* UIKit.framework */; };
 		15E0D5161744744D00FC5F6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E0D5151744744D00FC5F6C /* Foundation.framework */; };
 		15E0D5181744744D00FC5F6C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E0D5171744744D00FC5F6C /* CoreGraphics.framework */; };
@@ -32,6 +34,10 @@
 		154546F31744C055006EC637 /* MapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapController.m; path = controller/MapController.m; sourceTree = "<group>"; };
 		154546F51744C069006EC637 /* Map.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Map.xib; sourceTree = "<group>"; };
 		154546F71744C3E6006EC637 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		154AFF2C1745B5F800D160FA /* GpsDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GpsDatas.h; sourceTree = "<group>"; };
+		154AFF2D1745B5F800D160FA /* GpsDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GpsDatas.m; sourceTree = "<group>"; };
+		154AFF2F1745D00900D160FA /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		154AFF301745D00900D160FA /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		15E0D5101744744C00FC5F6C /* PhotoTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E0D5131744744D00FC5F6C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15E0D5151744744D00FC5F6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -142,6 +148,10 @@
 		15E0D549174474FD00FC5F6C /* model */ = {
 			isa = PBXGroup;
 			children = (
+				154AFF2C1745B5F800D160FA /* GpsDatas.h */,
+				154AFF2D1745B5F800D160FA /* GpsDatas.m */,
+				154AFF2F1745D00900D160FA /* Tools.h */,
+				154AFF301745D00900D160FA /* Tools.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -235,6 +245,8 @@
 				15E0D54C1744753100FC5F6C /* MainController.m in Sources */,
 				154546F41744C055006EC637 /* MapController.m in Sources */,
 				15261835174513C500C22CEF /* MyMapAnnotation.m in Sources */,
+				154AFF2E1745B5F800D160FA /* GpsDatas.m in Sources */,
+				154AFF311745D00900D160FA /* Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

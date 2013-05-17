@@ -81,7 +81,14 @@
     if (self.btRecordClick) {
         return;
     }
+    if (!self.btPauseClick) {
+        gpsDatas = [[GpsDatas alloc]init];
+    }
+    
+    speedTime = 0;//速度计数
+    currentSpeed = 0; 
     [self.m_locationmanager startUpdatingLocation];
+    
     NSLog(@"startLocationServices");
 }
 
@@ -96,9 +103,13 @@
 	double lat = newLocation.coordinate.latitude;
 	double lon = newLocation.coordinate.longitude;
     float alti = newLocation.altitude;
-    float speed = newLocation.speed;
-    NSData *time = newLocation.timestamp;
+    //float speed = newLocation.speed;
+    //NSDate *time = newLocation.timestamp;
     float degree = newLocation.course;
+    
+    [self countSpeed:lat lng:lon];
+    
+    [gpsDatas SaveDatas:lat lng:lon alti:alti speed:currentSpeed degree:degree];
     
     m_lat = lat;
     m_lon = lon;
@@ -111,6 +122,37 @@
     }
 	*/
 }
+//计算近n秒钟内的速度
+-(void)countSpeed:(double)lat lng:(double)lng{
+    //lat = lat+speedTime/10; //测试用代码
+    //NSLog(@"lat=%f", (float)speedTime/10);
+
+    int secend = 5; //统计5秒内速度
+
+    if ( speedTime==secend && lat !=0) {
+        speedTime = 1;
+        
+        CLLocation *orig = [[CLLocation alloc] initWithLatitude:lastLat  longitude:lastLng];
+        //NSLog(@"lat=%f lng=%f", lat, lng);
+        //NSLog(@"lastlat=%f lastlng=%f", lastLat, lastLng);
+        
+        lastLat = lat;
+        lastLng = lng;
+        
+        CLLocation* dist=[[CLLocation alloc] initWithLatitude:lat longitude:lng];
+        
+        CLLocationDistance meters=[orig distanceFromLocation:dist];
+
+        //NSLog(@"距离:%f",meters);
+        currentSpeed = meters/secend;
+        //NSLog(@"速度:%f",currentSpeed);
+    }
+    if (speedTime == 0 ) {
+        currentSpeed = 0.f;
+    }
+    speedTime++;
+}
+
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)err
 {
     NSLog(@"location error : %@",err);

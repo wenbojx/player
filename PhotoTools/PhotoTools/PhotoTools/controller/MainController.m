@@ -48,12 +48,14 @@
 -(void)DoFlash{
     double lat = appDelegate.m_lat;
     double lng = appDelegate.m_lon;
-    NSLog(@"lat=%f, lng=%f", lat, lng);
+    //NSLog(@"lat=%f, lng=%f", lat, lng);
 }
 //按钮点击事件
 -(IBAction)BtRecordClick:(id)sender{
     [appDelegate startLocationServices];
     appDelegate.btRecordClick = true;
+    appDelegate.btPauseClick = false;
+    appDelegate.btStopClick = false;
     [self ReflashUiDatas];
 }
 -(IBAction)BtPauseClick:(id)sender{

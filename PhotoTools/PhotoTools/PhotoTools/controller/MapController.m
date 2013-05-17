@@ -122,7 +122,6 @@
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
 {
-    NSLog(@"aaaa");
     if(overlay == routeLine) {
         if(nil == routeLineView) {
             routeLineView = [[MKPolylineView alloc] initWithPolyline:routeLine];
