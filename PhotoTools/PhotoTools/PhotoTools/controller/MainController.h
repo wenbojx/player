@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "yiluhaoAppDelegate.h"
 #import "MapController.h"
+#import "SettingController.h"
 
 @interface MainController : UIViewController{
     IBOutlet UIButton *btRecord;

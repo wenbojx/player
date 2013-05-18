@@ -79,7 +79,7 @@
 }
 
 -(IBAction)BtSettingClick:(id)sender{
-    
+    [self JumpToSetting];
 }
 
 
@@ -93,12 +93,30 @@
     mapView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:mapView animated:YES];
     
-    NSMutableDictionary * project = [[NSMutableDictionary alloc] init];
-    [project setValue:@"a" forKey:@"projectId"];
+    NSMutableDictionary * info = [[NSMutableDictionary alloc] init];
+    [info setValue:@"a" forKey:@"info"];
     
     //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"projectId" object:nil userInfo:project];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"info" object:nil userInfo:info];
 
+}
+-(void)JumpToSetting{
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    
+    SettingController *setting = [[SettingController alloc] init];
+    
+    setting.title = @"帐号设置";
+    
+    setting.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:setting animated:YES];
+    
+    NSMutableDictionary * info = [[NSMutableDictionary alloc] init];
+    [info setValue:@"a" forKey:@"info"];
+    
+    //发送消息.@"pass"匹配通知名，object:nil 通知类的范围
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"info" object:nil userInfo:info];
 }
 
 

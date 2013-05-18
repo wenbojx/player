@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		15261835174513C500C22CEF /* MyMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15261834174513C500C22CEF /* MyMapAnnotation.m */; };
+		15389DF517472CF000849554 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15389DF417472CF000849554 /* SettingController.m */; };
+		15389E0017476C3300849554 /* Setting.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15389DFF17476C3300849554 /* Setting.xib */; };
 		154546F41744C055006EC637 /* MapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154546F31744C055006EC637 /* MapController.m */; };
 		154546F61744C069006EC637 /* Map.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154546F51744C069006EC637 /* Map.xib */; };
 		154546F81744C3E6006EC637 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154546F71744C3E6006EC637 /* MapKit.framework */; };
@@ -30,6 +32,9 @@
 /* Begin PBXFileReference section */
 		15261833174513C500C22CEF /* MyMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMapAnnotation.h; sourceTree = "<group>"; };
 		15261834174513C500C22CEF /* MyMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMapAnnotation.m; sourceTree = "<group>"; };
+		15389DF317472CF000849554 /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
+		15389DF417472CF000849554 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
+		15389DFF17476C3300849554 /* Setting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Setting.xib; sourceTree = "<group>"; };
 		154546F21744C055006EC637 /* MapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapController.h; path = controller/MapController.h; sourceTree = "<group>"; };
 		154546F31744C055006EC637 /* MapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapController.m; path = controller/MapController.m; sourceTree = "<group>"; };
 		154546F51744C069006EC637 /* Map.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Map.xib; sourceTree = "<group>"; };
@@ -77,7 +82,6 @@
 		15E0D5071744744C00FC5F6C = {
 			isa = PBXGroup;
 			children = (
-				154546F71744C3E6006EC637 /* MapKit.framework */,
 				15E0D5191744744D00FC5F6C /* PhotoTools */,
 				15E0D5121744744C00FC5F6C /* Frameworks */,
 				15E0D5111744744C00FC5F6C /* Products */,
@@ -95,6 +99,7 @@
 		15E0D5121744744C00FC5F6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				154546F71744C3E6006EC637 /* MapKit.framework */,
 				15E0D55317448A9D00FC5F6C /* CoreLocation.framework */,
 				15E0D5131744744D00FC5F6C /* UIKit.framework */,
 				15E0D5151744744D00FC5F6C /* Foundation.framework */,
@@ -141,6 +146,8 @@
 				154546F31744C055006EC637 /* MapController.m */,
 				15261833174513C500C22CEF /* MyMapAnnotation.h */,
 				15261834174513C500C22CEF /* MyMapAnnotation.m */,
+				15389DF317472CF000849554 /* SettingController.h */,
+				15389DF417472CF000849554 /* SettingController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -161,6 +168,7 @@
 			children = (
 				15E0D5511744774800FC5F6C /* Main.xib */,
 				154546F51744C069006EC637 /* Map.xib */,
+				15389DFF17476C3300849554 /* Setting.xib */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -230,6 +238,7 @@
 				15E0D52A1744744D00FC5F6C /* Default-568h@2x.png in Resources */,
 				15E0D5521744774800FC5F6C /* Main.xib in Resources */,
 				154546F61744C069006EC637 /* Map.xib in Resources */,
+				15389E0017476C3300849554 /* Setting.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +256,7 @@
 				15261835174513C500C22CEF /* MyMapAnnotation.m in Sources */,
 				154AFF2E1745B5F800D160FA /* GpsDatas.m in Sources */,
 				154AFF311745D00900D160FA /* Tools.m in Sources */,
+				15389DF517472CF000849554 /* SettingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

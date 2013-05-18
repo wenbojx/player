@@ -17,6 +17,7 @@
         tools = [[Tools alloc]init];
         filePath = [tools getFileSavePath:fileName];
         saveTime = 1;
+        content = @"";
     }
     return self;
 }
@@ -48,14 +49,13 @@
 
     content = [content stringByAppendingFormat:@"%@|%f|%f|%f|%f|%f;", timeStr,lat,lng,alti,speed,degree];
 
-    saveTime ++;
-    
-    if (saveTime >5) {
+    if (saveTime >=5) {
         [tools AppendStringToFile:filePath content:content];
         NSLog(@"content=%@", content);
         content = @"";
         saveTime = 1;
     }
+    saveTime ++;
 }
 
 
